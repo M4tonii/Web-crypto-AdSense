@@ -45,17 +45,59 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Formulario de contacto: validación básica de UX (sin backend propio)
+  // Formulario de contacto: mientras no haya un backend/servicio real
+  // conectado, generamos un enlace mailto con los datos ya rellenados
+  // en lugar de fingir que el mensaje se ha enviado.
+  // NOTA: sustituye este bloque por una integración real (Formspree,
+  // Getform, backend propio...) en cuanto la tengas elegida; el atributo
+  // action="mailto:..." del formulario es solo el respaldo sin JavaScript.
   var form = document.getElementById('contact-form');
   if (form) {
     form.addEventListener('submit', function (e) {
+      e.preventDefault();
       var msg = document.getElementById('form-msg');
+      var name = document.getElementById('name');
+      var email = document.getElementById('email');
+      var subject = document.getElementById('subject');
+      var message = document.getElementById('message');
+      var body = 'Nombre: ' + (name ? name.value : '') + '\n' +
+                 'Correo: ' + (email ? email.value : '') + '\n\n' +
+                 (message ? message.value : '');
+      var mailtoHref = 'mailto:contacto@brujulacripto.com'
+        + '?subject=' + encodeURIComponent('[Web] ' + (subject ? subject.value : 'Consulta'))
+        + '&body=' + encodeURIComponent(body);
       if (msg) {
-        msg.textContent = 'Gracias por tu mensaje. Te responderemos lo antes posible a tu correo.';
+        msg.innerHTML = 'Este formulario todavía no está conectado a un envío automático. ' +
+          '<a href="' + mailtoHref + '">Pulsa aquí para enviarnos tu mensaje por correo</a> ' +
+          '(se abrirá tu programa de correo con los datos ya rellenados).';
       }
-      // NOTA: este formulario necesita conectarse a un servicio real
-      // (Formspree, Getform, backend propio, etc.) o a un enlace mailto
-      // antes de publicar la web. Revisa el atributo action del formulario.
+    });
+  }
+
+  // Formulario de newsletter: sin proveedor de email marketing conectado
+  // todavía. Mostramos un mensaje honesto en vez de fingir la suscripción.
+  // NOTA: sustituye este bloque por la integración real (Mailchimp, Brevo...)
+  // en cuanto la elijas.
+  var newsletterForm = document.getElementById('newsletter-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var nmsg = document.getElementById('newsletter-msg');
+      if (nmsg) {
+        nmsg.innerHTML = 'El boletín todavía no está activo. Escríbenos a ' +
+          '<a href="mailto:contacto@brujulacripto.com">contacto@brujulacripto.com</a> ' +
+          'y te avisamos en cuanto esté disponible.';
+      }
+    });
+  }
+
+  // Anuncios de los rails laterales (izquierdo/derecho): en pantallas por
+  // debajo de 1300px estos contenedores están ocultos (ver .ad-rail en
+  // style.css), así que solo pedimos el anuncio si van a ser visibles,
+  // para no desperdiciar peticiones de AdSense en contenedores de ancho 0.
+  if (window.matchMedia('(min-width: 1300px)').matches) {
+    document.querySelectorAll('.ad-rail .adsbygoogle').forEach(function () {
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     });
   }
 });
