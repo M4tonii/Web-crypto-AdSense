@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.brujulacripto.com/sitemap.xml
+Sitemap: https://labrujulacripto.com/sitemap.xml
