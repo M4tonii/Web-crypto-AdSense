@@ -27,6 +27,7 @@ Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a 
 - Formulario de contacto: conectado a Netlify Forms (15 sep 2026) — envío real por AJAX sin recargar página, con honeypot antispam, y notificación por email a `contacto.labrujulacripto@gmail.com` configurada y **probada en producción, funciona**. Formulario de newsletter: sigue sin backend real, con mensaje honesto en vez de fingir la suscripción.
 - Anuncios de AdSense: **retirados a propósito** de las 42 páginas hasta tener una cuenta real (placeholder `ca-pub-XXXX` quitado). Se puede volver a montar el mismo esqueleto en cuanto haya datos reales.
 - Banner de cookies: funciona a nivel de interfaz (recuerda la elección), pero **no está conectado todavía** a Google Consent Mode porque no hay anuncios activos que gobernar.
+- Google Search Console y Bing Webmaster Tools: propiedad verificada, sitemap (37 URLs) enviado en ambos. Auditoría técnica SEO/rendimiento (15 sep 2026): 1854 enlaces internos comprobados sin rotos reales, 0 imágenes sin `alt`, sin títulos/descripciones duplicados, cada página con 1 solo `<h1>`, CSS/JS ligeros (17KB/5,6KB), fuentes con `display=swap`. Se encontraron y arreglaron 4 portadas sobredimensionadas (600-700KB cada una, sin comprimir) que pesaban 2,6MB combinadas — redimensionadas a 900px de ancho y recomprimidas a 354KB combinadas (-86%). Peso total actual de las 22 portadas: 1,9MB.
 
 ## Pendiente (lo que hay que retomar)
 
