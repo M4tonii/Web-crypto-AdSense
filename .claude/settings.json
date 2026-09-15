@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git add *)",
+      "Bash(git commit -m 'Arregla jerarquía de encabezados \\(accesibilidad\\) y subraya enlaces en texto *)",
+      "Bash(git push *)"
+    ]
+  }
+}
