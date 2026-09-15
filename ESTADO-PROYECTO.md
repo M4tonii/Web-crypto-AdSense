@@ -31,13 +31,14 @@ Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a 
 ## Pendiente (lo que hay que retomar)
 
 1. ~~**Fotos con formato incorrecto**~~ ✅ Resuelto (15 sep 2026): de las 22 portadas, 11 llevaban extensión `.jpg` pero por dentro eran AVIF (2), WebP (6) o PNG (3). Se reconvirtieron todas a JPEG real con PowerShell + WIC (códecs nativos de Windows, sin necesidad de squoosh.app). Las 22 portadas son ahora JPEG real, verificado con `file *.jpg`. Copia de los 11 originales guardada fuera del repo (carpeta temporal de la sesión) por si hiciera falta recuperar alguno.
-2. **Falta la foto del glosario** (`glosario-cripto-terminos-basicos.jpg`) — decisión consciente de dejarla sin foto por ahora.
-3. **Correo de contacto**: parcialmente resuelto (15 sep 2026). El **formulario de la web** ya funciona de punta a punta — conectado a Netlify Forms con notificación por email a `contacto.labrujulacripto@gmail.com` (Gmail creada para el proyecto), probado en producción y confirmado que llega. Lo que **queda pendiente** es el reenvío del correo `contacto@labrujulacripto.com` (el que aparece en aviso legal/footer para quien escriba directo, sin pasar por el formulario) — hay que configurarlo en Namecheap (Domain List → `labrujulacripto.com` → Manage → Email Forwarding) hacia esa misma Gmail, y verificar el correo de confirmación que manda Namecheap.
+2. ~~**Falta la foto del glosario**~~ ✅ Decisión definitiva (15 sep 2026): se queda sin foto, con el fondo de color y el emoji 📖 de respaldo — al usuario le gusta así. No tocar.
+3. ~~**Correo de contacto**~~ ✅ Resuelto (15 sep 2026): formulario de la web conectado a Netlify Forms, con notificación a `contacto.labrujulacripto@gmail.com`, **probado en producción por el usuario y confirmado que funciona**. (Queda sin configurar el reenvío en Namecheap de `contacto@labrujulacripto.com` —el correo que aparece en aviso legal/footer para quien escribe directo sin pasar por el formulario— pero no es bloqueante; retomar solo si se quiere cerrar del todo.)
 4. ~~**Aviso "formulario no seguro" en Chrome**~~ ✅ Resuelto (15 sep 2026): se añadieron los `autocomplete` correctos a todos los campos de `contacto.html`.
 5. **Autoría de los artículos**: pendiente de decidir si se deja "Equipo Editorial de BrújulaCripto" o se pone el nombre real de Toni Caimari en algunos artículos (fiscalidad/regulación). No urgente.
-6. **Bybit**: hay una idea de artículo con enlace de referidos a Bybit, pausada porque el programa de "invita a un amigo" prohíbe expresamente usar el nombre de la marca en publicidad; hace falta confirmar con el programa de afiliados de Bybit (`affiliates.bybit.eu`) qué está permitido antes de escribirlo.
-7. **Google Search Console y Bing Webmaster Tools**: todavía no se han dado de alta ni se ha enviado el sitemap. Mejor esperar a que el punto 4 esté resuelto del todo.
-8. **Redes sociales**: el dato `sameAs` de los datos estructurados de la organización está vacío; añadir enlaces si en algún momento hay perfiles de BrújulaCripto en redes.
+6. **Google Search Console y Bing Webmaster Tools**: todavía no se han dado de alta ni se ha enviado el sitemap. Ya no hay nada bloqueando este punto.
+7. **Redes sociales**: el dato `sameAs` de los datos estructurados de la organización está vacío; añadir enlaces si en algún momento hay perfiles de BrújulaCripto en redes.
+
+**Descartado (15 sep 2026)**: la idea de un artículo con enlace de referidos a Bybit se elimina de la lista — no se va a hacer, el programa de afiliados de Bybit prohíbe usar el nombre de la marca en publicidad y no vale la pena seguir dándole vueltas.
 
 ## Decisión: idiomas (inglés/francés)
 
