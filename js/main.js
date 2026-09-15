@@ -45,32 +45,58 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Formulario de contacto: mientras no haya un backend/servicio real
-  // conectado, generamos un enlace mailto con los datos ya rellenados
-  // en lugar de fingir que el mensaje se ha enviado.
-  // NOTA: sustituye este bloque por una integración real (Formspree,
-  // Getform, backend propio...) en cuanto la tengas elegida; el atributo
-  // action="mailto:..." del formulario es solo el respaldo sin JavaScript.
+  // Formulario de contacto: se envía a Netlify Forms (incluido gratis en el
+  // mismo hosting, sin backend propio). Netlify recoge el envío y notifica
+  // por email a la dirección configurada en el panel del sitio
+  // (Site configuration → Forms → Form notifications).
+  // El <form> lleva data-netlify="true" y name="contact" en el HTML para que
+  // Netlify lo detecte al hacer el build; aquí solo evitamos la recarga de
+  // página y mostramos el resultado en el propio formulario.
   var form = document.getElementById('contact-form');
   if (form) {
+    // Si el navegador llegó aquí tras un envío sin JavaScript (Netlify
+    // redirige de vuelta con ?enviado=1), mostramos el mensaje de éxito.
+    if (window.location.search.indexOf('enviado=1') !== -1) {
+      var okMsg = document.getElementById('form-msg');
+      if (okMsg) {
+        okMsg.textContent = 'Gracias, tu mensaje se ha enviado correctamente. Te responderemos en un plazo máximo de 3-5 días laborables.';
+      }
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+    }
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var msg = document.getElementById('form-msg');
-      var name = document.getElementById('name');
-      var email = document.getElementById('email');
-      var subject = document.getElementById('subject');
-      var message = document.getElementById('message');
-      var body = 'Nombre: ' + (name ? name.value : '') + '\n' +
-                 'Correo: ' + (email ? email.value : '') + '\n\n' +
-                 (message ? message.value : '');
-      var mailtoHref = 'mailto:contacto@brujulacripto.com'
-        + '?subject=' + encodeURIComponent('[Web] ' + (subject ? subject.value : 'Consulta'))
-        + '&body=' + encodeURIComponent(body);
-      if (msg) {
-        msg.innerHTML = 'Este formulario todavía no está conectado a un envío automático. ' +
-          '<a href="' + mailtoHref + '">Pulsa aquí para enviarnos tu mensaje por correo</a> ' +
-          '(se abrirá tu programa de correo con los datos ya rellenados).';
-      }
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var formData = new FormData(form);
+      var encoded = [];
+      formData.forEach(function (value, key) {
+        encoded.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+      });
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (msg) msg.textContent = 'Enviando...';
+
+      fetch('/contacto.html', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encoded.join('&')
+      }).then(function (response) {
+        if (!response.ok) { throw new Error('status ' + response.status); }
+        if (msg) {
+          msg.textContent = 'Gracias, tu mensaje se ha enviado correctamente. Te responderemos en un plazo máximo de 3-5 días laborables.';
+        }
+        form.reset();
+      }).catch(function () {
+        if (msg) {
+          msg.innerHTML = 'No hemos podido enviar el mensaje automáticamente. Escríbenos directamente a ' +
+            '<a href="mailto:contacto@labrujulacripto.com">contacto@labrujulacripto.com</a>.';
+        }
+      }).finally(function () {
+        if (submitBtn) submitBtn.disabled = false;
+      });
     });
   }
 
@@ -85,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var nmsg = document.getElementById('newsletter-msg');
       if (nmsg) {
         nmsg.innerHTML = 'El boletín todavía no está activo. Escríbenos a ' +
-          '<a href="mailto:contacto@brujulacripto.com">contacto@brujulacripto.com</a> ' +
+          '<a href="mailto:contacto@labrujulacripto.com">contacto@labrujulacripto.com</a> ' +
           'y te avisamos en cuanto esté disponible.';
       }
     });

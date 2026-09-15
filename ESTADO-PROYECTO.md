@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 14 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 15 sep 2026.
 
 ## Qué es esto
 
@@ -24,20 +24,24 @@ Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a 
 - Contenido: 24 artículos completos + 11 páginas de categoría + inicio + legal (5 páginas) + contacto + sobre nosotros + 404.
 - SEO técnico: sitemap.xml, robots.txt, datos estructurados (Article, BreadcrumbList, FAQPage) en todo el contenido, Open Graph completo, favicon en todas las páginas.
 - Legal: aviso legal, política de privacidad, cookies, términos de uso y disclaimer, sin placeholders, con Toni Caimari como titular (sin NIF ni domicilio, por decisión expresa).
-- Formulario de contacto y newsletter: sin backend real todavía, pero con mensajes honestos en vez de fingir un envío (usan mailto dinámico vía JS).
+- Formulario de contacto: conectado a Netlify Forms (15 sep 2026) — envío real por AJAX, sin recargar página, con honeypot antispam. Falta solo configurar en Netlify la notificación por email hacia `contacto.labrujulacripto@gmail.com` (ver pendiente #3). Formulario de newsletter: sigue sin backend real, con mensaje honesto en vez de fingir la suscripción.
 - Anuncios de AdSense: **retirados a propósito** de las 42 páginas hasta tener una cuenta real (placeholder `ca-pub-XXXX` quitado). Se puede volver a montar el mismo esqueleto en cuanto haya datos reales.
 - Banner de cookies: funciona a nivel de interfaz (recuerda la elección), pero **no está conectado todavía** a Google Consent Mode porque no hay anuncios activos que gobernar.
 
 ## Pendiente (lo que hay que retomar)
 
-1. **Fotos con formato incorrecto**: varias imágenes llevan extensión `.jpg` pero por dentro son AVIF/WebP/PNG, lo que puede hacer que no se vean en algunos navegadores/hostings. Hay que reexportarlas como JPEG real (con squoosh.app, por ejemplo) antes de tener tráfico real. Comprobar con `file *.jpg` dentro de `img/portadas/` para ver cuáles siguen así.
+1. ~~**Fotos con formato incorrecto**~~ ✅ Resuelto (15 sep 2026): de las 22 portadas, 11 llevaban extensión `.jpg` pero por dentro eran AVIF (2), WebP (6) o PNG (3). Se reconvirtieron todas a JPEG real con PowerShell + WIC (códecs nativos de Windows, sin necesidad de squoosh.app). Las 22 portadas son ahora JPEG real, verificado con `file *.jpg`. Copia de los 11 originales guardada fuera del repo (carpeta temporal de la sesión) por si hiciera falta recuperar alguno.
 2. **Falta la foto del glosario** (`glosario-cripto-terminos-basicos.jpg`) — decisión consciente de dejarla sin foto por ahora.
-3. **Correo de contacto**: la web usa `contacto@labrujulacripto.com`, pero hay que confirmar si ya se configuró el reenvío de correo en Namecheap (Domain → Email Forwarding) hacia el Gmail real, si no, los mensajes a esa dirección no llegan a ningún sitio.
-4. **Aviso "formulario no seguro" en Chrome**: se quitó el `action="mailto:"` del formulario de contacto (esa parte ya estaba resuelta), pero quedó una incidencia sin cerrar del todo sobre un aviso de autocompletar desactivado — puede ser solo caché del navegador o el certificado SSL recién emitido asentándose; revisar en una pestaña nueva/incógnito si sigue apareciendo.
+3. **Correo de contacto**: `contacto@labrujulacripto.com` (el del aviso legal/footer) todavía tiene que reenviarse en Namecheap (Domain → Email Forwarding) hacia `contacto.labrujulacripto@gmail.com` (Gmail creada el 15 sep 2026 para el proyecto, ya existe) — pendiente de que el usuario lo configure y verifique el correo de confirmación de Namecheap. Esa misma Gmail es la que hay que poner en Netlify → Site configuration → Forms → Form notifications para recibir los envíos del formulario de contacto (ver punto siguiente).
+4. ~~**Aviso "formulario no seguro" en Chrome**~~ ✅ Resuelto (15 sep 2026): se añadieron los `autocomplete` correctos a todos los campos de `contacto.html`.
 5. **Autoría de los artículos**: pendiente de decidir si se deja "Equipo Editorial de BrújulaCripto" o se pone el nombre real de Toni Caimari en algunos artículos (fiscalidad/regulación). No urgente.
 6. **Bybit**: hay una idea de artículo con enlace de referidos a Bybit, pausada porque el programa de "invita a un amigo" prohíbe expresamente usar el nombre de la marca en publicidad; hace falta confirmar con el programa de afiliados de Bybit (`affiliates.bybit.eu`) qué está permitido antes de escribirlo.
 7. **Google Search Console y Bing Webmaster Tools**: todavía no se han dado de alta ni se ha enviado el sitemap. Mejor esperar a que el punto 4 esté resuelto del todo.
 8. **Redes sociales**: el dato `sameAs` de los datos estructurados de la organización está vacío; añadir enlaces si en algún momento hay perfiles de BrújulaCripto en redes.
+
+## Decisión: idiomas (inglés/francés)
+
+Se planteó añadir selector de idioma (ES/EN/FR) para captar tráfico y RPM de AdSense más alto en EEUU/Francia. Decisión tomada (15 sep 2026): **de momento no**. Primero consolidar y optimizar la web en español (cerrar pendientes, crecer contenido, estabilizar tráfico y AdSense). Retomar la expansión a inglés (primero) y francés (después) **dentro de unos 6 meses (aprox. marzo 2027)**, cuando la facturación lo justifique. Cuando se retome: la opción recomendada es subcarpeta (`/en/`, `/fr/`) en el mismo dominio, no un dominio ni subdominio aparte — hereda autoridad SEO y es más fácil de mantener con un único AdSense/Search Console. Un simple widget de traducción automática (tipo Google Translate embebido) **no sirve** para SEO real: Google no indexa lo que traduce ese widget, así que no trae visitantes nuevos por búsquedas en otro idioma; hacen falta páginas HTML reales traducidas.
 
 ## Para el final (decisión ya tomada de dejarlo para el cierre)
 

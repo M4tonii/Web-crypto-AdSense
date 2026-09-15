@@ -65,18 +65,22 @@
           <div class="card" style="padding:22px">
             <div class="card-body" style="padding:0">
               <h3 style="font-size:1.2rem">Formulario de contacto</h3>
-              <form id="contact-form" action="#">
+              <form id="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/contacto.html?enviado=1">
+                <input type="hidden" name="form-name" value="contact">
+                <p style="position:absolute; left:-9999px" aria-hidden="true">
+                  <label>No rellenar este campo: <input name="bot-field" tabindex="-1" autocomplete="off"></label>
+                </p>
                 <div class="form-field">
                   <label for="name">Nombre</label>
-                  <input type="text" id="name" name="name" required>
+                  <input type="text" id="name" name="name" autocomplete="name" required>
                 </div>
                 <div class="form-field">
                   <label for="email">Correo electrónico</label>
-                  <input type="email" id="email" name="email" required>
+                  <input type="email" id="email" name="email" autocomplete="email" required>
                 </div>
                 <div class="form-field">
                   <label for="subject">Motivo</label>
-                  <select id="subject" name="subject">
+                  <select id="subject" name="subject" autocomplete="off">
                     <option>Consulta general</option>
                     <option>Publicidad / patrocinios</option>
                     <option>Colaboración editorial</option>
@@ -87,7 +91,7 @@
                 </div>
                 <div class="form-field">
                   <label for="message">Mensaje</label>
-                  <textarea id="message" name="message" required></textarea>
+                  <textarea id="message" name="message" autocomplete="off" required></textarea>
                 </div>
                 <button class="btn" type="submit">Enviar mensaje</button>
                 <p id="form-msg" class="small" style="margin-top:12px"></p>
