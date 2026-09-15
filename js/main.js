@@ -1,4 +1,22 @@
 // BrújulaCripto — funciones básicas del sitio
+
+// Google Analytics (GA4): el script solo se carga si el visitante ha
+// aceptado cookies en el banner (ver más abajo). Si rechaza o todavía no ha
+// decidido, no se carga nada de Google Analytics.
+var GA_MEASUREMENT_ID = 'G-NVBT1C202J';
+function loadGoogleAnalytics() {
+  if (window.bcGaLoaded) return;
+  window.bcGaLoaded = true;
+  var script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+  document.head.appendChild(script);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', GA_MEASUREMENT_ID);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   // Menú móvil
   var toggle = document.querySelector('.nav-toggle');
@@ -16,10 +34,18 @@ document.addEventListener('DOMContentLoaded', function () {
     el.textContent = new Date().getFullYear();
   });
 
-  // Banner de cookies (consentimiento simple para anuncios/análisis)
+  // Consentimiento de cookies: esta comprobación corre en las 43 páginas
+  // (incluidas legal/404, que no muestran el banner) para que Analytics se
+  // cargue en toda la web si el visitante ya aceptó antes, no solo en las
+  // páginas que tienen el banner.
+  var consent = localStorage.getItem('bc_cookie_consent');
+  if (consent === 'accepted') {
+    loadGoogleAnalytics();
+  }
+
+  // Banner de cookies (solo existe en la mayoría de páginas, no en legal/404)
   var banner = document.getElementById('cookie-banner');
   if (banner) {
-    var consent = localStorage.getItem('bc_cookie_consent');
     if (!consent) {
       banner.style.display = 'flex';
     } else {
@@ -31,8 +57,9 @@ document.addEventListener('DOMContentLoaded', function () {
       acceptBtn.addEventListener('click', function () {
         localStorage.setItem('bc_cookie_consent', 'accepted');
         banner.style.display = 'none';
-        // Aquí se debe inicializar Google AdSense/Analytics en modo completo
-        // una vez el usuario acepta, o usar Google Consent Mode v2.
+        loadGoogleAnalytics();
+        // Cuando haya anuncios de AdSense activos, inicializarlos aquí
+        // también (o usar Google Consent Mode v2 para ambos a la vez).
       });
     }
     if (rejectBtn) {
