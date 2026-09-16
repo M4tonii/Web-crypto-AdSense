@@ -72,50 +72,45 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  // Formulario de contacto: se envía a Netlify Forms (incluido gratis en el
-  // mismo hosting, sin backend propio). Netlify recoge el envío y notifica
-  // por email a la dirección configurada en el panel del sitio
-  // (Site configuration → Forms → Form notifications).
-  // El <form> lleva data-netlify="true" y name="contact" en el HTML para que
-  // Netlify lo detecte al hacer el build; aquí solo evitamos la recarga de
-  // página y mostramos el resultado en el propio formulario.
+  // Formulario de contacto: se envía a Web3Forms (servicio externo gratuito,
+  // no depende del hosting). La access_key va en un input oculto en el HTML;
+  // Web3Forms reenvía cada envío por email a la dirección con la que se creó
+  // esa clave (contacto.labrujulacripto@gmail.com).
   var form = document.getElementById('contact-form');
   if (form) {
-    // Si el navegador llegó aquí tras un envío sin JavaScript (Netlify
-    // redirige de vuelta con ?enviado=1), mostramos el mensaje de éxito.
-    if (window.location.search.indexOf('enviado=1') !== -1) {
-      var okMsg = document.getElementById('form-msg');
-      if (okMsg) {
-        okMsg.textContent = 'Gracias, tu mensaje se ha enviado correctamente. Te responderemos en un plazo máximo de 3-5 días laborables.';
-      }
-      if (window.history && window.history.replaceState) {
-        window.history.replaceState({}, '', window.location.pathname);
-      }
-    }
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var msg = document.getElementById('form-msg');
       var submitBtn = form.querySelector('button[type="submit"]');
+
+      // Honeypot anti-spam: si un bot rellena este campo oculto, ignoramos
+      // el envío en silencio (un usuario real nunca lo ve ni lo rellena).
+      var honeypot = form.querySelector('[name="bot-field"]');
+      if (honeypot && honeypot.value) {
+        return;
+      }
+
       var formData = new FormData(form);
-      var encoded = [];
+      var data = {};
       formData.forEach(function (value, key) {
-        encoded.push(encodeURIComponent(key) + '=' + encodeURIComponent(value));
+        data[key] = value;
       });
 
       if (submitBtn) submitBtn.disabled = true;
       if (msg) msg.textContent = 'Enviando...';
 
-      fetch('/contacto.html', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encoded.join('&')
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
       }).then(function (response) {
-        if (!response.ok) { throw new Error('status ' + response.status); }
-        if (msg) {
-          msg.textContent = 'Gracias, tu mensaje se ha enviado correctamente. Te responderemos en un plazo máximo de 3-5 días laborables.';
-        }
-        form.reset();
+        return response.json().then(function (result) {
+          if (!response.ok || !result.success) { throw new Error(result.message || 'status ' + response.status); }
+          if (msg) {
+            msg.textContent = 'Gracias, tu mensaje se ha enviado correctamente. Te responderemos en un plazo máximo de 3-5 días laborables.';
+          }
+          form.reset();
+        });
       }).catch(function () {
         if (msg) {
           msg.innerHTML = 'No hemos podido enviar el mensaje automáticamente. Escríbenos directamente a ' +
