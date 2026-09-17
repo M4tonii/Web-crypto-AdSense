@@ -252,8 +252,30 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
   border-bottom: 1px solid var(--border);
   background: var(--surface);
 }
-.page-header h1 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin: 6px 0 10px; }
+.page-header h1 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin: 6px 0 10px; display: flex; align-items: center; gap: 12px; }
 .page-header p { color: var(--text-muted); max-width: 720px; }
+
+.cat-badge {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55em;
+  height: 1.55em;
+  border-radius: 50%;
+}
+.cat-badge svg { width: 58%; height: 58%; }
+.cat-badge-btc { background: linear-gradient(135deg,#f7931a,#c9720b); }
+.cat-badge-xrp { background: linear-gradient(135deg,#23a9e0,#0f6b91); }
+.cat-badge-reg { background: linear-gradient(135deg,#6d5bd0,#3f2f8f); }
+.cat-badge-guia { background: linear-gradient(135deg,#0d9488,#0b6b62); }
+.cat-badge-exch { background: linear-gradient(135deg,#e0527a,#9c1f45); }
+.cat-badge-wallet { background: linear-gradient(135deg,#4b5563,#1f2937); }
+.cat-badge-fisc { background: linear-gradient(135deg,#b45309,#7a3606); }
+.cat-badge-trading { background: linear-gradient(135deg,#2563eb,#173e8f); }
+.cat-badge-mineria { background: linear-gradient(135deg,#65a30d,#3f6607); }
+.cat-badge-glosario { background: linear-gradient(135deg,#0891b2,#065e6e); }
+.cat-badge-meme { background: linear-gradient(135deg,#ec4899,#7e22ce); }
 
 /* ---------- Breadcrumbs ---------- */
 .breadcrumbs {
