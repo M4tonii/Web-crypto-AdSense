@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cómo funciona la minería de Bitcoin: guía básica</title>
+<meta name="description" content="Qué es la minería de Bitcoin, cómo funciona la prueba de trabajo, qué son los ASIC, el hashrate y la dificultad, y si todavía es rentable minar en 2026.">
+<link rel="canonical" href="https://labrujulacripto.com/articulos/como-funciona-mineria-bitcoin.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cómo funciona la minería de Bitcoin: guía básica">
+<meta property="og:description" content="Qué es la minería de Bitcoin, cómo funciona la prueba de trabajo, qué son los ASIC, el hashrate y la dificultad, y si todavía es rentable minar en 2026.">
+<meta property="og:url" content="https://labrujulacripto.com/articulos/como-funciona-mineria-bitcoin.html">
+<meta property="og:image" content="https://labrujulacripto.com/img/portadas/que-es-bitcoin-como-funciona.jpg">
+<meta property="og:site_name" content="BrújulaCripto">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://labrujulacripto.com/img/portadas/que-es-bitcoin-como-funciona.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23142850%22/><text x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22%23fff%22>₿</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","inLanguage":"es-ES","image":"https://labrujulacripto.com/img/portadas/que-es-bitcoin-como-funciona.jpg","headline":"Cómo funciona la minería de Bitcoin: guía básica","datePublished":"2026-09-17","dateModified":"2026-09-17","author":{"@type":"Organization","name":"BrújulaCripto"},"publisher":{"@type":"Organization","name":"BrújulaCripto"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://labrujulacripto.com/"},{"@type":"ListItem","position":2,"name":"Minería y Staking","item":"https://labrujulacripto.com/categorias/mineria-staking.html"},{"@type":"ListItem","position":3,"name":"Cómo funciona la minería de Bitcoin","item":"https://labrujulacripto.com/articulos/como-funciona-mineria-bitcoin.html"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Se puede minar Bitcoin con un ordenador normal en 2026?","acceptedAnswer":{"@type":"Answer","text":"En la práctica, no de forma rentable. La dificultad actual de la red requiere hardware especializado (ASIC) y acceso a electricidad muy barata. Con una CPU o GPU normales, el coste eléctrico supera con creces cualquier bitcoin que se llegue a minar."}},{"@type":"Question","name":"¿Qué es un pool de minería?","acceptedAnswer":{"@type":"Answer","text":"Es un grupo de mineros que combinan su potencia de cómputo (hashrate) para aumentar las probabilidades de encontrar un bloque y reparten la recompensa proporcionalmente a la potencia aportada por cada uno, en lugar de minar cada uno por su cuenta con muy pocas probabilidades individuales de éxito."}},{"@type":"Question","name":"¿Por qué la minería de Bitcoin consume tanta electricidad?","acceptedAnswer":{"@type":"Answer","text":"Porque la seguridad de la red depende precisamente de que encontrar un bloque válido cueste esfuerzo computacional real y verificable. Ese gasto energético es lo que hace extremadamente caro intentar reescribir el historial de transacciones o atacar la red."}},{"@type":"Question","name":"¿Es lo mismo minería que staking?","acceptedAnswer":{"@type":"Answer","text":"No. La minería (prueba de trabajo) exige hardware especializado y consumo eléctrico para validar bloques, mientras que el staking (prueba de participación) exige inmovilizar criptomonedas como garantía, sin necesidad de hardware potente. Son dos mecanismos distintos de consenso, aplicados en redes distintas."}}]}
+</script>
+</head>
+<body>
+<a href="#contenido" class="skip-link">Saltar al contenido</a>
+<div class="topbar">⚠️ Contenido informativo, no asesoramiento financiero. <a href="../legal/disclaimer.html">Ver aviso de riesgo</a></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="main-nav">
+      <a href="../index.html">Inicio</a>
+      <a href="../categorias/bitcoin.html">Bitcoin</a>
+      <a href="../categorias/xrp-ripple.html">XRP y Ripple</a>
+      <a href="../categorias/regulacion.html">Regulación</a>
+      <a href="../categorias/guias-principiantes.html">Guías</a>
+      <a href="../categorias/exchanges.html">Exchanges</a>
+      <a href="../categorias/wallets-seguridad.html">Wallets</a>
+      <a href="../categorias/fiscalidad.html">Fiscalidad</a>
+      <a href="../categorias/trading.html">Trading</a>
+      <a href="../categorias/memecoins.html">Memecoins</a>
+      <a href="../categorias/mineria-staking.html">Minería y Staking</a>
+      <a href="../categorias/glosario.html">Glosario</a>
+      <a href="../sobre-nosotros.html">Sobre nosotros</a>
+      <a href="../contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <div class="site-wrap">
+    <main id="contenido">
+      <div class="container">
+        <div class="article-head">
+          <div class="breadcrumbs"><a href="../index.html">Inicio</a> / <a href="../categorias/mineria-staking.html">Minería y Staking</a> / Cómo funciona la minería de Bitcoin</div>
+          <span class="cat-tag">Fundamentos · Bitcoin</span>
+          <h1>Cómo funciona la minería de Bitcoin: guía básica</h1>
+          <div class="article-meta">
+            <span>Por Equipo Editorial de BrújulaCripto</span>
+            <span>Publicado: 17 sep 2026</span>
+            <span>Actualizado: 17 sep 2026</span>
+            <span>9 min de lectura</span>
+          </div>
+        </div>
+
+        <article class="article-body">
+          <p>Esta categoría lleva el nombre de "Minería y Staking", pero hasta ahora solo habíamos explicado la mitad del staking. Le tocaba el turno a la minería: el proceso que asegura la red de Bitcoin y crea los nuevos bitcoin que reciben los mineros como recompensa cada vez que se produce el <a href="halving-bitcoin-que-es.html">halving</a>.</p>
+
+          <h2>Qué es minar Bitcoin</h2>
+          <p>Minar consiste en usar potencia de cómputo para competir por resolver un problema matemático que valida el siguiente bloque de transacciones de la cadena. El primer minero en resolverlo añade el bloque a la blockchain y recibe como recompensa una cantidad de bitcoin recién creados, más las comisiones de las transacciones incluidas en ese bloque. Este mecanismo se llama prueba de trabajo (proof-of-work), y es el sistema que usa Bitcoin desde su creación para ponerse de acuerdo, sin una autoridad central, sobre qué transacciones son válidas.</p>
+
+          <h2>Por qué hace falta gastar tanta energía</h2>
+          <p>El "problema matemático" que resuelven los mineros consiste en encontrar, por ensayo y error, un número (llamado nonce) que, combinado con los datos del bloque, produzca un resultado de hash que cumpla una condición concreta de dificultad. No hay atajos: la única forma de encontrarlo es probar combinaciones a gran velocidad hasta dar con una válida. Ese coste computacional y eléctrico real es, precisamente, lo que hace segura a la red: reescribir el historial de transacciones exigiría rehacer todo ese trabajo, algo económicamente inviable para cualquier atacante frente a una red con la potencia de cómputo (hashrate) de Bitcoin.</p>
+
+          <h2>ASIC: el hardware que domina la minería hoy</h2>
+          <p>En los primeros años de Bitcoin se podía minar con la CPU o la tarjeta gráfica (GPU) de un ordenador normal. Hoy eso ya no es viable: la competencia por encontrar cada bloque ha llevado a que la minería se realice casi en su totalidad con ASIC (Application-Specific Integrated Circuit), chips diseñados y fabricados con el único propósito de calcular hashes de Bitcoin lo más rápido posible y con el menor consumo eléctrico por hash. Un ordenador de propósito general, por potente que sea, no puede competir en eficiencia con un ASIC dedicado.</p>
+
+          <h2>Dificultad: el ajuste automático de la red</h2>
+          <p>La red de Bitcoin ajusta automáticamente la dificultad del problema matemático cada 2.016 bloques (aproximadamente cada dos semanas) para que, sin importar cuánta potencia de cómputo total se sume o se retire de la red, un bloque nuevo siga encontrándose en promedio cada diez minutos. Si mucha potencia de cómputo se incorpora a la red, la dificultad sube; si se retira (por ejemplo, tras un <a href="halving-bitcoin-que-es.html">halving</a>, cuando los mineros menos eficientes dejan de ser rentables), la dificultad baja. Es un mecanismo de autorregulación, no una decisión manual de nadie.</p>
+
+          <h2>Pools de minería</h2>
+          <p>Encontrar un bloque en solitario es, para un minero individual, un suceso muy poco frecuente dada la potencia de cómputo total de la red. Por eso la mayoría de mineros se agrupan en pools: combinan su hashrate, comparten la probabilidad de encontrar bloques y reparten la recompensa de forma proporcional a la potencia que aporta cada participante. Esto da ingresos más predecibles a cambio de una pequeña comisión para el operador del pool.</p>
+
+          <div class="callout warning">
+            <strong>¿Es rentable minar Bitcoin en casa en 2026?</strong>
+            En la gran mayoría de los casos, no. La combinación de dificultad alta, coste del hardware ASIC y precio de la electricidad hace que la minería doméstica con equipos domésticos normales no sea rentable en la mayoría de países. La minería rentable a día de hoy está dominada por operaciones industriales con acceso a electricidad muy barata, a menudo cerca de fuentes de energía específicas.
+          </div>
+
+          <h2>Minería vs. staking: dos mecanismos distintos</h2>
+          <p>Es habitual confundir ambos conceptos, pero son mecanismos de consenso distintos. La minería (prueba de trabajo) exige hardware especializado y consumo eléctrico. El staking (prueba de participación), que explicamos en nuestra <a href="que-es-staking-guia-principiantes.html">guía de qué es el staking</a>, exige en cambio inmovilizar criptomonedas como garantía, sin necesidad de hardware potente. Bitcoin usa el primero; muchas redes más recientes usan el segundo. XRP, de hecho, no usa ninguno de los dos: su mecanismo de consenso es distinto, como explicamos en nuestra guía de <a href="es-posible-staking-xrp.html">si es posible hacer staking de XRP</a>.</p>
+
+          <h2>Preguntas frecuentes</h2>
+          <dl class="faq">
+            <dt>¿Se puede minar Bitcoin con un ordenador normal en 2026?</dt>
+            <dd>En la práctica, no de forma rentable. La dificultad actual de la red requiere hardware especializado (ASIC) y acceso a electricidad muy barata. Con una CPU o GPU normales, el coste eléctrico supera con creces cualquier bitcoin que se llegue a minar.</dd>
+            <dt>¿Qué es un pool de minería?</dt>
+            <dd>Es un grupo de mineros que combinan su potencia de cómputo (hashrate) para aumentar las probabilidades de encontrar un bloque y reparten la recompensa proporcionalmente a la potencia aportada por cada uno, en lugar de minar cada uno por su cuenta con muy pocas probabilidades individuales de éxito.</dd>
+            <dt>¿Por qué la minería de Bitcoin consume tanta electricidad?</dt>
+            <dd>Porque la seguridad de la red depende precisamente de que encontrar un bloque válido cueste esfuerzo computacional real y verificable. Ese gasto energético es lo que hace extremadamente caro intentar reescribir el historial de transacciones o atacar la red.</dd>
+            <dt>¿Es lo mismo minería que staking?</dt>
+            <dd>No. La minería (prueba de trabajo) exige hardware especializado y consumo eléctrico para validar bloques, mientras que el staking (prueba de participación) exige inmovilizar criptomonedas como garantía, sin necesidad de hardware potente. Son dos mecanismos distintos de consenso, aplicados en redes distintas.</dd>
+          </dl>
+
+          <h2>Cómo verificamos esta información</h2>
+          <p>Contrastamos este artículo con estas fuentes antes de publicarlo y cada vez que lo revisamos:</p>
+          <ul>
+            <li><a href="https://github.com/bitcoin/bitcoin" target="_blank" rel="noopener">El código fuente de Bitcoin Core</a>, que implementa las reglas de prueba de trabajo y ajuste de dificultad.</li>
+            <li><a href="https://bitcoin.org/es/como-funciona" target="_blank" rel="noopener">Bitcoin.org</a>: documentación general sobre el funcionamiento de la red.</li>
+          </ul>
+          <p>Si detectas un dato desactualizado, dínoslo en nuestra página de <a href="../contacto.html">contacto</a>: lo revisamos y lo corregimos.</p>
+
+          <div class="cta-box">
+            <div><h3>¿Y si la red usa prueba de participación?</h3><p>Descubre cómo funciona el staking y por qué XRP no funciona igual que Ethereum.</p></div>
+            <a class="btn" href="que-es-staking-guia-principiantes.html">Ver guía de staking →</a>
+          </div>
+
+          <div class="author-box">
+            <div class="author-avatar">BC</div>
+            <div><h3>Equipo Editorial de BrújulaCripto</h3>
+            <p>Fines educativos, no asesoramiento financiero ni de inversión. Consulta nuestro <a href="../legal/disclaimer.html">aviso de riesgo</a>.</p></div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-brand">
+          <a href="../index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+          <p>Medio independiente en español especializado en Bitcoin y XRP. Contenido educativo, no asesoramiento financiero.</p>
+        </div>
+        <div class="footer-col"><p class="footer-heading">Categorías</p><ul>
+          <li><a href="../categorias/bitcoin.html">Bitcoin</a></li>
+          <li><a href="../categorias/xrp-ripple.html">XRP y Ripple</a></li>
+          <li><a href="../categorias/regulacion.html">Regulación</a></li>
+          <li><a href="../categorias/guias-principiantes.html">Guías</a></li>
+          <li><a href="../categorias/exchanges.html">Exchanges</a></li>
+          <li><a href="../categorias/wallets-seguridad.html">Wallets</a></li>
+          <li><a href="../categorias/fiscalidad.html">Fiscalidad</a></li>
+          <li><a href="../categorias/trading.html">Trading</a></li>
+          <li><a href="../categorias/memecoins.html">Memecoins</a></li>
+          <li><a href="../categorias/mineria-staking.html">Minería y Staking</a></li>
+          <li><a href="../categorias/glosario.html">Glosario</a></li>
+        </ul></div>
+        <div class="footer-col"><p class="footer-heading">Legal</p><ul>
+          <li><a href="../legal/aviso-legal.html">Aviso legal</a></li>
+          <li><a href="../legal/politica-privacidad.html">Política de privacidad</a></li>
+          <li><a href="../legal/politica-cookies.html">Política de cookies</a></li>
+          <li><a href="../legal/terminos-uso.html">Términos de uso</a></li>
+          <li><a href="../legal/disclaimer.html">Aviso de riesgo financiero</a></li>
+        </ul></div>
+        <div class="footer-col"><p class="footer-heading">BrújulaCripto</p><ul>
+          <li><a href="../sobre-nosotros.html">Sobre nosotros</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+          <li><a href="mailto:contacto.labrujulacripto@gmail.com">contacto.labrujulacripto@gmail.com</a></li>
+        </ul></div>
+      </div>
+      <p class="footer-disclaimer">BrújulaCripto es un medio informativo independiente. El contenido tiene fines educativos, no constituye asesoramiento financiero, fiscal ni legal. Las criptomonedas son activos de alto riesgo. Algunos enlaces pueden ser de afiliado.</p>
+      <div class="footer-bottom">© <span class="current-year">2026</span> BrújulaCripto. Todos los derechos reservados.</div>
+    </footer>
+  </div></div>
+
+<div id="cookie-banner" role="dialog" aria-label="Aviso de cookies" style="display:none">
+  <p>Usamos cookies propias y de terceros (incluida publicidad de Google AdSense). Más información en nuestra <a href="../legal/politica-cookies.html">Política de Cookies</a>.</p>
+  <div style="display:flex; gap:8px">
+    <button class="btn-outline" id="cookie-reject" type="button">Rechazar</button>
+    <button class="btn" id="cookie-accept" type="button">Aceptar</button>
+  </div>
+</div>
+<script src="../js/main.js"></script>
+</body>
+</html>
