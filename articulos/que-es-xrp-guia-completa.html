@@ -21,13 +21,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/style.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","inLanguage":"es-ES","image":"https://labrujulacripto.com/img/portadas/que-es-bitcoin-como-funciona.jpg","headline":"¿Qué es XRP y para qué sirve? Guía completa de Ripple","datePublished":"2026-01-20","dateModified":"2026-07-11","author":{"@type":"Organization","name":"BrújulaCripto"},"publisher":{"@type":"Organization","name":"BrújulaCripto"}}
+{"@context":"https://schema.org","@type":"Article","inLanguage":"es-ES","image":"https://labrujulacripto.com/img/portadas/que-es-bitcoin-como-funciona.jpg","headline":"¿Qué es XRP y para qué sirve? Guía completa de Ripple","datePublished":"2026-01-20","dateModified":"2026-09-17","author":{"@type":"Organization","name":"BrújulaCripto"},"publisher":{"@type":"Organization","name":"BrújulaCripto"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://labrujulacripto.com/"},{"@type":"ListItem","position":2,"name":"XRP y Ripple","item":"https://labrujulacripto.com/categorias/xrp-ripple.html"},{"@type":"ListItem","position":3,"name":"Qué es XRP","item":"https://labrujulacripto.com/articulos/que-es-xrp-guia-completa.html"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Ripple controla el precio de XRP?","acceptedAnswer":{"@type":"Answer","text":"Ripple posee una parte significativa del suministro de XRP (en gran medida bajo un mecanismo de custodia programada), pero no controla el XRP Ledger, que es mantenido por una red descentralizada de validadores independientes."}},{"@type":"Question","name":"¿XRP y Ethereum compiten entre sí?","acceptedAnswer":{"@type":"Answer","text":"Tienen casos de uso distintos: Ethereum se centra en contratos inteligentes y aplicaciones descentralizadas, mientras que XRP Ledger está optimizado principalmente para pagos y liquidación rápida de valor."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Ripple controla el precio de XRP?","acceptedAnswer":{"@type":"Answer","text":"Ripple posee una parte significativa del suministro de XRP (en gran medida bajo un mecanismo de custodia programada), pero no controla el XRP Ledger, que es mantenido por una red descentralizada de validadores independientes."}},{"@type":"Question","name":"¿XRP y Ethereum compiten entre sí?","acceptedAnswer":{"@type":"Answer","text":"Tienen casos de uso distintos: Ethereum se centra en contratos inteligentes y aplicaciones descentralizadas, mientras que XRP Ledger está optimizado principalmente para pagos y liquidación rápida de valor."}},{"@type":"Question","name":"¿Cuántos XRP existen y pueden crearse más?","acceptedAnswer":{"@type":"Answer","text":"Los 100.000 millones de XRP se crearon de una sola vez al lanzar el XRP Ledger en 2012 y no puede crearse ninguno más; de hecho, cada transacción destruye una pequeña cantidad de XRP como comisión de red, por lo que el suministro total disminuye muy ligeramente con el tiempo."}},{"@type":"Question","name":"¿Puede cualquiera ejecutar un validador del XRP Ledger?","acceptedAnswer":{"@type":"Answer","text":"Sí. Cualquier persona u organización puede ejecutar su propio nodo validador del XRP Ledger. Ripple opera algunos de los validadores más usados por defecto, pero no controla en exclusiva la red ni impide que otros participen."}}]}
 </script>
 </head>
 <body>
@@ -67,7 +67,7 @@
           <div class="article-meta">
             <span>Por Equipo Editorial de BrújulaCripto</span>
             <span>Publicado: 20 ene 2026</span>
-            <span>Actualizado: 11 jul 2026</span>
+            <span>Actualizado: 17 sep 2026</span>
             <span>11 min de lectura</span>
           </div>
         </div>
@@ -90,6 +90,12 @@
           <h2>¿Cómo funciona el consenso en el XRP Ledger?</h2>
           <p>A diferencia de Bitcoin, que usa minería por prueba de trabajo, el XRP Ledger utiliza un protocolo de consenso entre un conjunto de validadores que confirman las transacciones sin necesidad de un proceso computacionalmente intensivo. Esto explica por qué las transacciones son mucho más rápidas y baratas energéticamente, pero también por qué XRP no se puede "minar" ni, en su diseño actual, "stakear" de la forma en que se hace en redes como Ethereum (lo explicamos en detalle en nuestro artículo sobre si <a href="es-posible-staking-xrp.html">es posible hacer staking de XRP</a>).</p>
 
+          <h2>El suministro de XRP y el sistema de custodia (escrow)</h2>
+          <p>A diferencia de Bitcoin, todos los 100.000 millones de XRP que existirán se crearon de una sola vez en el momento de lanzar el XRP Ledger; no hay minería que genere nuevas unidades. Una parte significativa del suministro quedó en manos de los fundadores de Ripple, y la propia compañía bloqueó gran parte de su tenencia en contratos de custodia (escrow) que liberan un máximo de mil millones de XRP al mes, de forma programada y pública. Cualquiera puede consultar en el propio XRP Ledger cuánto XRP se libera cada mes y a qué direcciones va, lo que aporta transparencia sobre este proceso frente a acusaciones de manipulación arbitraria del suministro.</p>
+
+          <h2>Quién valida las transacciones en el XRP Ledger</h2>
+          <p>El XRP Ledger funciona mediante un conjunto de validadores independientes que ejecutan un protocolo de consenso: para que una transacción se confirme, un porcentaje suficiente de esos validadores debe estar de acuerdo sobre el orden y la validez de las operaciones. Ripple opera algunos de esos validadores, pero no todos, y cualquier persona u organización puede ejecutar su propio nodo validador. La lista de validadores recomendados por defecto (llamada UNL, Unique Node List) es publicada de forma abierta, y distintas entidades pueden usar listas alternativas si lo prefieren.</p>
+
           <div class="callout">
             <strong>Importante sobre el "destination tag"</strong>
             Al enviar XRP a un exchange, muchas plataformas requieren incluir un "destination tag" (una etiqueta numérica adicional) junto con la dirección de destino. Olvidarlo es uno de los errores más comunes entre principiantes y puede provocar la pérdida de los fondos. Lo explicamos con detalle en nuestra guía de <a href="como-comprar-xrp-guia-segura.html">cómo comprar XRP de forma segura</a>.
@@ -101,7 +107,19 @@
             <dd>Ripple posee una parte significativa del suministro de XRP (en gran medida bajo un mecanismo de custodia programada), pero no controla el XRP Ledger, que es mantenido por una red descentralizada de validadores independientes.</dd>
             <dt>¿XRP y Ethereum compiten entre sí?</dt>
             <dd>Tienen casos de uso distintos: Ethereum se centra en contratos inteligentes y aplicaciones descentralizadas, mientras que XRP Ledger está optimizado principalmente para pagos y liquidación rápida de valor.</dd>
+            <dt>¿Cuántos XRP existen y pueden crearse más?</dt>
+            <dd>Los 100.000 millones de XRP se crearon de una sola vez al lanzar el XRP Ledger en 2012 y no puede crearse ninguno más; de hecho, cada transacción destruye una pequeña cantidad de XRP como comisión de red, por lo que el suministro total disminuye muy ligeramente con el tiempo.</dd>
+            <dt>¿Puede cualquiera ejecutar un validador del XRP Ledger?</dt>
+            <dd>Sí. Cualquier persona u organización puede ejecutar su propio nodo validador del XRP Ledger. Ripple opera algunos de los validadores más usados por defecto, pero no controla en exclusiva la red ni impide que otros participen.</dd>
           </dl>
+
+          <h2>Cómo verificamos esta información</h2>
+          <p>Contrastamos este artículo con estas fuentes antes de publicarlo y cada vez que lo revisamos:</p>
+          <ul>
+            <li><a href="https://xrpl.org/es/" target="_blank" rel="noopener">XRPL.org</a>: documentación técnica oficial del XRP Ledger.</li>
+            <li><a href="https://ripple.com/" target="_blank" rel="noopener">Ripple.com</a>: información oficial de la empresa sobre sus productos y el uso de XRP.</li>
+          </ul>
+          <p>Si detectas un dato desactualizado, dínoslo en nuestra página de <a href="../contacto.html">contacto</a>: lo revisamos y lo corregimos.</p>
 
           <div class="cta-box">
             <div><h3>¿Quieres comprar tu primer XRP?</h3><p>Guía paso a paso pensada para principiantes, con los errores más comunes explicados.</p></div>
