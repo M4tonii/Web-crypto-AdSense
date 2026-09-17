@@ -89,7 +89,33 @@ El usuario decidió enfocar la web a **España, Europa (Alemania, Francia, Reino
 - Todas las tarjetas de portada e "Más artículos recientes" del `index.html` y las 11 páginas de categoría reordenadas por interacción/interés de búsqueda.
 - Creado `CONTEXTO-IA-WEB.md`: documento resumen completo de la web (identidad, enfoque de mercado, modelo de negocio, stack técnico, categorías, los 34 artículos con slug+título+resumen) pensado para dar contexto a otra IA.
 - Guardado `PROMPT-SEO-ADSENSE-BRUJULACRIPTO.md`: prompt maestro de 6 fases (auditoría, títulos/metadatos, E-E-A-T/contenido, SEO técnico, maquetación anuncios, enlazado interno) aportado por el usuario para optimizar SEO/AdSense.
-- Generado `AUDITORIA-SEO-2026.md` (Fase 1, solo lectura): inventario de 54 páginas. Hallazgos clave: 33/34 artículos con menos de 800 palabras (bloqueante nº1 para AdSense), 33/34 títulos de más de 60 caracteres, 4 categorías con solo 2 artículos (Exchanges, Regulación, Trading, Minería y Staking), 5 páginas legales sin JSON-LD, robots.txt correcto (se descartó una suposición errónea del prompt). **Pendiente: ejecutar Fase 4 (SEO técnico) y siguientes fases del prompt maestro.**
+- Generado `AUDITORIA-SEO-2026.md` (Fase 1, solo lectura): inventario de 54 páginas. Hallazgos clave: 33/34 artículos con menos de 800 palabras (bloqueante nº1 para AdSense), 33/34 títulos de más de 60 caracteres, 4 categorías con solo 2 artículos (Exchanges, Regulación, Trading, Minería y Staking), 5 páginas legales sin JSON-LD, robots.txt correcto (se descartó una suposición errónea del prompt). Todos estos puntos ya están resueltos (ver secciones siguientes).
+
+## Fase 3 del prompt maestro — E-E-A-T y ampliación a 800+ palabras (17 sep 2026)
+
+Los 34 artículos revisados uno a uno con: fecha visible de "Actualizado", sección "Cómo verificamos esta información" con fuentes oficiales reales citadas, FAQ ampliado a mínimo 4 preguntas (JSON-LD `FAQPage` + `<dl class="faq">` visible), y ampliación de contenido hasta superar 800 palabras en `article-body`. Verificado al cierre: las 34 páginas ≥800 palabras, ≥4 FAQ (glosario exento, es formato de referencia), 0 mojibake, JSON-LD 100% válido.
+
+Se encontraron y corrigieron varias inconsistencias factuales reales durante el proceso (no solo ampliación mecánica): `precio-bitcoin-hoy-analisis.html` prometía "7 factores" y solo desarrollaba 5 (se escribieron 2 secciones nuevas reales, no relleno); `halving-bitcoin-que-es.html` no daba nunca una estimación del próximo halving pese a que el FAQ lo insinuaba (se añadió cronología histórica real 2009-2024 + estimación ~2028 explícitamente marcada como aproximada); `impuestos-criptomonedas-estados-unidos.html` se había saltado por error en el lote original de fiscalidad y se completó en la verificación final.
+
+**Regla dura, ya documentada arriba pero reconfirmada en esta fase**: todas las sustituciones masivas de texto se hicieron con Perl (`open(..., "<:raw", ...)` para JSON-LD, `perl -i -pe` para find-replace), nunca con un `.ps1` guardado a disco.
+
+## Corrección del email de contacto en todo el sitio (17 sep 2026)
+
+Se detectó que `contacto@labrujulacripto.com` (dominio nunca configurado con reenvío en Namecheap) estaba en uso en 148 sitios de 54 páginas + `js/main.js`, incluido el `ContactPoint` del schema `Organization`. Sustituido globalmente por la dirección real que sí funciona, `contacto.labrujulacripto@gmail.com`. Verificado 0 apariciones de la dirección antigua y confirmado en producción vía `curl` sobre `/contacto`.
+
+## Fase 6 del prompt maestro — enlazado interno (17 sep 2026)
+
+Arquitectura hub-and-spoke verificada y reforzada: las 11 páginas de categoría enlazan a todas sus tarjetas de artículo, cada artículo enlaza de vuelta a su categoría vía breadcrumb, y se añadieron enlaces cruzados contextuales (no genéricos) entre artículos relacionados — especialmente el clúster de fiscalidad (7 países, cada uno enlaza a los 2 siguientes en rotación fija, cerrando el ciclo) y 12 artículos más con una sección H2 nueva de 1-2 enlaces contextuales cada uno. Verificado: 0 artículos huérfanos, 135+ bloques JSON-LD válidos tras el cierre de fase.
+
+## Cierre del único bloqueante real de AdSense que quedaba: categorías con menos de 3 artículos (17 sep 2026)
+
+La auditoría de Fase 1 había marcado "ninguna categoría con menos de 3 artículos" como el único punto de la checklist de AdSense que seguía sin resolver una vez completadas las Fases 3, 4 y 6 (todo lo demás — 800+ palabras, metadatos, E-E-A-T, enlazado interno, SEO técnico — ya estaba cerrado). Se escribió un artículo nuevo por cada una de las 4 categorías afectadas, usando solo hechos ya verificados en el resto del sitio (regla "no inventes datos"):
+- **Exchanges** (2→3): `mejores-exchanges-espana.html` — Bit2Me, Criptan, Binance y Kraken comparados para el mercado español (el hueco de contenido más grave marcado por el propio prompt maestro: había guía de EE. UU. pero no de España, el mercado principal).
+- **Regulación** (2→3): `genius-act-stablecoins-eeuu.html` — la ley federal de stablecoins de pago de EE. UU. (2025), ya mencionada como contexto en el artículo de la CLARITY Act pero nunca desarrollada por separado.
+- **Trading** (2→3): `dca-dollar-cost-averaging-cripto.html` — estrategia de inversión periódica, con ejemplo numérico ilustrativo.
+- **Minería y Staking** (2→3): `como-funciona-mineria-bitcoin.html` — la categoría solo tenía contenido de staking pese a su nombre; cubre prueba de trabajo, ASIC, dificultad y pools de minería.
+
+Cada artículo nuevo sigue la plantilla exacta del sitio (≥800 palabras, ≥4 FAQ, sección de fuentes, author-box), tiene su tarjeta añadida en la categoría correspondiente, su entrada en `sitemap.xml`, y enlaces cruzados bidireccionales con artículos existentes relacionados. De paso se corrigió una card desactualizada en `categorias/glosario.html` que seguía diciendo "31 términos" (el artículo ya decía 37 desde una ampliación de una sesión anterior). Verificado al cierre: 38 artículos totales, las 11 categorías con ≥3 tarjetas (glosario es una página de referencia única por diseño, no aplica), 147 bloques JSON-LD válidos, 0 mojibake, 0 enlaces internos rotos.
 
 ## Incidente: caída total del sitio (16-17 sep 2026) — resuelto, causa: Cloudflare
 
