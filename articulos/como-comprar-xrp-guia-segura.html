@@ -27,7 +27,7 @@
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://labrujulacripto.com/"},{"@type":"ListItem","position":2,"name":"Guías","item":"https://labrujulacripto.com/categorias/guias-principiantes.html"},{"@type":"ListItem","position":3,"name":"Cómo comprar XRP","item":"https://labrujulacripto.com/articulos/como-comprar-xrp-guia-segura.html"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Todas las wallets de XRP requieren destination tag?","acceptedAnswer":{"@type":"Answer","text":"No todas las direcciones lo requieren; depende de si el receptor gestiona los fondos de múltiples usuarios bajo una única dirección (típico de exchanges) o si tienes una wallet personal con tu propia dirección única, en cuyo caso normalmente no es necesario."}},{"@type":"Question","name":"¿Por qué necesito un saldo mínimo en mi cuenta de XRP Ledger?","acceptedAnswer":{"@type":"Answer","text":"Es un mecanismo antispam del protocolo para evitar la creación masiva de cuentas vacías que saturen la red; ese saldo mínimo queda reservado y no se pierde, simplemente no es transferible mientras la cuenta esté activa con ese balance."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Todas las wallets de XRP requieren destination tag?","acceptedAnswer":{"@type":"Answer","text":"No todas las direcciones lo requieren; depende de si el receptor gestiona los fondos de múltiples usuarios bajo una única dirección (típico de exchanges) o si tienes una wallet personal con tu propia dirección única, en cuyo caso normalmente no es necesario."}},{"@type":"Question","name":"¿Por qué necesito un saldo mínimo en mi cuenta de XRP Ledger?","acceptedAnswer":{"@type":"Answer","text":"Es un mecanismo antispam del protocolo para evitar la creación masiva de cuentas vacías que saturen la red; ese saldo mínimo queda reservado y no se pierde, simplemente no es transferible mientras la cuenta esté activa con ese balance."}},{"@type":"Question","name":"¿Puedo recuperar mi XRP si envío sin destination tag por error?","acceptedAnswer":{"@type":"Answer","text":"No está garantizado. Algunos exchanges pueden ayudarte a recuperar los fondos a través de su servicio de soporte si pueden identificar el origen del depósito, pero es un proceso largo, no garantizado y a veces con comisión. La forma de evitarlo es revisar siempre ambos datos antes de confirmar el envío."}},{"@type":"Question","name":"¿Cambia algo el destination tag si envío desde una wallet personal en vez de un exchange?","acceptedAnswer":{"@type":"Answer","text":"Si tu propia wallet tiene una dirección única (no compartida con otros usuarios), normalmente no necesitas indicar un destination tag al enviar desde ella. El requisito depende de si el receptor gestiona fondos de varios usuarios bajo una única dirección, que es el caso típico de los exchanges."}}]}
 </script>
 </head>
 <body>
@@ -67,6 +67,7 @@
           <div class="article-meta">
             <span>Por Equipo Editorial de BrújulaCripto</span>
             <span>Publicado: 15 ene 2026</span>
+            <span>Actualizado: 17 sep 2026</span>
             <span>9 min de lectura</span>
           </div>
         </div>
@@ -87,6 +88,12 @@
             Si envías XRP a un exchange sin incluir el destination tag correcto (cuando la plataforma de destino lo requiere), es posible que la plataforma no pueda identificar a qué cuenta pertenece el depósito. En muchos casos esto significa fondos perdidos o un proceso de recuperación largo y no garantizado a través del servicio de soporte. Verifica siempre ambos datos antes de confirmar cualquier envío de XRP.
           </div>
 
+          <h2>Ejemplo práctico: cómo evitar el error del destination tag</h2>
+          <p>Imagina que quieres retirar XRP de un exchange hacia tu cuenta en otro exchange. Al generar la dirección de depósito, la plataforma de destino te mostrará normalmente dos datos por separado: una dirección que empieza por "r" (por ejemplo, algo como rEXCHANGEaddress...) y un destination tag, que es un número aparte (por ejemplo, 123456789). Debes copiar ambos datos exactamente como aparecen, y pegarlos en los dos campos correspondientes del formulario de retirada del exchange de origen — nunca combinados en el mismo campo ni con el tag añadido al final de la dirección. Muchos exchanges muestran un aviso de confirmación con ambos datos antes de procesar el envío: revísalo con calma, letra por letra, antes de confirmar. Una vez la transacción se confirma en el XRP Ledger, es irreversible.</p>
+
+          <h2>Comisiones al comprar y retirar XRP</h2>
+          <p>Las comisiones de compra varían según el exchange y el método de pago, de forma similar a lo que ocurre al <a href="como-comprar-bitcoin-primera-vez.html">comprar Bitcoin</a>: la compra rápida suele tener comisiones más altas que operar directamente en el mercado con una orden. A eso se suma, si decides retirar tus XRP a tu propia wallet, una comisión de retirada fijada por el exchange (independiente de la comisión de red del XRP Ledger en sí, que es extremadamente baja). Compara la comisión de retirada de varios exchanges antes de elegir, especialmente si planeas mover tus fondos a una wallet propia poco después de comprarlos.</p>
+
           <h2>Paso 4: dónde guardar tu XRP</h2>
           <p>Al igual que con Bitcoin, para cantidades relevantes se recomienda trasladar los fondos a un monedero bajo tu propio control. Consulta nuestra guía de <a href="mejores-wallets-bitcoin-xrp.html">mejores wallets para Bitcoin y XRP</a>. Ten en cuenta que el XRP Ledger exige mantener un saldo mínimo de reserva en la cuenta (actualmente un número reducido de XRP) para que esta permanezca activa en la red.</p>
 
@@ -96,7 +103,19 @@
             <dd>No todas las direcciones lo requieren; depende de si el receptor gestiona los fondos de múltiples usuarios bajo una única dirección (típico de exchanges) o si tienes una wallet personal con tu propia dirección única, en cuyo caso normalmente no es necesario.</dd>
             <dt>¿Por qué necesito un saldo mínimo en mi cuenta de XRP Ledger?</dt>
             <dd>Es un mecanismo antispam del protocolo para evitar la creación masiva de cuentas vacías que saturen la red; ese saldo mínimo queda reservado y no se pierde, simplemente no es transferible mientras la cuenta esté activa con ese balance.</dd>
+            <dt>¿Puedo recuperar mi XRP si envío sin destination tag por error?</dt>
+            <dd>No está garantizado. Algunos exchanges pueden ayudarte a recuperar los fondos a través de su servicio de soporte si pueden identificar el origen del depósito, pero es un proceso largo, no garantizado y a veces con comisión. La forma de evitarlo es revisar siempre ambos datos antes de confirmar el envío.</dd>
+            <dt>¿Cambia algo el destination tag si envío desde una wallet personal en vez de un exchange?</dt>
+            <dd>Si tu propia wallet tiene una dirección única (no compartida con otros usuarios), normalmente no necesitas indicar un destination tag al enviar desde ella. El requisito depende de si el receptor gestiona fondos de varios usuarios bajo una única dirección, que es el caso típico de los exchanges.</dd>
           </dl>
+
+          <h2>Cómo verificamos esta información</h2>
+          <p>Contrastamos este artículo con estas fuentes antes de publicarlo y cada vez que lo revisamos:</p>
+          <ul>
+            <li><a href="https://xrpl.org/es/docs/concepts/accounts/source-and-destination-tags" target="_blank" rel="noopener">XRPL.org</a>: documentación técnica oficial sobre destination tags y reserva de cuenta.</li>
+            <li><a href="https://www.cnmv.es/" target="_blank" rel="noopener">CNMV</a>: registro de exchanges autorizados bajo MiCA en España.</li>
+          </ul>
+          <p>Si detectas un dato desactualizado, dínoslo en nuestra página de <a href="../contacto.html">contacto</a>: lo revisamos y lo corregimos.</p>
 
           <div class="author-box">
             <div class="author-avatar">BC</div>
