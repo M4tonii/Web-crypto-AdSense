@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }).catch(function () {
         if (msg) {
           msg.innerHTML = 'No hemos podido enviar el mensaje automáticamente. Escríbenos directamente a ' +
-            '<a href="mailto:contacto@labrujulacripto.com">contacto@labrujulacripto.com</a>.';
+            '<a href="mailto:contacto.labrujulacripto@gmail.com">contacto.labrujulacripto@gmail.com</a>.';
         }
       }).finally(function () {
         if (submitBtn) submitBtn.disabled = false;
@@ -133,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var nmsg = document.getElementById('newsletter-msg');
       if (nmsg) {
         nmsg.innerHTML = 'El boletín todavía no está activo. Escríbenos a ' +
-          '<a href="mailto:contacto@labrujulacripto.com">contacto@labrujulacripto.com</a> ' +
+          '<a href="mailto:contacto.labrujulacripto@gmail.com">contacto.labrujulacripto@gmail.com</a> ' +
           'y te avisamos en cuanto esté disponible.';
       }
     });
