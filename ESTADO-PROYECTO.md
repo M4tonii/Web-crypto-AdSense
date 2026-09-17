@@ -60,6 +60,41 @@ Se planteó añadir selector de idioma (ES/EN/FR) para captar tráfico y RPM de 
 - Crear `ads.txt` con el ID real.
 - Conectar el banner de cookies a Google Consent Mode a la vez que se reactivan los anuncios.
 
+## Fase 4 del prompt maestro — SEO técnico (17 sep 2026)
+
+Ejecutados los 4 arreglos mecánicos de más impacto/menos riesgo marcados por la auditoría, en las 54 páginas:
+- **`inLanguage: "es-ES"`** añadido al JSON-LD `Article`/`HowTo` de los 34 artículos.
+- **Schema `Organization`** (name/url/sameAs) añadido en las 19 páginas que no tenían ningún dato estructurado propio: 11 categorías, `contacto.html`, `sobre-nosotros.html`, `404.html` y las 5 páginas legales.
+- **`width`/`height`** añadidos a las 43 imágenes de portada que no los tenían (en las 11 categorías + `index.html`), usando las dimensiones reales de cada archivo.
+- **`og:locale: es_ES`** añadido en las 47 páginas que tenían bloque Open Graph y no lo tenían (34 artículos + 11 categorías + contacto + sobre nosotros).
+
+**Importante — no repetir el método usado:** el primer intento se hizo con un script de PowerShell (`.ps1` guardado a disco) que corrompió los acentos (mojibake tipo "BrÃºjulaCripto") porque Windows PowerShell 5.1 lee los `.ps1` sin BOM con el codepage ANSI del sistema, no UTF-8 — un segundo intento con `.Replace()` en una sola línea de PowerShell **vació a 0 bytes las 47 páginas objetivo** (el error de conversión de tipo dentro del bucle no detuvo la ejecución y `WriteAllText` se llamó igualmente con contenido nulo). Se recuperó todo con `git checkout` sin pérdida de datos, y se rehizo todo con un script Perl (`open ... ":encoding(UTF-8)"`), que funcionó a la primera y se verificó exhaustivamente: 0 archivos a 0 bytes, 0 mojibake, los 134 bloques JSON-LD del sitio validados como JSON parseable, `</head>` una sola vez por archivo. **Para cualquier edición futura por script en este proyecto (Windows): usar Perl o Bash/sed, nunca un `.ps1` guardado a disco con caracteres acentuados.**
+
+Pendiente de Fase 4: conversión de imágenes a WebP/AVIF con `<picture>`, CSS crítico inline, cabeceras de caché en el Worker de Cloudflare (rendimiento — más trabajo, no bloqueante). El resto de Fase 4 (canonical, viewport, charset, BreadcrumbList, FAQPage visible, robots.txt, sitemap) ya estaba correcto según la auditoría, sin cambios necesarios.
+
+## Decisión: enfoque geográfico — España/Europa/EEUU, NO Latinoamérica (16 sep 2026)
+
+El usuario decidió enfocar la web a **España, Europa (Alemania, Francia, Reino Unido, Suiza) y Estados Unidos** (público hispanohablante), y **dejar de lado Latinoamérica** por pagar mucho menos en AdSense — **excepto México, que se mantiene**. Cambios hechos:
+- Eliminado el artículo `xrp-latinoamerica-remesas-bancos.html`.
+- Eliminados los artículos de fiscalidad de Argentina y Colombia (creados y luego borrados en la misma sesión).
+- Añadidos 4 artículos nuevos de fiscalidad: Alemania, Francia, Reino Unido, Suiza.
+- `articulos/impuestos-criptomonedas-mexico.html` editado para quitar el enfoque "de Latinoamérica" del texto (se queda como único país latinoamericano).
+- `que-son-las-stablecoins-guia.html` editado para quitar menciones a Latinoamérica.
+- `categorias/fiscalidad.html` reordenado: España → EEUU → Alemania → Reino Unido → Francia → Suiza → México.
+- **Norma a partir de ahora**: cualquier contenido nuevo, no mencionar ni dirigirse a Latinoamérica (salvo México).
+
+## Trabajo de contenido y SEO (16 sep 2026)
+
+- Añadidos 10 artículos nuevos en total (wallets fría/caliente, stablecoins, trading con apalancamiento, airdrops, RLUSD, ETF Bitcoin al contado, cómo evaluar memecoins, staking para principiantes, + los 4 de fiscalidad europea).
+- Todas las tarjetas de portada e "Más artículos recientes" del `index.html` y las 11 páginas de categoría reordenadas por interacción/interés de búsqueda.
+- Creado `CONTEXTO-IA-WEB.md`: documento resumen completo de la web (identidad, enfoque de mercado, modelo de negocio, stack técnico, categorías, los 34 artículos con slug+título+resumen) pensado para dar contexto a otra IA.
+- Guardado `PROMPT-SEO-ADSENSE-BRUJULACRIPTO.md`: prompt maestro de 6 fases (auditoría, títulos/metadatos, E-E-A-T/contenido, SEO técnico, maquetación anuncios, enlazado interno) aportado por el usuario para optimizar SEO/AdSense.
+- Generado `AUDITORIA-SEO-2026.md` (Fase 1, solo lectura): inventario de 54 páginas. Hallazgos clave: 33/34 artículos con menos de 800 palabras (bloqueante nº1 para AdSense), 33/34 títulos de más de 60 caracteres, 4 categorías con solo 2 artículos (Exchanges, Regulación, Trading, Minería y Staking), 5 páginas legales sin JSON-LD, robots.txt correcto (se descartó una suposición errónea del prompt). **Pendiente: ejecutar Fase 4 (SEO técnico) y siguientes fases del prompt maestro.**
+
+## Incidente: caída total del sitio (16-17 sep 2026) — resuelto, causa: Cloudflare
+
+El 16 sep, tras el commit `63d0c5a` y un despliegue exitoso, la web dejó de cargar por completo (`ERR_CONNECTION_TIMED_OUT`) para el usuario y confirmado también con `curl -v` (timeout TCP puro contra las IPs anycast de Cloudflare `188.114.96.5`/`188.114.97.5`, sin respuesta SYN-ACK). Se descartó progresivamente: código/Worker (se probó redeploy, y más tarde se borró y recreó el proyecto entero desde cero — mismo fallo persistió incluso en la URL nueva `*.workers.dev`), dominio personalizado, rutas de Workers, DNS (resolvía bien a las IPs de Cloudflare), certificado SSL (activo, válido). En "Seguridad → Análisis" de la zona se vio que Cloudflare **sí estaba entregando tráfico real a otros visitantes durante todo el incidente** (picos de cientos de peticiones/hora, 0 actividad sospechosa) — es decir, la caída no era global, sino específica de la ruta de red de este usuario (y del entorno de pruebas usado), lo que apuntaba a un problema de enrutamiento puntual en el lado de Cloudflare hacia esas redes concretas, no a la configuración de la web. **Se resolvió solo** la mañana del 17 sep 2026 (confirmado con `curl` → HTTP 200). Conclusión del usuario: "era problema suyo [de Cloudflare], no mío". No quedó ninguna causa raíz 100% confirmada más allá de esto; si se repite, revisar de nuevo "Seguridad → Análisis/Eventos" de la zona antes de tocar nada del proyecto.
+
 ## Cómo retomar esto en una sesión nueva
 
 Simplemente pide a Claude que lea este fichero (`ESTADO-PROYECTO.md`) al empezar. Contiene todo el contexto necesario para seguir sin tener que reexplicar el proyecto desde cero.
