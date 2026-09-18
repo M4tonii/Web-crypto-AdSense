@@ -1,0 +1,25 @@
+name: Avisar a IndexNow (Bing) de cambios en el sitemap
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sitemap.xml"
+
+jobs:
+  ping-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Extraer URLs del sitemap y avisar a IndexNow
+        run: |
+          KEY="ca4673b428e5680b4918bb4e30dbdc15"
+          HOST="labrujulacripto.com"
+          URLS=$(grep -oE '<loc>[^<]+</loc>' sitemap.xml | sed -E 's/<\/?loc>//g' | jq -R . | jq -s .)
+          BODY=$(jq -n --arg host "$HOST" --arg key "$KEY" --argjson urlList "$URLS" \
+            '{host: $host, key: $key, keyLocation: ("https://" + $host + "/" + $key + ".txt"), urlList: $urlList}')
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$BODY"
