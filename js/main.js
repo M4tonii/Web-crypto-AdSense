@@ -1,8 +1,11 @@
 // BrújulaCripto — funciones básicas del sitio
 
-// Google Analytics (GA4): el script solo se carga si el visitante ha
-// aceptado cookies en el banner (ver más abajo). Si rechaza o todavía no ha
-// decidido, no se carga nada de Google Analytics.
+// Google Analytics (GA4): el script se carga siempre. Quien decide si de
+// verdad se envían datos es Google Consent Mode (valores por defecto
+// "denied" definidos en el <head> de cada página) según lo que el
+// visitante responda en el mensaje de consentimiento de Google (CMP),
+// activado desde AdSense el 20 sep 2026 — gestiona Analytics y anuncios
+// a la vez, ya no hace falta el banner de cookies propio.
 var GA_MEASUREMENT_ID = 'G-NVBT1C202J';
 function loadGoogleAnalytics() {
   if (window.bcGaLoaded) return;
@@ -12,7 +15,7 @@ function loadGoogleAnalytics() {
   script.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
   document.head.appendChild(script);
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
   window.gtag('config', GA_MEASUREMENT_ID);
 }
@@ -34,43 +37,10 @@ document.addEventListener('DOMContentLoaded', function () {
     el.textContent = new Date().getFullYear();
   });
 
-  // Consentimiento de cookies: esta comprobación corre en las 43 páginas
-  // (incluidas legal/404, que no muestran el banner) para que Analytics se
-  // cargue en toda la web si el visitante ya aceptó antes, no solo en las
-  // páginas que tienen el banner.
-  var consent = localStorage.getItem('bc_cookie_consent');
-  if (consent === 'accepted') {
-    loadGoogleAnalytics();
-  }
-
-  // Banner de cookies (solo existe en la mayoría de páginas, no en legal/404)
-  var banner = document.getElementById('cookie-banner');
-  if (banner) {
-    if (!consent) {
-      banner.style.display = 'flex';
-    } else {
-      banner.style.display = 'none';
-    }
-    var acceptBtn = document.getElementById('cookie-accept');
-    var rejectBtn = document.getElementById('cookie-reject');
-    if (acceptBtn) {
-      acceptBtn.addEventListener('click', function () {
-        localStorage.setItem('bc_cookie_consent', 'accepted');
-        banner.style.display = 'none';
-        loadGoogleAnalytics();
-        // Cuando haya anuncios de AdSense activos, inicializarlos aquí
-        // también (o usar Google Consent Mode v2 para ambos a la vez).
-      });
-    }
-    if (rejectBtn) {
-      rejectBtn.addEventListener('click', function () {
-        localStorage.setItem('bc_cookie_consent', 'rejected');
-        banner.style.display = 'none';
-        // Mantener anuncios/analítica en modo básico o desactivados
-        // según la configuración de Consent Mode elegida.
-      });
-    }
-  }
+  // Google Analytics: se carga siempre en todas las páginas. El
+  // consentimiento real lo gestiona Google Consent Mode (ver <head>), no
+  // esta llamada.
+  loadGoogleAnalytics();
 
   // Formulario de contacto: se envía a Web3Forms (servicio externo gratuito,
   // no depende del hosting). La access_key va en un input oculto en el HTML;
