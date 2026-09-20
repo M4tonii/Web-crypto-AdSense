@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 15 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 20 sep 2026.
 
 ## Qué es esto
 
@@ -42,6 +42,7 @@ Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a 
 5. ~~**Autoría de los artículos**~~ ✅ Decisión definitiva (15 sep 2026): se queda "Equipo Editorial de BrújulaCripto" en los 23 artículos, sin cambios. Motivo: protege la privacidad del usuario (coherente con no poner NIF/domicilio en el aviso legal) y es válido para Google; el nombre real no se usa en ningún artículo.
 6. ~~**Google Search Console y Bing Webmaster Tools**~~ ✅ Resuelto (15 sep 2026): propiedad `https://labrujulacripto.com/` verificada en Search Console con etiqueta `google-site-verification` (metaetiqueta añadida al `<head>` de `index.html`), sitemap.xml enviado (37 URLs). Bing Webmaster Tools verificado e importado directamente desde Google Search Console (sitio + sitemap en un solo paso). Cuenta usada: Gmail personal del usuario. El sitemap dio "No se ha podido obtener" las primeras horas en Google (fallo temporal normal en dominios recién verificados, confirmado técnicamente sano con `curl`/XML válido) — **se resolvió solo en menos de 24h**, ambos (Google y Bing) muestran ahora estado correcto/procesado.
 7. **Redes sociales**: el dato `sameAs` de los datos estructurados de la organización está vacío; añadir enlaces si en algún momento hay perfiles de BrújulaCripto en redes.
+8. **Solicitar indexación manual en Search Console — EN CURSO (20 sep 2026)**: ver sección "Bug de indexación por redirect .html" más abajo. El usuario se quedó en el enlace nº 17 de la lista de 52; **queda pedir indexación manual del nº 17 en adelante**, siguiendo el orden de esa lista (ya viene ordenada por prioridad SEO/tráfico, no hace falta reordenar nada). No hay que rehacer análisis ni repetir los primeros 16, ya están hechos.
 
 ## Decisión: cuentas de Google para monetización (pensando en 5 webs futuras)
 
@@ -120,6 +121,75 @@ Cada artículo nuevo sigue la plantilla exacta del sitio (≥800 palabras, ≥4 
 ## Incidente: caída total del sitio (16-17 sep 2026) — resuelto, causa: Cloudflare
 
 El 16 sep, tras el commit `63d0c5a` y un despliegue exitoso, la web dejó de cargar por completo (`ERR_CONNECTION_TIMED_OUT`) para el usuario y confirmado también con `curl -v` (timeout TCP puro contra las IPs anycast de Cloudflare `188.114.96.5`/`188.114.97.5`, sin respuesta SYN-ACK). Se descartó progresivamente: código/Worker (se probó redeploy, y más tarde se borró y recreó el proyecto entero desde cero — mismo fallo persistió incluso en la URL nueva `*.workers.dev`), dominio personalizado, rutas de Workers, DNS (resolvía bien a las IPs de Cloudflare), certificado SSL (activo, válido). En "Seguridad → Análisis" de la zona se vio que Cloudflare **sí estaba entregando tráfico real a otros visitantes durante todo el incidente** (picos de cientos de peticiones/hora, 0 actividad sospechosa) — es decir, la caída no era global, sino específica de la ruta de red de este usuario (y del entorno de pruebas usado), lo que apuntaba a un problema de enrutamiento puntual en el lado de Cloudflare hacia esas redes concretas, no a la configuración de la web. **Se resolvió solo** la mañana del 17 sep 2026 (confirmado con `curl` → HTTP 200). Conclusión del usuario: "era problema suyo [de Cloudflare], no mío". No quedó ninguna causa raíz 100% confirmada más allá de esto; si se repite, revisar de nuevo "Seguridad → Análisis/Eventos" de la zona antes de tocar nada del proyecto.
+
+## Bug de indexación por redirect .html — encontrado y corregido (19-20 sep 2026)
+
+**Síntoma**: el usuario solicitó indexación manual de 11 URLs en Search Console y todas salían "La URL no está en Google" con "Error de redirección".
+
+**Causa raíz**: `wrangler.jsonc` tiene `html_handling: "auto-trailing-slash"` (decisión ya tomada y documentada arriba, migración a Cloudflare del 16 sep), que hace que cualquier URL `.html` responda con **redirect 307** a la versión sin extensión (ej. `/articulos/foo.html` → `/articulos/foo`). Pero el `sitemap.xml`, las etiquetas `<link rel="canonical">`, `<meta property="og:url">` y las URLs `"item"` del `BreadcrumbList` (JSON-LD) de **todas las páginas seguían apuntando a la versión con `.html`**. Google pedía la URL del sitemap (`.html`), recibía el redirect, y la página de destino declaraba como canónica la URL que acababa de redirigirle — contradicción circular que Search Console interpreta como "Error de redirección" y no indexa.
+
+**Fix aplicado** (commit `3a18ec1`, ya en `main` y desplegado): con Perl (nunca `.ps1`, ver norma ya documentada arriba) se quitó `.html` de canonical, og:url, sitemap.xml y BreadcrumbList en las 58 páginas afectadas. Caso especial: la entrada de la home en el sitemap pasó de `/index.html` a `/` (raíz). Verificado: 0 `.html` restante en esos 4 sitios, 147 bloques JSON-LD siguen siendo JSON válido, sitemap bien formado, 0 mojibake. **No se tocaron** los ~2500 enlaces internos (menú, footer, enlaces cruzados entre artículos) que siguen apuntando a `.html` — siguen dando el salto extra de redirect al hacer clic, pero eso no afecta a la indexación, es una pérdida de rendimiento menor pendiente de limpiar algún día si se quiere apurar más (no urgente).
+
+**Verificado que el fix funciona**: al inspeccionar URLs ya corregidas en Search Console (ej. `categorias/bitcoin`), sale "La URL está en Google", "Declarada por el usuario como canónica" y "Seleccionada por Google como canónica" coinciden (sin `.html`), obtención de página "Correcto".
+
+**Nota sobre el panel "Indexación de páginas" (el agregado, no la inspección de URL suelta)**: este informe se actualiza con retraso de días/semanas ("Última actualización" lo indica arriba a la derecha) y puede mostrar datos viejos (ej. solo "1 página conocida, sin indexar") que contradicen lo que ya ves correcto en la Inspección de URLs individual. Es normal, no indica un problema nuevo — hay que esperar a que ese informe agregado se refresque solo. El botón "Validar corrección" en bloque (dentro de Indexación → Páginas → clic en la fila del motivo de error) puede no aparecer si el volumen de URLs afectadas es bajo o el informe aún no categorizó el error como fila propia; en ese caso no hay problema en seguir pidiendo indexación URL por URL desde el buscador de arriba, funciona igual.
+
+**Plan de recuperación — pedir indexación manual, en orden de prioridad SEO/tráfico** (cupo diario limitado en Search Console, ~10-12/día). El usuario ya hizo del 1 al 16. **Falta desde el 17 en adelante**:
+
+1. `https://labrujulacripto.com/`
+2. `https://labrujulacripto.com/articulos/que-es-bitcoin-como-funciona`
+3. `https://labrujulacripto.com/articulos/que-es-xrp-guia-completa`
+4. `https://labrujulacripto.com/articulos/precio-bitcoin-hoy-analisis`
+5. `https://labrujulacripto.com/articulos/como-comprar-bitcoin-primera-vez`
+6. `https://labrujulacripto.com/articulos/mejores-exchanges-espana`
+7. `https://labrujulacripto.com/articulos/declarar-bitcoin-xrp-renta-espana`
+8. `https://labrujulacripto.com/articulos/halving-bitcoin-que-es`
+9. `https://labrujulacripto.com/articulos/caso-sec-ripple-resumen`
+10. `https://labrujulacripto.com/articulos/mejores-wallets-bitcoin-xrp`
+11. `https://labrujulacripto.com/categorias/bitcoin`
+12. `https://labrujulacripto.com/categorias/xrp-ripple`
+13. `https://labrujulacripto.com/categorias/guias-principiantes`
+14. `https://labrujulacripto.com/categorias/exchanges`
+15. `https://labrujulacripto.com/categorias/fiscalidad`
+16. `https://labrujulacripto.com/articulos/como-comprar-xrp-guia-segura`
+17. `https://labrujulacripto.com/articulos/que-son-las-stablecoins-guia`
+18. `https://labrujulacripto.com/articulos/wallet-fria-vs-caliente-ledger-trezor`
+19. `https://labrujulacripto.com/articulos/bit2me-vs-binance-comparativa`
+20. `https://labrujulacripto.com/articulos/mejores-exchanges-estados-unidos`
+21. `https://labrujulacripto.com/articulos/como-funciona-mineria-bitcoin`
+22. `https://labrujulacripto.com/articulos/dca-dollar-cost-averaging-cripto`
+23. `https://labrujulacripto.com/articulos/genius-act-stablecoins-eeuu`
+24. `https://labrujulacripto.com/articulos/que-es-staking-guia-principiantes`
+25. `https://labrujulacripto.com/articulos/como-evaluar-memecoin-antes-invertir`
+26. `https://labrujulacripto.com/articulos/trading-apalancamiento-futuros-cripto`
+27. `https://labrujulacripto.com/articulos/airdrops-cripto-como-conseguirlos`
+28. `https://labrujulacripto.com/articulos/etf-bitcoin-al-contado-que-son`
+29. `https://labrujulacripto.com/articulos/rlusd-stablecoin-ripple-explicado`
+30. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-alemania`
+31. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-francia`
+32. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-reino-unido`
+33. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-suiza`
+34. `https://labrujulacripto.com/categorias/regulacion`
+35. `https://labrujulacripto.com/categorias/trading`
+36. `https://labrujulacripto.com/categorias/mineria-staking`
+37. `https://labrujulacripto.com/articulos/mica-espana-que-significa`
+38. `https://labrujulacripto.com/articulos/clarity-act-eeuu-explicado`
+39. `https://labrujulacripto.com/articulos/analisis-tecnico-basico-bitcoin-xrp`
+40. `https://labrujulacripto.com/articulos/como-proteger-criptomonedas-estafas`
+41. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-mexico`
+42. `https://labrujulacripto.com/articulos/impuestos-criptomonedas-estados-unidos`
+43. `https://labrujulacripto.com/articulos/es-posible-staking-xrp`
+44. `https://labrujulacripto.com/articulos/glosario-cripto-terminos-basicos`
+45. `https://labrujulacripto.com/articulos/que-son-las-memecoins-como-funcionan`
+46. `https://labrujulacripto.com/articulos/rug-pull-estafa-memecoins-explicada`
+47. `https://labrujulacripto.com/articulos/como-comprar-memecoins-sin-caer-en-estafas`
+48. `https://labrujulacripto.com/categorias/wallets-seguridad`
+49. `https://labrujulacripto.com/categorias/memecoins`
+50. `https://labrujulacripto.com/categorias/glosario`
+51. `https://labrujulacripto.com/sobre-nosotros`
+52. `https://labrujulacripto.com/contacto`
+
+Criterio de orden usado: primero contenido con más intención de búsqueda/tráfico comercial (guías de compra, precio, fiscalidad España, comparativas de exchanges), luego categorías principales (hub pages), luego los artículos publicados el 16-17 sep 2026 (nacieron con el canonical ya roto por la migración a Cloudflare, así que nunca llegaron a indexarse bien — se les da prioridad por eso, no por tema), y al final el contenido más antiguo/nicho y las páginas sin intención de búsqueda (`sobre-nosotros`, `contacto`, quedan las últimas a propósito, no hace falta gastar cupo en ellas, se indexan solas por rastreo). No pasa nada por volver a pedir indexación de una URL ya pedida antes, no se duplica ni da error.
 
 ## Cómo retomar esto en una sesión nueva
 
