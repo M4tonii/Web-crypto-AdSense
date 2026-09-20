@@ -191,6 +191,10 @@ El 16 sep, tras el commit `63d0c5a` y un despliegue exitoso, la web dejó de car
 
 Criterio de orden usado: primero contenido con más intención de búsqueda/tráfico comercial (guías de compra, precio, fiscalidad España, comparativas de exchanges), luego categorías principales (hub pages), luego los artículos publicados el 16-17 sep 2026 (nacieron con el canonical ya roto por la migración a Cloudflare, así que nunca llegaron a indexarse bien — se les da prioridad por eso, no por tema), y al final el contenido más antiguo/nicho y las páginas sin intención de búsqueda (`sobre-nosotros`, `contacto`, quedan las últimas a propósito, no hace falta gastar cupo en ellas, se indexan solas por rastreo). No pasa nada por volver a pedir indexación de una URL ya pedida antes, no se duplica ni da error.
 
+## Comando de mantenimiento: `/actualizar-web` (20 sep 2026)
+
+Se creó un comando personalizado de Claude Code guardado en `.claude/commands/actualizar-web.md` (viaja con el repo, funciona en cualquier PC en el que se clone/haga `git pull`). Al escribir `/actualizar-web` en una sesión de Claude Code dentro de este proyecto, revisa toda la web (38+ artículos, 11 categorías, index) buscando información desactualizada (fechas/plazos, estado de leyes y procesos regulatorios en trámite, cifras verificables, productos/servicios que hayan podido cambiar, precios de referencia) y la corrige usando búsqueda web contra fuentes oficiales, sin reescribir lo que ya es correcto. Pensado para ejecutarse manualmente cuando el usuario quiera (semanalmente o cuando le apetezca), no es una tarea programada automática. Antes de tocar nada, el propio comando indica que hay que leer este fichero para tener el contexto y las normas del proyecto.
+
 ## Cómo retomar esto en una sesión nueva
 
 Simplemente pide a Claude que lea este fichero (`ESTADO-PROYECTO.md`) al empezar. Contiene todo el contexto necesario para seguir sin tener que reexplicar el proyecto desde cero.
