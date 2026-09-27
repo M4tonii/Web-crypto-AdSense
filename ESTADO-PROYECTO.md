@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 20 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 27 sep 2026.
 
 ## Qué es esto
 
@@ -198,7 +198,7 @@ El 16 sep, tras el commit `63d0c5a` y un despliegue exitoso, la web dejó de car
 
 Criterio de orden usado: primero contenido con más intención de búsqueda/tráfico comercial (guías de compra, precio, fiscalidad España, comparativas de exchanges), luego categorías principales (hub pages), luego los artículos publicados el 16-17 sep 2026 (nacieron con el canonical ya roto por la migración a Cloudflare, así que nunca llegaron a indexarse bien — se les da prioridad por eso, no por tema), y al final el contenido más antiguo/nicho y las páginas sin intención de búsqueda (`sobre-nosotros`, `contacto`, quedan las últimas a propósito, no hace falta gastar cupo en ellas, se indexan solas por rastreo). No pasa nada por volver a pedir indexación de una URL ya pedida antes, no se duplica ni da error.
 
-## Primera ejecución real de `/actualizar-web` — Binance pierde la licencia MiCA (27 sep 2026)
+## Primera ejecución real de `/actualizar-web`, pasada 1 — Binance pierde la licencia MiCA (27 sep 2026)
 
 Al ejecutar el comando por primera vez se encontró un error factual real y con impacto: **Binance retiró su solicitud de licencia MiCA** (presentada en Grecia) el 24 de junio de 2026, seis días antes de que terminara el periodo transitorio del reglamento, y desde el 1 de julio de 2026 **no admite clientes nuevos, depósitos ni operativa nueva en España** (solo retiradas para quienes ya tenían cuenta abierta). Ha declarado que buscará licencia vía Francia, pero no consta que la haya obtenido a fecha de esta revisión.
 
@@ -213,6 +213,19 @@ De paso se corrigió una inconsistencia de título en `clarity-act-eeuu-explicad
 Se verificaron también sin encontrar errores: CLARITY Act (resto del contenido), caso SEC vs Ripple (cierre definitivo ya reflejado correctamente), GENIUS Act, ausencia de licencia BitLicense de Kraken en Nueva York, recuento de 37 términos del glosario, y la reforma fiscal alemana en estudio para 2027 (ya cubierta con matices correctos, sin afirmar nada no confirmado). El resto de los 38 artículos, revisados por última vez el 17 sep 2026 (10 días antes de esta ejecución), seguían vigentes sin cambios.
 
 Verificado al cierre: 147 bloques JSON-LD siguen siendo JSON válido, 0 mojibake, 0 enlaces internos rotos, sitemap.xml bien formado con `lastmod` actualizado en las 4 páginas con cambio real de contenido (`bit2me-vs-binance-comparativa`, `mejores-exchanges-espana`, `mica-espana-que-significa`, `clarity-act-eeuu-explicado`).
+
+## Misma sesión, pasada 2 — Trezor recupera chip de seguridad y año fiscal de Reino Unido (27 sep 2026)
+
+El usuario pidió repetir `/actualizar-web` justo después de la pasada 1, así que esta vez el foco fue en lo que no se había revisado a fondo la primera vez: el contenido concreto de las guías fiscales por país y los artículos de producto (wallets).
+
+- **`wallet-fria-vs-caliente-ledger-trezor.html`**: el artículo afirmaba que Trezor no tiene chip de seguridad dedicado, a diferencia de Ledger. Eso ya no es cierto para el catálogo actual: la serie Safe de Trezor (Safe 3, Safe 5 y Safe 7) incorpora desde hace tiempo un elemento seguro certificado EAL6+ (chip Infineon OPTIGA Trust M), manteniendo su firmware de código abierto. Solo el Model T, ya un modelo antiguo dentro de su catálogo, sigue sin chip dedicado. Corregida la tabla comparativa (chip de seguridad, conectividad, rango de precio — el Safe 7 y no el Model T es ahora el tope de gama, ~250€) y el párrafo de "diferencia filosófica principal", que asumía el chip como un diferenciador limpio entre marcas.
+- **`impuestos-criptomonedas-reino-unido.html`**: citaba el ejercicio fiscal 2025/26 como el vigente, cuando el ejercicio actual (desde abril de 2026) es el 2026/27. Verificado que el importe exento (3.000 libras) y los tipos de Capital Gains Tax (18%/24%) no han cambiado entre ejercicios, así que solo se actualizó la referencia al año fiscal, sin tocar ninguna cifra.
+
+Revisado sin cambios: fiscalidad de Francia (flat tax 31,4% desde PLFSS 2026, correcto), Suiza (impuesto al patrimonio cantonal, contenido genérico y estable), México (sin cifras concretas que puedan desactualizarse), EE. UU. (tramos del IRS y Formulario 1099-DA, correcto), estimación del halving (~2028, ya bien matizada), y la reforma fiscal alemana en estudio para 2027 (sigue en fase de propuesta tal y como dice el artículo).
+
+Verificado al cierre: JSON-LD válido, 0 mojibake, 0 enlaces rotos, `lastmod` actualizado en `wallet-fria-vs-caliente-ledger-trezor` e `impuestos-criptomonedas-reino-unido`.
+
+Ambas pasadas de esta sesión ya están commiteadas y pusheadas a `main` (commits `b351db2` y `3b6db27`).
 
 ## Comando de mantenimiento: `/actualizar-web` (20 sep 2026)
 
