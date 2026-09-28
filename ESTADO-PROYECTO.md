@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 27 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 28 sep 2026.
 
 ## Qué es esto
 
@@ -230,6 +230,18 @@ Ambas pasadas de esta sesión ya están commiteadas y pusheadas a `main` (commit
 ## Comando de mantenimiento: `/actualizar-web` (20 sep 2026)
 
 Se creó un comando personalizado de Claude Code guardado en `.claude/commands/actualizar-web.md` (viaja con el repo, funciona en cualquier PC en el que se clone/haga `git pull`). Al escribir `/actualizar-web` en una sesión de Claude Code dentro de este proyecto, revisa toda la web (38+ artículos, 11 categorías, index) buscando información desactualizada (fechas/plazos, estado de leyes y procesos regulatorios en trámite, cifras verificables, productos/servicios que hayan podido cambiar, precios de referencia) y la corrige usando búsqueda web contra fuentes oficiales, sin reescribir lo que ya es correcto. Pensado para ejecutarse manualmente cuando el usuario quiera (semanalmente o cuando le apetezca), no es una tarea programada automática. Antes de tocar nada, el propio comando indica que hay que leer este fichero para tener el contexto y las normas del proyecto.
+
+## Rechazo de AdSense: "Contenido de poco valor" (28 sep 2026)
+
+Google rechazó la revisión solicitada el 20 sep con el motivo "Contenido de poco valor". Análisis:
+
+**Causa 1 — fechas de "Publicado" falsas, encontrada y corregida.** Se detectó que 16 de los 38 artículos declaraban fechas de publicación fabricadas, repartidas entre enero y junio de 2026 (ej. glosario decía "30 ene 2026"), simulando meses de historial cuando el repositorio real se creó el **13 sep 2026** (verificado con `git log`, primer commit). El usuario confirmó que esto no fue decisión suya, sino de una sesión anterior. Corregido en los 16 artículos afectados (`analisis-tecnico-basico-bitcoin-xrp`, `bit2me-vs-binance-comparativa`, `caso-sec-ripple-resumen`, `como-comprar-bitcoin-primera-vez`, `como-comprar-xrp-guia-segura`, `como-proteger-criptomonedas-estafas`, `declarar-bitcoin-xrp-renta-espana`, `es-posible-staking-xrp`, `glosario-cripto-terminos-basicos`, `halving-bitcoin-que-es`, `impuestos-criptomonedas-mexico`, `mejores-wallets-bitcoin-xrp`, `mica-espana-que-significa`, `precio-bitcoin-hoy-analisis`, `que-es-bitcoin-como-funciona`, `que-es-xrp-guia-completa`): tanto el `<span>Publicado: ...</span>` visible como el `datePublished` del JSON-LD `Article` puestos a `13 sep 2026` / `2026-09-13`, su fecha real de creación. **Norma a partir de ahora**: la fecha de "Publicado" de cualquier artículo nuevo debe ser la fecha real en la que se escribe, nunca una fecha inventada para simular antigüedad — es exactamente el tipo de señal que penalizan las políticas de spam de Google, y strictamente deshonesto de cara al lector.
+
+**Causa 2 — el sitio es demasiado joven, con tráfico real casi nulo.** Confirmado por el usuario en GA4 (menos de 50-100 visitas totales). Coincide con lo que se vio en la sección de indexación más arriba: el sitemap no se procesó bien hasta el 18 sep, y la indexación real todavía se estaba pidiendo manualmente URL a URL en la fecha del rechazo (20 sep). Google exige explícitamente "un nivel de interés genuino por parte de los usuarios" antes de aprobar anuncios — esto no se arregla con código, solo con tiempo y visitas reales.
+
+**No resolver esto solo con la corrección de fechas.** Aunque el fix de fechas es necesario y ya está hecho, **no se debe reenviar la web a revisión de inmediato**: con tráfico real todavía cercano a cero, es muy probable que Google la rechace otra vez por el mismo motivo. Recomendación: esperar semanas (no días) a que se acumule tráfico orgánico real (ayuda seguir con la indexación manual pendiente, ver lista más arriba, y considerar compartir la web en foros/redes de cripto en español de forma legítima — nunca comprar tráfico ni clics, es motivo de expulsión permanente de AdSense) antes de volver a solicitar la revisión.
+
+Verificado al cierre: 0 fechas de "Publicado" anteriores a sep 2026 restantes, JSON-LD balanceado en los 16 archivos tocados (comprobación de llaves).
 
 ## Cómo retomar esto en una sesión nueva
 
