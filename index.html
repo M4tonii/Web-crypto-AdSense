@@ -82,19 +82,12 @@ gtag("consent", "default", {
     <h1>Bitcoin y XRP explicados con claridad, sin ruido</h1>
     <p>Noticias, regulación, guías prácticas y fiscalidad de Bitcoin y XRP para inversores particulares de España, Europa y Estados Unidos. Información verificada, sin promesas de rentabilidad ni humo.</p>
 
-    <div class="price-ticker" id="price-ticker" aria-live="polite">
-      <div class="price-chip">
-        <span class="price-coin">₿ Bitcoin</span>
-        <span class="price-value" id="price-btc-value">—</span>
-        <span class="price-change" id="price-btc-change"></span>
+    <div class="price-ticker-wrap" aria-live="polite">
+      <div class="price-ticker-track" id="price-ticker-track">
+        <span class="price-chip">Cargando precios…</span>
       </div>
-      <div class="price-chip">
-        <span class="price-coin">✕ XRP</span>
-        <span class="price-value" id="price-xrp-value">—</span>
-        <span class="price-change" id="price-xrp-change"></span>
-      </div>
-      <span class="price-source" id="price-source">Cargando precios…</span>
     </div>
+    <span class="price-source" id="price-source"></span>
   </div>
 </section>
 
@@ -332,34 +325,47 @@ gtag("consent", "default", {
 <script src="js/main.js"></script>
 <script>
 (function () {
-  var elBtcValue = document.getElementById('price-btc-value');
-  var elBtcChange = document.getElementById('price-btc-change');
-  var elXrpValue = document.getElementById('price-xrp-value');
-  var elXrpChange = document.getElementById('price-xrp-change');
+  var track = document.getElementById('price-ticker-track');
   var elSource = document.getElementById('price-source');
-  if (!elBtcValue) return;
+  if (!track) return;
+
+  var construido = false;
 
   function euros(n) {
     return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: n < 10 ? 4 : 0 });
   }
 
-  function setChange(el, pct) {
-    if (typeof pct !== 'number' || isNaN(pct)) { el.textContent = ''; return; }
-    var sign = pct >= 0 ? '+' : '';
-    el.textContent = sign + pct.toFixed(1) + '%';
-    el.className = 'price-change ' + (pct >= 0 ? 'up' : 'down');
+  function chipHTML(coin, i) {
+    return '<span class="price-chip" data-coin-index="' + i + '">' +
+      '<span class="price-coin">' + coin.symbol.toUpperCase() + '</span>' +
+      '<span class="price-value" data-field="value">—</span>' +
+      '<span class="price-change" data-field="change"></span>' +
+    '</span>';
   }
 
   function actualizarPrecios() {
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ripple&vs_currencies=eur&include_24hr_change=true')
+    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h')
       .then(function (r) { if (!r.ok) throw new Error('respuesta no ok'); return r.json(); })
-      .then(function (data) {
-        elBtcValue.textContent = euros(data.bitcoin.eur);
-        setChange(elBtcChange, data.bitcoin.eur_24h_change);
-        elXrpValue.textContent = euros(data.ripple.eur);
-        setChange(elXrpChange, data.ripple.eur_24h_change);
+      .then(function (coins) {
+        if (!construido) {
+          var html = coins.map(chipHTML).join('') + coins.map(chipHTML).join('');
+          track.innerHTML = html;
+          construido = true;
+        }
+        coins.forEach(function (coin, i) {
+          var chips = track.querySelectorAll('[data-coin-index="' + i + '"]');
+          chips.forEach(function (chip) {
+            chip.querySelector('[data-field="value"]').textContent = euros(coin.current_price);
+            var el = chip.querySelector('[data-field="change"]');
+            var pct = coin.price_change_percentage_24h;
+            if (typeof pct !== 'number' || isNaN(pct)) { el.textContent = ''; return; }
+            var sign = pct >= 0 ? '+' : '';
+            el.textContent = sign + pct.toFixed(1) + '%';
+            el.className = 'price-change ' + (pct >= 0 ? 'up' : 'down');
+          });
+        });
         var ahora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-        elSource.textContent = 'Datos de CoinGecko · actualizado ' + ahora;
+        elSource.textContent = 'Top 10 por capitalización · datos de CoinGecko · actualizado ' + ahora;
       })
       .catch(function () {
         elSource.textContent = 'Precios no disponibles ahora mismo';

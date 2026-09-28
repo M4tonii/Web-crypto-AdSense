@@ -247,22 +247,43 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
   margin-bottom: 12px;
   font-weight: 600;
 }
-.price-ticker { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.price-ticker-wrap {
+  margin-top: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 10px;
+  padding: 10px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.price-ticker-track {
+  display: flex;
+  width: max-content;
+  animation: price-ticker-scroll 45s linear infinite;
+}
+.price-ticker-wrap:hover .price-ticker-track { animation-play-state: paused; }
+@keyframes price-ticker-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 .price-chip {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.2);
-  border-radius: 10px;
-  padding: 9px 14px;
+  padding: 4px 20px;
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,.12);
 }
 .price-coin { font-weight: 700; font-size: .85rem; color: #fff; }
 .price-value { font-variant-numeric: tabular-nums; font-weight: 700; color: #fff; }
 .price-change { font-size: .8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 .price-change.up { color: #4ade80; }
 .price-change.down { color: #f87171; }
-.price-source { font-size: .72rem; color: #9fb0cc; }
+.price-source { display: block; font-size: .72rem; color: #9fb0cc; margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) {
+  .price-ticker-track { animation: none; }
+}
 .page-header {
   padding: 34px 20px 26px;
   border-bottom: 1px solid var(--border);
