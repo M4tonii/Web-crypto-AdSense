@@ -4,7 +4,7 @@
 
 ## Qué es esto
 
-Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a España y Latinoamérica. Sitio estático (HTML/CSS/JS puro, sin backend, sin build). Titular real: Toni Caimari.
+Web de noticias, guías y análisis sobre Bitcoin, Ethereum y XRP en español, dirigida a España y Latinoamérica. Sitio estático (HTML/CSS/JS puro, sin backend, sin build). Titular real: Toni Caimari.
 
 - **Dominio**: `labrujulacripto.com` (comprado en Namecheap, `brujulacripto.com` estaba cogido).
 - **Repositorio**: `github.com/M4tonii/Web-crypto-AdSense`, rama `main`.
@@ -18,8 +18,8 @@ Web de noticias, guías y análisis sobre Bitcoin y XRP en español, dirigida a 
 - **Portadas de artículos**: cada tarjeta de artículo busca automáticamente `img/portadas/<slug-del-articulo>.jpg`. Si el fichero no existe, se oculta solo (`onerror="this.remove()"`) y se ve el icono de color de respaldo. Para poner una foto nueva, basta con guardarla con el nombre exacto en esa carpeta, sin tocar código.
 - **Tipografía**: Source Serif 4 (titulares) + Inter (cuerpo/UI), cargadas vía Google Fonts en todas las páginas.
 - **Paleta de color**: variables CSS en `css/style.css` (`--primary` navy, `--accent-btc` naranja, `--accent-xrp` azul, `--accent` teal, etc.).
-- **Estructura de página tipo**: cada artículo/categoría sigue una plantilla idéntica (header, nav con las 11 categorías, article-head, article-body, author-box, footer, cookie-banner). Al crear contenido nuevo, copiar la estructura de un artículo existente para no romper el patrón.
-- **Categorías actuales** (en este orden en el menú): Bitcoin, XRP y Ripple, Regulación, Guías, Exchanges, Wallets, Fiscalidad, Trading, Memecoins, Minería y Staking, Glosario.
+- **Estructura de página tipo**: cada artículo/categoría sigue una plantilla idéntica (header, nav con las 12 categorías, article-head, article-body, author-box, footer, cookie-banner). Al crear contenido nuevo, copiar la estructura de un artículo existente para no romper el patrón.
+- **Categorías actuales** (en este orden en el menú): Bitcoin, Ethereum, XRP y Ripple, Regulación, Guías, Exchanges, Wallets, Fiscalidad, Trading, Memecoins, Minería y Staking, Glosario.
 
 ## Lo que ya está hecho
 
@@ -252,6 +252,33 @@ Google rechazó la revisión solicitada el 20 sep con el motivo "Contenido de po
 **No resolver esto solo con la corrección de fechas.** Aunque el fix de fechas es necesario y ya está hecho, **no se debe reenviar la web a revisión de inmediato**: con tráfico real todavía cercano a cero, es muy probable que Google la rechace otra vez por el mismo motivo. Recomendación: esperar semanas (no días) a que se acumule tráfico orgánico real (ayuda seguir con la indexación manual pendiente, ver lista más arriba, y considerar compartir la web en foros/redes de cripto en español de forma legítima — nunca comprar tráfico ni clics, es motivo de expulsión permanente de AdSense) antes de volver a solicitar la revisión.
 
 Verificado al cierre: 0 fechas de "Publicado" anteriores a sep 2026 restantes, JSON-LD balanceado en los 16 archivos tocados (comprobación de llaves).
+
+## Widget de precios en vivo en la portada (28 sep 2026)
+
+Segunda herramienta real del sitio, mismo objetivo que la calculadora (cubrir "herramientas o servicios auténticos" del rechazo de AdSense). Primera versión: BTC/XRP en fila fija. A petición del usuario, rehecho como cinta deslizante (`price-ticker-wrap`/`price-ticker-track`, animación CSS `translateX` en bucle infinito duplicando el set de chips, se pausa al pasar el ratón, respeta `prefers-reduced-motion`) con el **top 10 real por capitalización de mercado** vía el endpoint `/coins/markets` de la API pública de CoinGecko (sin backend, sin API key), en **euros** (coherente con la calculadora de impuestos y el enfoque España/Europa del sitio). Refresco cada 60s actualizando el DOM in-place (no reconstruye la cinta, para no cortar la animación). Requirió añadir `api.coingecko.com` al `connect-src` del CSP — si no, se bloquea en silencio igual que pasó con Analytics/AdSense el mismo día.
+
+## Ampliación a Ethereum: reposicionamiento del sitio (28-29 sep 2026)
+
+El usuario pidió replantear el enfoque de la web: ya no solo Bitcoin y XRP, sino también Ethereum, por volumen de búsqueda real y para no depender de solo dos monedas. Decisión tomada (confirmada por el usuario vía pregunta directa): posicionamiento **"Bitcoin, Ethereum y XRP"** (las tres principales, sin diluir a "cripto en general"), con 3 artículos nuevos para arrancar la categoría.
+
+**Cambios de posicionamiento site-wide** (afecta a las 59 páginas que ya existían):
+- `title`, meta `description`, `og:title`, `og:description` y el `<h1>`/párrafo de la portada (`index.html`) actualizados de "Bitcoin y XRP" a "Bitcoin, Ethereum y XRP".
+- El eslogan del footer ("Medio independiente en español especializado en Bitcoin y XRP...") actualizado en las 59 páginas con un `perl -i -pe` de reemplazo literal (verificado: 0 apariciones de la frase vieja, 59 de la nueva, sin mojibake).
+- Enlace a la nueva categoría **Ethereum** añadido al menú de navegación y al footer de las 59 páginas existentes, en la posición Bitcoin → Ethereum → XRP y Ripple (coincide con el orden real de capitalización de mercado). Pill `Ξ Ethereum` añadida también en `index.html` y `404.html`.
+- **Nota técnica importante para futuras ediciones masivas de este repo**: los ficheros HTML de este proyecto usan **finales de línea CRLF** (no LF), pese a que `file` a veces lo detecta mal y un `grep -c $'\r'` en este entorno bash puede dar 0 falsamente. Cualquier script Perl que use `\n` literal en un regex para casar el final de una línea debe usar `\r?\n` (y escribir `\r\n` al insertar contenido nuevo), o el regex no encontrará nada aunque el texto exista — pasó exactamente eso en esta sesión, diagnosticado comparando un `index()` literal (que sí encontraba el texto) contra la regex fallida, hasta inspeccionar los bytes uno a uno con Perl. El script final (`add_ethereum_nav.pl`, en el scratchpad de la sesión, no en el repo) se probó primero sobre copias de 5 archivos representativos (uno de cada profundidad de carpeta) y se verificó con `diff` contra el original que solo añadía las 2 líneas esperadas, antes de ejecutarlo sobre los 59 archivos reales.
+
+**Categoría nueva**: `categorias/ethereum.html`, plantilla idéntica al resto, icono SVG propio (diamante, no el logo oficial de la Ethereum Foundation por marca registrada) en color `--accent-eth: #627eea` (azul-violeta oficial de Ethereum), clases CSS `.cat-badge-eth` y `.thumb-eth` añadidas junto a las del resto de categorías.
+
+**3 artículos nuevos** (todos con fecha real `28 sep 2026`, ≥800 palabras, ≥4 FAQ, sección de fuentes con enlaces verificados, siguiendo la norma de fechas honestas ya establecida):
+- `que-es-ethereum-como-funciona.html`: contratos inteligentes, la EVM, ETH como gas, la fusión a prueba de participación (15 sep 2022, verificado), tabla PoW vs. PoS, capas 2, y su tratamiento bajo MiCA (mismo trato que Bitcoin: criptoactivo descentralizado sin emisor, sin normas de emisión, pero los exchanges que lo ofrecen sí necesitan licencia).
+- `como-comprar-ethereum-seguro.html`: guía de compra paralela a la de Bitcoin, con aviso específico sobre reservar ETH para pagar el gas de una futura retirada.
+- `staking-ethereum-guia.html` (categoría Minería y Staking, no Ethereum, seguiendo la convención ya usada para el resto de contenido de staking del sitio): validadores, los 32 ETH del staking en solitario, staking delegado/líquido, slashing, y el cambio de la actualización Pectra (7 mayo 2025, saldo máximo efectivo de 32 a 2.048 ETH por validador) — todos los datos verificados con búsqueda web antes de escribir, ninguno inventado.
+
+Enlaces cruzados bidireccionales añadidos: `es-posible-staking-xrp.html` ahora enlaza a `staking-ethereum-guia.html` en su primera mención textual de Ethereum. Tarjeta de `staking-ethereum-guia.html` añadida a `categorias/mineria-staking.html`.
+
+Verificado al cierre: 0 llaves desbalanceadas en los ficheros tocados/creados, 0 mojibake, los 3 artículos nuevos por encima de 800 palabras (1037/875/893), `sitemap.xml` bien formado con 57 `<url>` (53 anteriores + 4 nuevas: categoría + 3 artículos), todas las URLs de fuentes citadas verificadas con `curl` antes de publicar.
+
+**Pendiente, no bloqueante**: `CONTEXTO-IA-WEB.md` (el documento resumen para dar contexto a otra IA) todavía no se ha actualizado con la categoría Ethereum ni los 3 artículos nuevos — hacerlo la próxima vez que se edite ese fichero.
 
 ## Cómo retomar esto en una sesión nueva
 

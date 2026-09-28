@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag("consent", "default", {
+  "ad_storage": "denied",
+  "ad_user_data": "denied",
+  "ad_personalization": "denied",
+  "analytics_storage": "denied",
+  "wait_for_update": 500
+});
+</script>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3014707151576797"
+     crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staking de Ethereum: cómo funciona la prueba de participación</title>
+<meta name="description" content="Cómo funciona el staking de Ethereum: validadores, los 32 ETH del staking en solitario, staking delegado o líquido, y los riesgos reales, incluido el slashing.">
+<link rel="canonical" href="https://labrujulacripto.com/articulos/staking-ethereum-guia">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Staking de Ethereum: cómo funciona la prueba de participación">
+<meta property="og:description" content="Cómo funciona el staking de Ethereum: validadores, los 32 ETH del staking en solitario, staking delegado o líquido, y los riesgos reales, incluido el slashing.">
+<meta property="og:url" content="https://labrujulacripto.com/articulos/staking-ethereum-guia">
+<meta property="og:image" content="https://labrujulacripto.com/img/portadas/staking-ethereum-guia.jpg">
+<meta property="og:site_name" content="BrújulaCripto">
+<meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://labrujulacripto.com/img/portadas/staking-ethereum-guia.jpg">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><circle cx=%2216%22 cy=%2216%22 r=%2216%22 fill=%22%23142850%22/><text x=%2216%22 y=%2222%22 font-size=%2216%22 text-anchor=%22middle%22 fill=%22%23fff%22>₿</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","inLanguage":"es-ES","image":"https://labrujulacripto.com/img/portadas/staking-ethereum-guia.jpg","headline":"Staking de Ethereum: cómo funciona la prueba de participación","datePublished":"2026-09-28","dateModified":"2026-09-28","author":{"@type":"Organization","name":"BrújulaCripto"},"publisher":{"@type":"Organization","name":"BrújulaCripto"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://labrujulacripto.com/"},{"@type":"ListItem","position":2,"name":"Minería y Staking","item":"https://labrujulacripto.com/categorias/mineria-staking"},{"@type":"ListItem","position":3,"name":"Staking de Ethereum","item":"https://labrujulacripto.com/articulos/staking-ethereum-guia"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Necesito 32 ETH para hacer staking?","acceptedAnswer":{"@type":"Answer","text":"Solo si quieres operar tu propio validador en solitario. La mayoría de usuarios particulares participan en staking delegado o líquido a través de un exchange o un protocolo especializado, con cantidades mucho menores."}},{"@type":"Question","name":"¿Qué es el slashing?","acceptedAnswer":{"@type":"Answer","text":"Es una penalización que reduce el ETH depositado de un validador que actúa de forma incorrecta o maliciosa (por ejemplo, validando dos versiones distintas del mismo bloque). En el staking delegado, este riesgo lo asume normalmente el operador del validador, no directamente cada usuario individual."}},{"@type":"Question","name":"¿Puedo retirar mi ETH en staking cuando quiera?","acceptedAnswer":{"@type":"Answer","text":"Desde la actualización Shanghai/Capella de abril de 2023, sí es posible retirar el ETH en staking y sus recompensas, aunque el tiempo real de espera depende de la cola de salida de validadores de la red en ese momento, que puede alargarse cuando hay mucha demanda de retirada."}},{"@type":"Question","name":"¿El staking de Ethereum es lo mismo que el de XRP?","acceptedAnswer":{"@type":"Answer","text":"No. El protocolo de consenso del XRP Ledger no funciona con staking al estilo de Ethereum; lo explicamos con detalle en nuestro artículo sobre si es posible hacer staking de XRP."}}]}
+</script>
+</head>
+<body>
+<a href="#contenido" class="skip-link">Saltar al contenido</a>
+<div class="topbar">⚠️ Contenido informativo, no asesoramiento financiero. <a href="../legal/disclaimer.html">Ver aviso de riesgo</a></div>
+<header class="site-header">
+  <div class="header-inner">
+    <a href="../index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+    <nav class="main-nav">
+      <a href="../index.html">Inicio</a>
+      <a href="../categorias/bitcoin.html">Bitcoin</a>
+      <a href="../categorias/ethereum.html">Ethereum</a>
+      <a href="../categorias/xrp-ripple.html">XRP y Ripple</a>
+      <a href="../categorias/regulacion.html">Regulación</a>
+      <a href="../categorias/guias-principiantes.html">Guías</a>
+      <a href="../categorias/exchanges.html">Exchanges</a>
+      <a href="../categorias/wallets-seguridad.html">Wallets</a>
+      <a href="../categorias/fiscalidad.html">Fiscalidad</a>
+      <a href="../categorias/trading.html">Trading</a>
+      <a href="../categorias/memecoins.html">Memecoins</a>
+      <a href="../categorias/mineria-staking.html">Minería y Staking</a>
+      <a href="../categorias/glosario.html">Glosario</a>
+      <a href="../sobre-nosotros.html">Sobre nosotros</a>
+      <a href="../contacto.html">Contacto</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-shell">
+  <div class="site-wrap">
+    <main id="contenido">
+      <div class="container">
+        <div class="article-head">
+          <div class="breadcrumbs"><a href="../index.html">Inicio</a> / <a href="../categorias/mineria-staking.html">Minería y Staking</a> / Staking de Ethereum</div>
+          <span class="cat-tag">Educativo · Minería y Staking</span>
+          <h1>Staking de Ethereum: cómo funciona la prueba de participación</h1>
+          <div class="article-meta">
+            <span>Por Equipo Editorial de BrújulaCripto</span>
+            <span>Publicado: 28 sep 2026</span>
+            <span>Actualizado: 28 sep 2026</span>
+            <span>10 min de lectura</span>
+          </div>
+        </div>
+
+        <article class="article-body">
+          <p>Desde que Ethereum abandonó la minería en 2022, su seguridad depende del staking: miles de validadores que depositan ETH como garantía de que se comportarán honestamente. Esta guía explica cómo funciona el proceso, qué opciones existen para un usuario particular y qué riesgos reales conlleva, más allá del titular de "gana intereses por tus ETH".</p>
+
+          <h2>Qué es un validador</h2>
+          <p>Un validador es un participante de la red Ethereum responsable de proponer y confirmar nuevos bloques. Para activar un validador propio es necesario depositar <strong>32 ETH</strong> como garantía (lo que a los precios actuales representa una cantidad considerable, fuera del alcance de la mayoría de usuarios particulares). A cambio de asegurar la red correctamente, los validadores reciben recompensas en ETH; si actúan de forma incorrecta, pueden perder parte de ese depósito.</p>
+
+          <h2>Staking en solitario, delegado y líquido</h2>
+          <p>Existen varias formas de participar en el staking de Ethereum, con distinto nivel de control, riesgo y barrera de entrada:</p>
+          <ul>
+            <li><strong>Staking en solitario:</strong> ejecutas tu propio validador con 32 ETH y tu propio hardware. Máximo control y máxima recompensa relativa, pero requiere conocimiento técnico y una inversión inicial elevada.</li>
+            <li><strong>Staking delegado (a través de un exchange):</strong> depositas cualquier cantidad de ETH y la plataforma agrupa fondos de muchos usuarios para operar validadores en su nombre. Es la opción más sencilla, pero implica confiar en la plataforma y normalmente conlleva una comisión sobre las recompensas.</li>
+            <li><strong>Staking líquido:</strong> depositas ETH en un protocolo especializado y recibes a cambio un token que representa tu posición (y que, a diferencia del staking tradicional, puedes seguir usando o intercambiando mientras tu ETH original sigue en staking). Añade una capa extra de complejidad y de riesgo de contrato inteligente.</li>
+          </ul>
+
+          <div class="callout">
+            <strong>La actualización Pectra cambió las reglas para los grandes validadores</strong>
+            Desde la actualización Pectra (7 de mayo de 2025), el saldo máximo efectivo de un validador pasó de 32 a 2.048 ETH, permitiendo consolidar varios validadores en uno solo con menos gestión operativa. Para el usuario particular con staking delegado o líquido, este cambio es prácticamente invisible: lo gestiona la plataforma o el protocolo, no cada usuario individual.
+          </div>
+
+          <h2>El riesgo real: el slashing</h2>
+          <p>El <strong>slashing</strong> es una penalización automática que reduce el ETH depositado de un validador que actúa de forma incorrecta o maliciosa, por ejemplo validando dos versiones distintas del mismo bloque (algo que puede ocurrir por un error de configuración, no solo por mala fe). En el staking en solitario, este riesgo lo asume directamente quien opera el validador. En el staking delegado o líquido, normalmente lo asume el operador de la plataforma o del protocolo, aunque conviene revisar siempre las condiciones concretas de cada servicio antes de depositar fondos, ya que no todas las plataformas ofrecen las mismas garantías.</p>
+
+          <h2>¿Puedo retirar mi ETH cuando quiera?</h2>
+          <p>Desde la actualización Shanghai/Capella (abril de 2023), sí es posible retirar tanto el ETH depositado como las recompensas acumuladas. El tiempo real de espera depende de la "cola de salida" de validadores de toda la red en ese momento: si muchos validadores solicitan salir a la vez, la espera puede alargarse de horas a varios días. En el staking delegado o líquido a través de un exchange o protocolo, cada plataforma puede además aplicar sus propios plazos internos, que conviene revisar antes de depositar.</p>
+
+          <h2>Staking de Ethereum frente a Bitcoin y XRP</h2>
+          <p>El staking, tal y como lo conoce Ethereum, no existe en Bitcoin: su red sigue funcionando con minería por prueba de trabajo, que explicamos en detalle en nuestro artículo sobre <a href="como-funciona-mineria-bitcoin.html">cómo funciona la minería de Bitcoin</a>. XRP Ledger tampoco usa staking al estilo de Ethereum, ya que su consenso se basa en un protocolo de validadores distinto; lo desarrollamos en <a href="es-posible-staking-xrp.html">¿es posible hacer staking de XRP?</a>.</p>
+
+          <h2>Preguntas frecuentes</h2>
+          <dl class="faq">
+            <dt>¿Necesito 32 ETH para hacer staking?</dt>
+            <dd>Solo si quieres operar tu propio validador en solitario. La mayoría de usuarios particulares participan en staking delegado o líquido a través de un exchange o un protocolo especializado, con cantidades mucho menores.</dd>
+            <dt>¿Qué es el slashing?</dt>
+            <dd>Es una penalización que reduce el ETH depositado de un validador que actúa de forma incorrecta o maliciosa (por ejemplo, validando dos versiones distintas del mismo bloque). En el staking delegado, este riesgo lo asume normalmente el operador del validador, no directamente cada usuario individual.</dd>
+            <dt>¿Puedo retirar mi ETH en staking cuando quiera?</dt>
+            <dd>Desde la actualización Shanghai/Capella de abril de 2023, sí es posible retirar el ETH en staking y sus recompensas, aunque el tiempo real de espera depende de la cola de salida de validadores de la red en ese momento, que puede alargarse cuando hay mucha demanda de retirada.</dd>
+            <dt>¿El staking de Ethereum es lo mismo que el de XRP?</dt>
+            <dd>No. El protocolo de consenso del XRP Ledger no funciona con staking al estilo de Ethereum; lo explicamos con detalle en nuestro artículo sobre si es posible hacer staking de XRP.</dd>
+          </dl>
+
+          <h2>Cómo verificamos esta información</h2>
+          <p>Contrastamos este artículo con estas fuentes antes de publicarlo y cada vez que lo revisamos:</p>
+          <ul>
+            <li><a href="https://ethereum.org/es/staking/" target="_blank" rel="noopener">Ethereum.org</a>: documentación técnica oficial sobre el staking y los validadores.</li>
+            <li><a href="https://ethereum.org/es/roadmap/merge/" target="_blank" rel="noopener">Ethereum.org — The Merge</a>: información oficial sobre la transición a prueba de participación.</li>
+          </ul>
+          <p>Si detectas un dato desactualizado, dínoslo en nuestra página de <a href="../contacto.html">contacto</a>: lo revisamos y lo corregimos.</p>
+
+          <div class="cta-box">
+            <div><h3>¿Todavía no tienes ETH?</h3><p>Aprende a comprarlo de forma segura antes de plantearte el staking.</p></div>
+            <a class="btn" href="como-comprar-ethereum-seguro.html">Ver guía de compra →</a>
+          </div>
+
+          <div class="author-box">
+            <div class="author-avatar">BC</div>
+            <div><h3>Equipo Editorial de BrújulaCripto</h3>
+            <p>Fines educativos, no asesoramiento financiero. Consulta nuestro <a href="../legal/disclaimer.html">aviso de riesgo</a>.</p></div>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-col footer-brand">
+          <a href="../index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+          <p>Medio independiente en español especializado en Bitcoin, Ethereum y XRP. Contenido educativo, no asesoramiento financiero.</p>
+        </div>
+        <div class="footer-col"><p class="footer-heading">Categorías</p><ul>
+          <li><a href="../categorias/bitcoin.html">Bitcoin</a></li>
+          <li><a href="../categorias/ethereum.html">Ethereum</a></li>
+          <li><a href="../categorias/xrp-ripple.html">XRP y Ripple</a></li>
+          <li><a href="../categorias/regulacion.html">Regulación</a></li>
+          <li><a href="../categorias/guias-principiantes.html">Guías</a></li>
+          <li><a href="../categorias/exchanges.html">Exchanges</a></li>
+          <li><a href="../categorias/wallets-seguridad.html">Wallets</a></li>
+          <li><a href="../categorias/fiscalidad.html">Fiscalidad</a></li>
+          <li><a href="../categorias/trading.html">Trading</a></li>
+          <li><a href="../categorias/memecoins.html">Memecoins</a></li>
+          <li><a href="../categorias/mineria-staking.html">Minería y Staking</a></li>
+          <li><a href="../categorias/glosario.html">Glosario</a></li>
+        </ul></div>
+        <div class="footer-col"><p class="footer-heading">Legal</p><ul>
+          <li><a href="../legal/aviso-legal.html">Aviso legal</a></li>
+          <li><a href="../legal/politica-privacidad.html">Política de privacidad</a></li>
+          <li><a href="../legal/politica-cookies.html">Política de cookies</a></li>
+          <li><a href="../legal/terminos-uso.html">Términos de uso</a></li>
+          <li><a href="../legal/disclaimer.html">Aviso de riesgo financiero</a></li>
+        </ul></div>
+        <div class="footer-col"><p class="footer-heading">BrújulaCripto</p><ul>
+          <li><a href="../sobre-nosotros.html">Sobre nosotros</a></li>
+          <li><a href="../calculadora-impuestos-cripto-espana.html">Calculadora de impuestos</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+          <li><a href="mailto:contacto.labrujulacripto@gmail.com">contacto.labrujulacripto@gmail.com</a></li>
+        </ul></div>
+      </div>
+      <p class="footer-disclaimer">BrújulaCripto es un medio informativo independiente. El contenido tiene fines educativos, no constituye asesoramiento financiero, fiscal ni legal. Las criptomonedas son activos de alto riesgo. Algunos enlaces pueden ser de afiliado.</p>
+      <div class="footer-bottom">© <span class="current-year">2026</span> BrújulaCripto. Todos los derechos reservados.</div>
+    </footer>
+  </div></div>
+
+<div id="cookie-banner" role="dialog" aria-label="Aviso de cookies" style="display:none">
+  <p>Usamos cookies propias y de terceros (incluida publicidad de Google AdSense). Más información en nuestra <a href="../legal/politica-cookies.html">Política de Cookies</a>.</p>
+  <div style="display:flex; gap:8px">
+    <button class="btn-outline" id="cookie-reject" type="button">Rechazar</button>
+    <button class="btn" id="cookie-accept" type="button">Aceptar</button>
+  </div>
+</div>
+<script src="../js/main.js"></script>
+</body>
+</html>

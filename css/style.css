@@ -1,6 +1,6 @@
 /* =========================================================
    BrújulaCripto — Hoja de estilos principal
-   Sitio de noticias, guías y análisis sobre Bitcoin y XRP
+   Sitio de noticias, guías y análisis sobre Bitcoin, Ethereum y XRP
    ========================================================= */
 
 :root {
@@ -14,6 +14,7 @@
   --primary-light: #1e3a8a;
   --accent-btc: #f7931a;
   --accent-xrp: #23a9e0;
+  --accent-eth: #627eea;
   --accent: #0d9488;
   --danger: #b91c1c;
   --radius: 10px;
@@ -303,6 +304,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
 }
 .cat-badge svg { width: 58%; height: 58%; }
 .cat-badge-btc { background: linear-gradient(135deg,#f7931a,#c9720b); }
+.cat-badge-eth { background: linear-gradient(135deg,#8298f0,#3d55b3); }
 .cat-badge-xrp { background: linear-gradient(135deg,#23a9e0,#0f6b91); }
 .cat-badge-reg { background: linear-gradient(135deg,#6d5bd0,#3f2f8f); }
 .cat-badge-guia { background: linear-gradient(135deg,#0d9488,#0b6b62); }
@@ -385,6 +387,7 @@ main { padding: 30px 0 50px; }
 .card-meta { font-size: .75rem; color: var(--text-muted); }
 
 .thumb-btc { background: linear-gradient(135deg,#f7931a,#c9720b); }
+.thumb-eth { background: linear-gradient(135deg,#8298f0,#3d55b3); }
 .thumb-xrp { background: linear-gradient(135deg,#23a9e0,#0f6b91); }
 .thumb-reg { background: linear-gradient(135deg,#6d5bd0,#3f2f8f); }
 .thumb-guia { background: linear-gradient(135deg,#0d9488,#0b6b62); }
