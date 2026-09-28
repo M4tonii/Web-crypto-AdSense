@@ -247,6 +247,22 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
   margin-bottom: 12px;
   font-weight: 600;
 }
+.price-ticker { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+.price-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 10px;
+  padding: 9px 14px;
+}
+.price-coin { font-weight: 700; font-size: .85rem; color: #fff; }
+.price-value { font-variant-numeric: tabular-nums; font-weight: 700; color: #fff; }
+.price-change { font-size: .8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.price-change.up { color: #4ade80; }
+.price-change.down { color: #f87171; }
+.price-source { font-size: .72rem; color: #9fb0cc; }
 .page-header {
   padding: 34px 20px 26px;
   border-bottom: 1px solid var(--border);

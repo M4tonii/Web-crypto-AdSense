@@ -81,6 +81,20 @@ gtag("consent", "default", {
     <span class="badge">Actualizado · 2026</span>
     <h1>Bitcoin y XRP explicados con claridad, sin ruido</h1>
     <p>Noticias, regulación, guías prácticas y fiscalidad de Bitcoin y XRP para inversores particulares de España, Europa y Estados Unidos. Información verificada, sin promesas de rentabilidad ni humo.</p>
+
+    <div class="price-ticker" id="price-ticker" aria-live="polite">
+      <div class="price-chip">
+        <span class="price-coin">₿ Bitcoin</span>
+        <span class="price-value" id="price-btc-value">—</span>
+        <span class="price-change" id="price-btc-change"></span>
+      </div>
+      <div class="price-chip">
+        <span class="price-coin">✕ XRP</span>
+        <span class="price-value" id="price-xrp-value">—</span>
+        <span class="price-change" id="price-xrp-change"></span>
+      </div>
+      <span class="price-source" id="price-source">Cargando precios…</span>
+    </div>
   </div>
 </section>
 
@@ -316,5 +330,45 @@ gtag("consent", "default", {
 </div>
 
 <script src="js/main.js"></script>
+<script>
+(function () {
+  var elBtcValue = document.getElementById('price-btc-value');
+  var elBtcChange = document.getElementById('price-btc-change');
+  var elXrpValue = document.getElementById('price-xrp-value');
+  var elXrpChange = document.getElementById('price-xrp-change');
+  var elSource = document.getElementById('price-source');
+  if (!elBtcValue) return;
+
+  function euros(n) {
+    return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: n < 10 ? 4 : 0 });
+  }
+
+  function setChange(el, pct) {
+    if (typeof pct !== 'number' || isNaN(pct)) { el.textContent = ''; return; }
+    var sign = pct >= 0 ? '+' : '';
+    el.textContent = sign + pct.toFixed(1) + '%';
+    el.className = 'price-change ' + (pct >= 0 ? 'up' : 'down');
+  }
+
+  function actualizarPrecios() {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ripple&vs_currencies=eur&include_24hr_change=true')
+      .then(function (r) { if (!r.ok) throw new Error('respuesta no ok'); return r.json(); })
+      .then(function (data) {
+        elBtcValue.textContent = euros(data.bitcoin.eur);
+        setChange(elBtcChange, data.bitcoin.eur_24h_change);
+        elXrpValue.textContent = euros(data.ripple.eur);
+        setChange(elXrpChange, data.ripple.eur_24h_change);
+        var ahora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+        elSource.textContent = 'Datos de CoinGecko · actualizado ' + ahora;
+      })
+      .catch(function () {
+        elSource.textContent = 'Precios no disponibles ahora mismo';
+      });
+  }
+
+  actualizarPrecios();
+  setInterval(actualizarPrecios, 60000);
+})();
+</script>
 </body>
 </html>
