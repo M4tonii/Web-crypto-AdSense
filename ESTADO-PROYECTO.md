@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 28 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 29 sep 2026.
 
 ## Qué es esto
 
@@ -279,6 +279,23 @@ Enlaces cruzados bidireccionales añadidos: `es-posible-staking-xrp.html` ahora 
 Verificado al cierre: 0 llaves desbalanceadas en los ficheros tocados/creados, 0 mojibake, los 3 artículos nuevos por encima de 800 palabras (1037/875/893), `sitemap.xml` bien formado con 57 `<url>` (53 anteriores + 4 nuevas: categoría + 3 artículos), todas las URLs de fuentes citadas verificadas con `curl` antes de publicar.
 
 **Pendiente, no bloqueante**: `CONTEXTO-IA-WEB.md` (el documento resumen para dar contexto a otra IA) todavía no se ha actualizado con la categoría Ethereum ni los 3 artículos nuevos — hacerlo la próxima vez que se edite ese fichero.
+
+## Auditoría SEO completa siguiendo PROMPT-SEO-ADSENSE-BRUJULACRIPTO.md (29 sep 2026)
+
+El usuario pidió una revisión completa aplicando todas las pautas SEO/AdSense acordadas a lo largo del proyecto. Auditoría automatizada real (no solo visual) sobre las 53 páginas de artículos+categorías y las 10 páginas raíz/legales, con scripts Perl guardados en el scratchpad de la sesión (no en el repo):
+
+- **Validación JSON-LD con parser real** (`JSON::PP`, no solo comprobación de llaves): 161 bloques en todo el sitio, 0 mal formados. **Nota para el futuro**: al validar JSON ya decodificado como UTF-8 por el propio script, hay que leer el fichero en crudo (`<:raw`) y dejar que el parser JSON haga su propia decodificación UTF-8 — si se lee el fichero ya como `:encoding(UTF-8)` y se pasa el texto (ya Unicode) al parser, este intenta decodificarlo una segunda vez y falla con "malformed UTF-8 character" en cualquier tilde, un falso positivo que no indica ningún problema real del sitio.
+- **Longitud de titles/meta descriptions/H1** contra las tablas exactas del prompt maestro (título 50-60 car., meta description 150-160, un solo H1 por página): 3 meta descriptions fuera de rango corregidas (artículo de Ethereum 178→157 car., portada 167→159, `legal/terminos-uso.html` 58→154, estaba muy por debajo del mínimo útil).
+- **Palabras por artículo, nº de FAQ, enlaces internos contextuales, imágenes sin `alt`, múltiples/ningún H1, `canonical` ausente, `noindex` accidental**: 0 incidencias en todas estas categorías.
+- **LatAm fuera de México y promesas de rentabilidad**: 0 apariciones reales (las únicas coincidencias de palabras como "sin riesgo" o "inversión segura" eran negaciones explícitas dentro de avisos de riesgo, no promesas).
+- **Enlaces internos rotos** (artículo→artículo y artículo→categoría): 0.
+- **Inconsistencia real encontrada y corregida**: `categorias/mineria-staking.html` seguía titulándose "Bitcoin y XRP" pese a tener ya un artículo de staking de Ethereum desde el día anterior. Título cambiado a "Minería y Staking Cripto 2026" (más genérico y ya no queda desactualizado si se añade contenido de otra red en el futuro).
+- **Menciones de la identidad del sitio sin actualizar**: `sobre-nosotros.html`, `legal/disclaimer.html`, `404.html` seguían describiendo el sitio como "Bitcoin y XRP" en vez de "Bitcoin, Ethereum y XRP" — corregido.
+- **Hueco de enlazado interno real**: la guía de compra de Ethereum no estaba enlazada desde `categorias/guias-principiantes.html`, pese a que las de Bitcoin y XRP sí lo estaban — tarjeta añadida.
+
+**Hallazgo más importante de la auditoría — resuelto**: el prompt maestro (Fase 2) exige 150-300 palabras de texto introductorio propio en cada página de categoría, antes del listado de artículos, marcándolo explícitamente como riesgo de "contenido fino" para la revisión de AdSense. Las 12 categorías solo tenían una frase de ~30-45 palabras en la cabecera. Se escribió un párrafo introductorio nuevo (150-240 palabras, verificado con recuento real) para cada una de las 12 categorías, basado únicamente en hechos ya verificados en los propios artículos de cada sección (sin inventar datos, siguiendo la regla del prompt maestro) — por ejemplo, la introducción de Exchanges menciona que Binance perdió su vía de licencia MiCA en España en 2026 (hecho ya verificado en una ejecución anterior de `/actualizar-web`). Al insertar estos párrafos se detectaron y eliminaron 2 frases que quedaban duplicadas dentro de la misma página (`categorias/regulacion.html` tenía una sección "Por qué seguimos de cerca la regulación" al final que repetía casi literalmente la nueva intro; `categorias/guias-principiantes.html` tenía una frase de cierre que también se solapaba) — se conservó una sola versión de cada una.
+
+Verificado al cierre: 24 bloques JSON-LD de las 12 categorías siguen siendo válidos tras la edición, 0 llaves desbalanceadas, 0 enlaces internos rotos, recuento de palabras real de cada intro entre 159 y 240.
 
 ## Cómo retomar esto en una sesión nueva
 
