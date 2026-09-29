@@ -337,7 +337,18 @@ gtag("consent", "default", {
   // y límites de peticiones muy altos. CoinGecko empezó a devolver 403 sin clave
   // de API en sep 2026 y se dejó de usar por eso — no volver a poner CoinGecko
   // sin registrar antes una API key real.
+  // Kraken se usa como respaldo automático si Binance falla (bloqueo regional,
+  // caída puntual, etc.) — es otro exchange grande con CORS abierto y su propia
+  // infraestructura, así que es muy improbable que ambos fallen a la vez.
   var PAIRS = ['BTCEUR', 'ETHEUR', 'XRPEUR', 'BNBEUR', 'SOLEUR', 'DOGEEUR', 'ADAEUR', 'TRXEUR', 'LINKEUR', 'DOTEUR'];
+  var KRAKEN_QUERY = ['XBTEUR', 'ETHEUR', 'XRPEUR', 'BNBEUR', 'SOLEUR', 'DOGEEUR', 'ADAEUR', 'TRXEUR', 'LINKEUR', 'DOTEUR'];
+  // Kraken devuelve cada par con su propia clave interna (a veces distinta a la
+  // que se pide), por eso hace falta este mapa en vez de asumir que coincide.
+  var KRAKEN_KEYS = {
+    BTCEUR: 'XXBTZEUR', ETHEUR: 'XETHZEUR', XRPEUR: 'XXRPZEUR', BNBEUR: 'BNBEUR',
+    SOLEUR: 'SOLEUR', DOGEEUR: 'XDGEUR', ADAEUR: 'ADAEUR', TRXEUR: 'TRXEUR',
+    LINKEUR: 'LINKEUR', DOTEUR: 'DOTEUR'
+  };
   var construido = false;
   var fallosSeguidos = 0;
 
@@ -361,49 +372,83 @@ gtag("consent", "default", {
     setTimeout(actualizarPrecios, espera);
   }
 
-  function actualizarPrecios() {
-    var url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(JSON.stringify(PAIRS));
+  function fetchConTimeout(url) {
     var controller = ('AbortController' in window) ? new AbortController() : null;
     var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
-
-    fetch(url, controller ? { signal: controller.signal } : {})
+    return fetch(url, controller ? { signal: controller.signal } : {})
       .then(function (r) {
         if (timeoutId) clearTimeout(timeoutId);
         if (!r.ok) throw new Error('respuesta no ok: ' + r.status);
         return r.json();
       })
-      .then(function (tickers) {
+      .catch(function (err) { if (timeoutId) clearTimeout(timeoutId); throw err; });
+  }
+
+  // Devuelve un objeto { BTCEUR: {price, pct}, ... } a partir de Binance.
+  function fetchBinance() {
+    var url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(JSON.stringify(PAIRS));
+    return fetchConTimeout(url).then(function (tickers) {
+      var bySymbol = {};
+      tickers.forEach(function (t) { bySymbol[t.symbol] = t; });
+      var datos = {};
+      PAIRS.forEach(function (pair) {
+        var t = bySymbol[pair];
+        if (!t) return;
+        datos[pair] = { price: parseFloat(t.lastPrice), pct: parseFloat(t.priceChangePercent) };
+      });
+      if (!Object.keys(datos).length) throw new Error('sin datos de Binance');
+      return { datos: datos, fuente: 'Binance' };
+    });
+  }
+
+  // Mismo formato de salida, pero desde Kraken (respaldo si Binance falla).
+  function fetchKraken() {
+    var url = 'https://api.kraken.com/0/public/Ticker?pair=' + KRAKEN_QUERY.join(',');
+    return fetchConTimeout(url).then(function (json) {
+      if (!json.result) throw new Error('sin datos de Kraken');
+      var datos = {};
+      PAIRS.forEach(function (pair) {
+        var t = json.result[KRAKEN_KEYS[pair]];
+        if (!t) return;
+        var last = parseFloat(t.c[0]);
+        var open = parseFloat(t.o);
+        var pct = open ? ((last - open) / open) * 100 : 0;
+        datos[pair] = { price: last, pct: pct };
+      });
+      if (!Object.keys(datos).length) throw new Error('sin datos de Kraken');
+      return { datos: datos, fuente: 'Kraken' };
+    });
+  }
+
+  function actualizarPrecios() {
+    fetchBinance()
+      .catch(function () { return fetchKraken(); })
+      .then(function (resultado) {
         if (!construido) {
           var html = PAIRS.map(chipHTML).join('') + PAIRS.map(chipHTML).join('');
           track.innerHTML = html;
           construido = true;
         }
-        var bySymbol = {};
-        tickers.forEach(function (t) { bySymbol[t.symbol] = t; });
         PAIRS.forEach(function (pair, i) {
-          var t = bySymbol[pair];
-          if (!t) return;
+          var d = resultado.datos[pair];
+          if (!d) return;
           var chips = track.querySelectorAll('[data-coin-index="' + i + '"]');
           chips.forEach(function (chip) {
-            chip.querySelector('[data-field="value"]').textContent = euros(t.lastPrice);
+            chip.querySelector('[data-field="value"]').textContent = euros(d.price);
             var el = chip.querySelector('[data-field="change"]');
-            var pct = parseFloat(t.priceChangePercent);
-            if (isNaN(pct)) { el.textContent = ''; return; }
-            var sign = pct >= 0 ? '+' : '';
-            el.textContent = sign + pct.toFixed(1) + '%';
-            el.className = 'price-change ' + (pct >= 0 ? 'up' : 'down');
+            if (isNaN(d.pct)) { el.textContent = ''; return; }
+            var sign = d.pct >= 0 ? '+' : '';
+            el.textContent = sign + d.pct.toFixed(1) + '%';
+            el.className = 'price-change ' + (d.pct >= 0 ? 'up' : 'down');
           });
         });
         fallosSeguidos = 0;
         var ahora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-        elSource.textContent = 'Datos de Binance · actualizado ' + ahora;
+        elSource.textContent = 'Datos de ' + resultado.fuente + ' · actualizado ' + ahora;
       })
       .catch(function () {
-        if (timeoutId) clearTimeout(timeoutId);
+        // Han fallado Binance y Kraken a la vez: muy improbable, pero cubierto.
         fallosSeguidos++;
-        // Si ya se habían cargado precios antes, los dejamos visibles tal cual
-        // (mejor un precio ligeramente desactualizado que un aviso de error) y
-        // solo avisamos si llevamos varios fallos seguidos sin arrancar nunca.
         if (!construido) {
           elSource.textContent = fallosSeguidos > 2 ? 'Cargando precios… (reintentando)' : 'Cargando precios…';
         }
