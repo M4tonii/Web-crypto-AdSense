@@ -386,6 +386,27 @@ main { padding: 30px 0 50px; }
 .card p { color: var(--text-muted); font-size: .88rem; margin: 0 0 10px; flex: 1; }
 .card-meta { font-size: .75rem; color: var(--text-muted); }
 
+@media (max-width: 640px) {
+  .hero { padding: 28px 16px 26px; }
+  .hero h1 { font-size: clamp(1.5rem, 6vw, 1.9rem); }
+  .hero p { font-size: .92rem; }
+  .page-header { padding: 22px 16px 18px; }
+  .page-header h1 { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+  .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .card-thumb { height: 84px; font-size: 1.5rem; }
+  .card-body { padding: 8px 10px 10px; }
+  .card-cat { font-size: .6rem; margin-bottom: 3px; }
+  .card h3 {
+    font-size: .86rem; line-height: 1.25; margin: 0 0 4px;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card p {
+    font-size: .74rem; margin: 0 0 6px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .card-meta { font-size: .66rem; }
+}
+
 .thumb-btc { background: linear-gradient(135deg,#f7931a,#c9720b); }
 .thumb-eth { background: linear-gradient(135deg,#8298f0,#3d55b3); }
 .thumb-xrp { background: linear-gradient(135deg,#23a9e0,#0f6b91); }
