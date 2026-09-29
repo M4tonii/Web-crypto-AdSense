@@ -47,9 +47,11 @@
 }
 
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -177,6 +179,7 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  min-width: 0;
   gap: 6px;
   scrollbar-width: thin;
 }
@@ -218,7 +221,11 @@ h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 700; line-height
   .main-nav {
     display: none;
     flex-direction: column;
+    flex-wrap: nowrap;
     width: 100%;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+    overflow-x: hidden;
     position: absolute;
     left: 0; top: 100%;
     background: var(--primary);
