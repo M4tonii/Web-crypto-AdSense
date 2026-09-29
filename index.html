@@ -332,51 +332,85 @@ gtag("consent", "default", {
   var elSource = document.getElementById('price-source');
   if (!track) return;
 
+  // Binance: API pública, sin clave, CORS abierto (Access-Control-Allow-Origin: *)
+  // y límites de peticiones muy altos. CoinGecko empezó a devolver 403 sin clave
+  // de API en sep 2026 y se dejó de usar por eso — no volver a poner CoinGecko
+  // sin registrar antes una API key real.
+  var PAIRS = ['BTCEUR', 'ETHEUR', 'XRPEUR', 'BNBEUR', 'SOLEUR', 'DOGEEUR', 'ADAEUR', 'TRXEUR', 'LINKEUR', 'DOTEUR'];
   var construido = false;
+  var fallosSeguidos = 0;
 
   function euros(n) {
+    n = parseFloat(n);
     return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: n < 10 ? 4 : 0 });
   }
 
-  function chipHTML(coin, i) {
+  function chipHTML(pair, i) {
     return '<span class="price-chip" data-coin-index="' + i + '">' +
-      '<span class="price-coin">' + coin.symbol.toUpperCase() + '</span>' +
+      '<span class="price-coin">' + pair.replace('EUR', '') + '</span>' +
       '<span class="price-value" data-field="value">—</span>' +
       '<span class="price-change" data-field="change"></span>' +
     '</span>';
   }
 
+  function programarSiguiente() {
+    // Si algo falla, reintenta rápido (5s, 10s, 15s... hasta 30s máx) en vez de
+    // esperar el ciclo normal de 45s, para que se autorepare solo cuanto antes.
+    var espera = fallosSeguidos > 0 ? Math.min(30000, 5000 * fallosSeguidos) : 45000;
+    setTimeout(actualizarPrecios, espera);
+  }
+
   function actualizarPrecios() {
-    fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=10&page=1&sparkline=false&price_change_percentage=24h')
-      .then(function (r) { if (!r.ok) throw new Error('respuesta no ok'); return r.json(); })
-      .then(function (coins) {
+    var url = 'https://api.binance.com/api/v3/ticker/24hr?symbols=' + encodeURIComponent(JSON.stringify(PAIRS));
+    var controller = ('AbortController' in window) ? new AbortController() : null;
+    var timeoutId = controller ? setTimeout(function () { controller.abort(); }, 8000) : null;
+
+    fetch(url, controller ? { signal: controller.signal } : {})
+      .then(function (r) {
+        if (timeoutId) clearTimeout(timeoutId);
+        if (!r.ok) throw new Error('respuesta no ok: ' + r.status);
+        return r.json();
+      })
+      .then(function (tickers) {
         if (!construido) {
-          var html = coins.map(chipHTML).join('') + coins.map(chipHTML).join('');
+          var html = PAIRS.map(chipHTML).join('') + PAIRS.map(chipHTML).join('');
           track.innerHTML = html;
           construido = true;
         }
-        coins.forEach(function (coin, i) {
+        var bySymbol = {};
+        tickers.forEach(function (t) { bySymbol[t.symbol] = t; });
+        PAIRS.forEach(function (pair, i) {
+          var t = bySymbol[pair];
+          if (!t) return;
           var chips = track.querySelectorAll('[data-coin-index="' + i + '"]');
           chips.forEach(function (chip) {
-            chip.querySelector('[data-field="value"]').textContent = euros(coin.current_price);
+            chip.querySelector('[data-field="value"]').textContent = euros(t.lastPrice);
             var el = chip.querySelector('[data-field="change"]');
-            var pct = coin.price_change_percentage_24h;
-            if (typeof pct !== 'number' || isNaN(pct)) { el.textContent = ''; return; }
+            var pct = parseFloat(t.priceChangePercent);
+            if (isNaN(pct)) { el.textContent = ''; return; }
             var sign = pct >= 0 ? '+' : '';
             el.textContent = sign + pct.toFixed(1) + '%';
             el.className = 'price-change ' + (pct >= 0 ? 'up' : 'down');
           });
         });
+        fallosSeguidos = 0;
         var ahora = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-        elSource.textContent = 'Top 10 por capitalización · datos de CoinGecko · actualizado ' + ahora;
+        elSource.textContent = 'Datos de Binance · actualizado ' + ahora;
       })
       .catch(function () {
-        elSource.textContent = 'Precios no disponibles ahora mismo';
-      });
+        if (timeoutId) clearTimeout(timeoutId);
+        fallosSeguidos++;
+        // Si ya se habían cargado precios antes, los dejamos visibles tal cual
+        // (mejor un precio ligeramente desactualizado que un aviso de error) y
+        // solo avisamos si llevamos varios fallos seguidos sin arrancar nunca.
+        if (!construido) {
+          elSource.textContent = fallosSeguidos > 2 ? 'Cargando precios… (reintentando)' : 'Cargando precios…';
+        }
+      })
+      .finally(programarSiguiente);
   }
 
   actualizarPrecios();
-  setInterval(actualizarPrecios, 60000);
 })();
 </script>
 </body>
