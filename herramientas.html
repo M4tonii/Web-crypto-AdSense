@@ -39,6 +39,9 @@ gtag("consent", "default", {
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Organization","name":"BrújulaCripto","url":"https://labrujulacripto.com/","sameAs":[],"contactPoint":{"@type":"ContactPoint","email":"contacto.labrujulacripto@gmail.com","contactType":"customer support"},"publishingPrinciples":"https://labrujulacripto.com/sobre-nosotros.html#metodologia"}
 </script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Estas herramientas guardan mis datos?","acceptedAnswer":{"@type":"Answer","text":"No. Todos los cálculos se hacen en tu propio navegador; no enviamos ni guardamos en ningún servidor nuestro los números que introduces."}},{"@type":"Question","name":"¿Con qué frecuencia se actualizan los precios?","acceptedAnswer":{"@type":"Answer","text":"Los precios de mercado se consultan en el momento en que usas cada herramienta, directamente desde la API de Binance (o Kraken como respaldo), así que reflejan el precio real en ese instante, no un valor guardado de antes."}},{"@type":"Question","name":"¿Vais a añadir más herramientas?","acceptedAnswer":{"@type":"Answer","text":"Sí. Iremos ampliando esta sección con nuevas calculadoras y simuladores a medida que identifiquemos necesidades reales de los lectores. Si echas en falta alguna, puedes proponerla desde contacto."}}]}
+</script>
 </head>
 <body>
 <a href="#contenido" class="skip-link">Saltar al contenido</a>
@@ -82,6 +85,8 @@ gtag("consent", "default", {
       <div class="container">
         <p>Además de explicar cómo funciona cada cosa, en BrújulaCripto hemos construido herramientas que hacen el cálculo por ti, con datos reales del mercado en vivo o con la normativa fiscal vigente, no con cifras inventadas. Todas son de uso libre, no piden registro ni datos personales, y las mantenemos actualizadas cuando cambian los tramos fiscales o cuando algo deja de funcionar como esperamos: si alguna vez ves un error o un dato que no cuadra, dínoslo desde <a href="contacto.html">contacto</a>.</p>
 
+        <p>Cada herramienta usa la misma fuente de datos de mercado (la API pública de Binance, con Kraken como respaldo automático) para que los números sean consistentes entre sí: si conviertes una cantidad en el conversor y luego calculas su ganancia en la calculadora de ganancias, ambas parten del mismo precio de referencia. No hay anuncios que interrumpan el cálculo ni resultados ocultos tras un registro: escribes tus datos, pulsas el botón y ves el resultado al momento, en tu propio navegador.</p>
+
         <div class="grid-cards">
           <a class="card" href="calculadora-impuestos-cripto-espana.html">
             <div class="card-thumb thumb-tool"><span class="card-thumb-fallback">%</span></div>
@@ -124,6 +129,16 @@ gtag("consent", "default", {
             </div>
           </a>
         </div>
+
+        <div class="section-title" style="margin-top:40px"><h2>Preguntas frecuentes</h2></div>
+        <dl class="faq">
+          <dt>¿Estas herramientas guardan mis datos?</dt>
+          <dd>No. Todos los cálculos se hacen en tu propio navegador; no enviamos ni guardamos en ningún servidor nuestro los números que introduces.</dd>
+          <dt>¿Con qué frecuencia se actualizan los precios?</dt>
+          <dd>Los precios de mercado se consultan en el momento en que usas cada herramienta, directamente desde la API de Binance (o Kraken como respaldo), así que reflejan el precio real en ese instante, no un valor guardado de antes.</dd>
+          <dt>¿Vais a añadir más herramientas?</dt>
+          <dd>Sí. Iremos ampliando esta sección con nuevas calculadoras y simuladores a medida que identifiquemos necesidades reales de los lectores. Si echas en falta alguna, puedes proponerla desde <a href="contacto.html">contacto</a>.</dd>
+        </dl>
       </div>
     </main>
 
