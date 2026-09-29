@@ -297,6 +297,23 @@ El usuario pidió una revisión completa aplicando todas las pautas SEO/AdSense 
 
 Verificado al cierre: 24 bloques JSON-LD de las 12 categorías siguen siendo válidos tras la edición, 0 llaves desbalanceadas, 0 enlaces internos rotos, recuento de palabras real de cada intro entre 159 y 240.
 
+## Arreglos móvil, CoinGecko roto, y 3 herramientas nuevas (29 sep 2026)
+
+**Móvil (reportado por el usuario)**: la rejilla de artículos solo cabía 1 columna en móvil (`.grid-cards` con `minmax(260px, 1fr)`), obligando a mucho scroll — arreglado con una regla `@media (max-width: 640px)` (2 columnas, imagen de portada más pequeña, título/descripción recortados con `-webkit-line-clamp`, colocada **después** de las reglas base de `.card*` en el archivo, porque un `@media` no gana especificidad por sí solo y si queda antes en el CSS las reglas base la pisan igual aunque coincida el viewport — error real que se cometió y corrigió en la misma sesión). Además, un hueco de scroll horizontal al deslizar hacia la derecha (por `.main-nav` sin `min-width:0` como hijo flex de 15 enlaces) — corregido, más `overflow-x:hidden` en `html`/`body` como red de seguridad general, y el menú desplegable de móvil con `max-height`+scroll propio para que nunca quede ningún enlace inalcanzable.
+
+**El widget de precios se rompió (reportado por el usuario, "lleva todo el día sin funcionar")**: CoinGecko empezó a devolver 403 "Request blocked" (CloudFront) en su API pública sin API key registrada — no fue un cambio en nuestro código, CoinGecko cambió su política de acceso. Sustituido por la API pública de Binance (sin clave, CORS abierto, límites muy altos), con 10 pares EUR fijos en vez de depender del ranking por capitalización que solo daba CoinGecko. **Lección para el futuro: cualquier integración con una API "gratuita" de terceros puede dejar de funcionar sin aviso — no dar por sentado que un servicio gratuito seguirá siéndolo.**
+
+**Resiliencia añadida tras la pregunta del usuario ("¿esto puede volver a fallar?")**: el ticker de precios ahora prueba Kraken automáticamente si Binance falla (mapa de claves Kraken↔Binance verificado a mano, ver commit `c4d067a`), más timeout de 8s y reintento con backoff (5s/10s/.../30s). **Decisión consciente de no hacer lo mismo en el simulador de inversión**: mezclar Binance (precio histórico) con Kraken (precio "actual") en el mismo cálculo podría introducir una pequeña discrepancia entre exchanges, poco honesto para una herramienta que da cifras — en su lugar, un solo reintento automático a los 2s cubre el caso más probable (bache de red puntual) sin ese riesgo.
+
+**3 herramientas nuevas**, completando la lista de 5 que se planteó con el usuario (calculadora de impuestos y ticker ya existían):
+- `simulador-inversion-cripto.html`: "¿cuánto tendrías hoy si hubieras invertido en BTC/ETH/XRP?", inversión única o mensual (DCA), con velas mensuales reales de Binance desde enero de 2020 (límite real de los pares EUR de esa fuente, no inventado — verificado con `curl` antes de fijar la fecha mínima del formulario). Lógica verificada a mano: 1.000€ en BTC en ene-2021 → ~3.104€ hoy (+210%); mismo importe mensual → 69.000€ invertidos, ~131.317€ hoy (+90%).
+- `calculadora-ganancias-perdidas-cripto.html`: ganancia/pérdida neta y % de rentabilidad a partir de cantidad, precio de compra/venta y comisiones. Cálculo puramente matemático (sin API obligatoria); botón opcional "usar precio actual" con el mismo respaldo Binance→Kraken.
+- `conversor-cripto-euros-dolares.html`: convierte entre BTC, ETH, XRP, EUR y USD en cualquier dirección usando el EUR como divisa pivote y el par EURUSDT/EURUSD en vivo para el dólar (no un tipo de cambio fijo).
+
+Las 3 enlazadas desde `categorias/trading.html` y el footer de `index.html`, añadidas a `sitemap.xml` (dispara el aviso automático a Bing vía IndexNow). `api.kraken.com` añadido al `connect-src` del CSP.
+
+**Pendiente para la próxima sesión**: pedir indexación manual en Search Console de las URLs nuevas de hoy (`simulador-inversion-cripto`, `calculadora-ganancias-perdidas-cripto`, `conversor-cripto-euros-dolares`) — no se ha hecho todavía en esta sesión. `CONTEXTO-IA-WEB.md` sigue sin actualizar (pendiente de antes, arrastrado).
+
 ## Cómo retomar esto en una sesión nueva
 
 Simplemente pide a Claude que lea este fichero (`ESTADO-PROYECTO.md`) al empezar. Contiene todo el contexto necesario para seguir sin tener que reexplicar el proyecto desde cero.
