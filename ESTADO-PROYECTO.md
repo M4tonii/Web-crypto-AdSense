@@ -42,7 +42,7 @@ Web de noticias, guías y análisis sobre Bitcoin, Ethereum y XRP en español, d
 5. ~~**Autoría de los artículos**~~ ✅ **Cambiada el 3 oct 2026: los artículos los firma Toni Caimari** (byline, author-box y author Person del JSON-LD), ver sección del 3 oct. Decisión original (15 sep 2026): se queda "Equipo Editorial de BrújulaCripto" en los 23 artículos, sin cambios. Motivo: protege la privacidad del usuario (coherente con no poner NIF/domicilio en el aviso legal) y es válido para Google; el nombre real no se usa en ningún artículo.
 6. ~~**Google Search Console y Bing Webmaster Tools**~~ ✅ Resuelto (15 sep 2026): propiedad `https://labrujulacripto.com/` verificada en Search Console con etiqueta `google-site-verification` (metaetiqueta añadida al `<head>` de `index.html`), sitemap.xml enviado (37 URLs). Bing Webmaster Tools verificado e importado directamente desde Google Search Console (sitio + sitemap en un solo paso). Cuenta usada: Gmail personal del usuario. El sitemap dio "No se ha podido obtener" las primeras horas en Google (fallo temporal normal en dominios recién verificados, confirmado técnicamente sano con `curl`/XML válido) — **se resolvió solo en menos de 24h**, ambos (Google y Bing) muestran ahora estado correcto/procesado.
 7. ~~**Redes sociales**~~ ✅ Decisión (3 oct 2026): no habrá perfiles en redes. `sameAs` eliminado del schema Organization en las 26 páginas; no volver a añadirlo vacío.
-8. **Solicitar indexación manual en Search Console — EN CURSO (20 sep 2026)**: ver sección "Bug de indexación por redirect .html" más abajo. El usuario se quedó en el enlace nº 17 de la lista de 52; **queda pedir indexación manual del nº 17 en adelante**, siguiendo el orden de esa lista (ya viene ordenada por prioridad SEO/tráfico, no hace falta reordenar nada). No hay que rehacer análisis ni repetir los primeros 16, ya están hechos.
+8. **Solicitar indexación manual en Search Console — EN CURSO (20 sep 2026)**: [3 oct 2026: home, herramientas y las 3 herramientas nuevas ya pedidas; la lista sigue en el nº 17] ver sección "Bug de indexación por redirect .html" más abajo. El usuario se quedó en el enlace nº 17 de la lista de 52; **queda pedir indexación manual del nº 17 en adelante**, siguiendo el orden de esa lista (ya viene ordenada por prioridad SEO/tráfico, no hace falta reordenar nada). No hay que rehacer análisis ni repetir los primeros 16, ya están hechos.
 
 ## Decisión: cuentas de Google para monetización (pensando en 5 webs futuras)
 
@@ -338,7 +338,7 @@ Rama `seo-auditoria-urls-limpias`, un commit por bloque, ya en `main` y desplega
 
 **Probar en local**: `wrangler dev` en la raíz del repo entra en un bucle de recargas (escribe `.wrangler/` dentro del directorio de assets). Probar desde una copia: `git archive HEAD` a una carpeta `public/` y `wrangler.jsonc` con `"directory": "./public"`.
 
-**Pendiente**: pedir indexación de la home, `/herramientas` y las 3 herramientas nuevas, y seguir con la lista del nº 17 en adelante. `img/portadas/xrp-latinoamerica-remesas-bancos.jpg` no la usa nadie (artículo borrado). `CONTEXTO-IA-WEB.md` sigue sin Ethereum ni herramientas.
+**Indexación (3 oct 2026)**: ya pedida para la home, `/herramientas` y las 3 herramientas nuevas. **Pendiente**: seguir con la lista del nº 17 en adelante (ver sección "Bug de indexación por redirect .html"). `img/portadas/xrp-latinoamerica-remesas-bancos.jpg` no la usa nadie (artículo borrado). `CONTEXTO-IA-WEB.md` sigue sin Ethereum ni herramientas.
 
 ## Cómo retomar esto en una sesión nueva
 
