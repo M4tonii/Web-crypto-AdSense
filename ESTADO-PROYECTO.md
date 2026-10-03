@@ -360,7 +360,7 @@ Puntuación inicial (skill seo-content): calidad de contenido 54/100, E-E-A-T 37
 - Datos falsos corregidos: fecha de clarity-act (10→14 sep), RLUSD "llega a finales de 2026" (se lanzó el 17 dic 2024), máximo del "millonario de Dogecoin" (2 millones, no 3), SQUID (de 1 céntimo a ~2.800 197609, tramos del ahorro en España (hasta el 30 %, no 28 %).
 - Bitvavo añadido a `mejores-exchanges-espana` (licencia MiCA de la AFM, pasaporte europeo).
 
-**Pendiente que depende del autor**: una lección concreta propia de sus 2 años en memecoins para los artículos de memecoins; capturas propias (compra, verificación KYC) para las guías de compra. **Con datos de Search Console**: ampliar que-es-bitcoin, caso-sec-ripple y mica-espana según sus consultas reales. **FAQ**: no se igualan a la fuerza; añadir preguntas reales de Search Console cuando aparezcan.
+**Hecho (3 oct)**: experiencia del autor en memecoins (narrativa, web, interacción real en X, gráfico orgánico y no una línea continua) en `como-evaluar-memecoin-antes-invertir#lo-que-reviso-yo`, con callouts que enlazan ahí desde rug-pull y como-comprar-memecoins. **Pendiente que depende del autor**: capturas propias (compra, verificación KYC) para las guías de compra. **Con datos de Search Console**: ampliar que-es-bitcoin, caso-sec-ripple y mica-espana según sus consultas reales. **FAQ**: no se igualan a la fuerza; añadir preguntas reales de Search Console cuando aparezcan.
 
 ## Cómo retomar esto en una sesión nueva
 
