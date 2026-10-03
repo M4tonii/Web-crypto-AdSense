@@ -379,6 +379,7 @@ main { padding: 30px 0 50px; }
   position: relative;
   overflow: hidden;
 }
+.card-thumb picture { display: contents; }
 .card-thumb img {
   position: absolute;
   inset: 0;
