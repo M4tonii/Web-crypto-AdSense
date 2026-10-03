@@ -505,7 +505,8 @@ main { padding: 30px 0 50px; }
   background: linear-gradient(135deg, var(--accent-btc), var(--accent-xrp));
   display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 800;
 }
-.author-box h4 { margin: 0 0 4px; font-size: .95rem; }
+.author-box h3, .author-box h4 { margin: 0 0 4px; font-size: .95rem; }
+.author-box .author-cred { margin: 0 0 6px; color: var(--text); }
 .author-box p { margin: 0; font-size: .84rem; color: var(--text-muted); }
 
 /* ---------- CTA / afiliación ---------- */
