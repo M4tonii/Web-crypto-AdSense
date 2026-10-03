@@ -348,6 +348,20 @@ Search Console (Rendimiento, 3 meses): `mejores-exchanges-espana` era la página
 
 **Revisar hacia el 20-25 oct 2026**: posición media de `mejores-exchanges-espana` en Rendimiento (partía de 57,2).
 
+## Auditoría de contenido y E-E-A-T aplicada (3 oct 2026)
+
+Puntuación inicial (skill seo-content): calidad de contenido 54/100, E-E-A-T 37/100 (Experiencia 5, Expertise 11, Autoridad 4, Fiabilidad 17), citación IA 66/100. Cambios hechos:
+
+- **Autor (datos reales dados por él)**: invierte en cripto desde 2023, en memecoins desde 2024, XRP es su principal posición, ha usado todos los exchanges analizados, usa **Bitvavo** a diario y Bit2Me le gustó por atención al cliente y app. **No tiene credenciales profesionales y no hay asesor fiscal que revise** (se dice expresamente en la bio). Bio en `sobre-nosotros#autor`, línea `.author-cred` en los 41 author-box, Person con jobTitle/description.
+- **Norma: todo artículo nuevo centrado en XRP lleva el callout "Transparencia"** (el autor tiene posición en XRP), justo tras el primer párrafo.
+- **Norma: todo artículo nuevo lleva su `<figure class="article-cover">`** bajo la cabecera (WebP + JPEG, `fetchpriority="high"`, `max-width` = ancho real si mide menos de 760 px).
+- **Norma: la sección "Cómo verificamos" siempre con enlaces reales comprobados**, nunca "cobertura mediática ampliamente documentada". Arreglados los 8 artículos que no tenían ninguno.
+- **Norma: frases de 40 palabras como máximo** (se reescribieron 110; las FAQ no, para no desincronizarlas del JSON-LD).
+- Datos falsos corregidos: fecha de clarity-act (10→14 sep), RLUSD "llega a finales de 2026" (se lanzó el 17 dic 2024), máximo del "millonario de Dogecoin" (2 millones, no 3), SQUID (de 1 céntimo a ~2.800 197609, tramos del ahorro en España (hasta el 30 %, no 28 %).
+- Bitvavo añadido a `mejores-exchanges-espana` (licencia MiCA de la AFM, pasaporte europeo).
+
+**Pendiente que depende del autor**: una lección concreta propia de sus 2 años en memecoins para los artículos de memecoins; capturas propias (compra, verificación KYC) para las guías de compra. **Con datos de Search Console**: ampliar que-es-bitcoin, caso-sec-ripple y mica-espana según sus consultas reales. **FAQ**: no se igualan a la fuerza; añadir preguntas reales de Search Console cuando aparezcan.
+
 ## Cómo retomar esto en una sesión nueva
 
 Simplemente pide a Claude que lea este fichero (`ESTADO-PROYECTO.md`) al empezar. Contiene todo el contexto necesario para seguir sin tener que reexplicar el proyecto desde cero.
