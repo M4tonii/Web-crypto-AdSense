@@ -32,12 +32,12 @@ gtag("consent", "default", {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:wght@600;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://labrujulacripto.com/"},{"@type":"ListItem","position":2,"name":"Conversor cripto","item":"https://labrujulacripto.com/conversor-cripto-euros-dolares"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"BrújulaCripto","url":"https://labrujulacripto.com/","sameAs":[],"contactPoint":{"@type":"ContactPoint","email":"contacto.labrujulacripto@gmail.com","contactType":"customer support"},"publishingPrinciples":"https://labrujulacripto.com/sobre-nosotros.html#metodologia"}
+{"@context":"https://schema.org","@type":"Organization","name":"BrújulaCripto","url":"https://labrujulacripto.com/","sameAs":[],"contactPoint":{"@type":"ContactPoint","email":"contacto.labrujulacripto@gmail.com","contactType":"customer support"},"publishingPrinciples":"https://labrujulacripto.com/sobre-nosotros#metodologia"}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿De dónde sale el precio que usa el conversor?","acceptedAnswer":{"@type":"Answer","text":"Del precio de mercado en vivo de la API pública de Binance, con la de Kraken como respaldo automático si la primera no responde. Es el mismo precio, con segundos de diferencia como mucho, que verías en cualquiera de los dos exchanges."}},{"@type":"Question","name":"¿Cómo se calcula el dólar si Bitcoin no cotiza directamente en dólares en el conversor?","acceptedAnswer":{"@type":"Answer","text":"Usamos el par euro/dólar en vivo del mismo exchange para convertir: primero pasamos la cantidad a euros y luego de euros a dólares (o al revés), en vez de usar un tipo de cambio fijo desactualizado."}},{"@type":"Question","name":"¿Por qué el resultado puede variar un poco si lo repito minutos después?","acceptedAnswer":{"@type":"Answer","text":"Porque el precio de mercado cambia constantemente, igual que con cualquier divisa. El conversor consulta el precio en el momento exacto en que pulsas \"Convertir\", no un valor guardado."}},{"@type":"Question","name":"¿Cobra algo este conversor o pide registro?","acceptedAnswer":{"@type":"Answer","text":"No, es gratuito y no requiere ningún registro ni dato personal. Solo consulta el precio público de mercado en el momento del cálculo."}}]}
@@ -45,35 +45,35 @@ gtag("consent", "default", {
 </head>
 <body>
 <a href="#contenido" class="skip-link">Saltar al contenido</a>
-<div class="topbar">⚠️ Contenido informativo, no asesoramiento financiero. <a href="legal/disclaimer.html">Ver aviso de riesgo</a></div>
+<div class="topbar">⚠️ Contenido informativo, no asesoramiento financiero. <a href="/legal/disclaimer">Ver aviso de riesgo</a></div>
 <header class="site-header">
   <div class="header-inner">
-    <a href="index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+    <a href="/" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
     <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
     <nav class="main-nav">
-      <a href="index.html">Inicio</a>
-      <a href="categorias/bitcoin.html">Bitcoin</a>
-      <a href="categorias/ethereum.html">Ethereum</a>
-      <a href="categorias/xrp-ripple.html">XRP y Ripple</a>
-      <a href="categorias/regulacion.html">Regulación</a>
-      <a href="categorias/guias-principiantes.html">Guías</a>
-      <a href="categorias/exchanges.html">Exchanges</a>
-      <a href="categorias/wallets-seguridad.html">Wallets</a>
-      <a href="categorias/fiscalidad.html">Fiscalidad</a>
-      <a href="categorias/trading.html">Trading</a>
-      <a href="categorias/memecoins.html">Memecoins</a>
-      <a href="categorias/mineria-staking.html">Minería y Staking</a>
-      <a href="categorias/glosario.html">Glosario</a>
-      <a href="herramientas.html">Herramientas</a>
-      <a href="sobre-nosotros.html">Sobre nosotros</a>
-      <a href="contacto.html">Contacto</a>
+      <a href="/">Inicio</a>
+      <a href="/categorias/bitcoin">Bitcoin</a>
+      <a href="/categorias/ethereum">Ethereum</a>
+      <a href="/categorias/xrp-ripple">XRP y Ripple</a>
+      <a href="/categorias/regulacion">Regulación</a>
+      <a href="/categorias/guias-principiantes">Guías</a>
+      <a href="/categorias/exchanges">Exchanges</a>
+      <a href="/categorias/wallets-seguridad">Wallets</a>
+      <a href="/categorias/fiscalidad">Fiscalidad</a>
+      <a href="/categorias/trading">Trading</a>
+      <a href="/categorias/memecoins">Memecoins</a>
+      <a href="/categorias/mineria-staking">Minería y Staking</a>
+      <a href="/categorias/glosario">Glosario</a>
+      <a href="/herramientas">Herramientas</a>
+      <a href="/sobre-nosotros">Sobre nosotros</a>
+      <a href="/contacto">Contacto</a>
     </nav>
   </div>
 </header>
 
 <div class="page-header">
   <div class="container">
-    <div class="breadcrumbs"><a href="index.html">Inicio</a> / Conversor cripto</div>
+    <div class="breadcrumbs"><a href="/">Inicio</a> / Conversor cripto</div>
     <h1>Conversor de Bitcoin, Ethereum y XRP a euros y dólares</h1>
     <p>Convierte entre Bitcoin, Ethereum, XRP, euros y dólares con el precio de mercado en vivo. Gratis, sin registro.</p>
   </div>
@@ -141,7 +141,7 @@ gtag("consent", "default", {
 
         <div class="callout" style="margin-top:24px">
           <strong>¿Buscas algo más?</strong>
-          Calcula tu <a href="calculadora-ganancias-perdidas-cripto.html">ganancia o pérdida real</a> de una operación, o simula <a href="simulador-inversion-cripto.html">cuánto tendrías hoy</a> con datos históricos.
+          Calcula tu <a href="/calculadora-ganancias-perdidas-cripto">ganancia o pérdida real</a> de una operación, o simula <a href="/simulador-inversion-cripto">cuánto tendrías hoy</a> con datos históricos.
         </div>
 
       </div>
@@ -150,37 +150,37 @@ gtag("consent", "default", {
     <footer class="site-footer">
       <div class="footer-inner">
         <div class="footer-col footer-brand">
-          <a href="index.html" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
+          <a href="/" class="logo"><span class="logo-mark">₿</span> BrújulaCripto</a>
           <p>Medio independiente en español especializado en Bitcoin, Ethereum y XRP. Contenido educativo, no asesoramiento financiero.</p>
         </div>
         <div class="footer-col"><p class="footer-heading">Categorías</p><ul>
-          <li><a href="categorias/bitcoin.html">Bitcoin</a></li>
-          <li><a href="categorias/ethereum.html">Ethereum</a></li>
-          <li><a href="categorias/xrp-ripple.html">XRP y Ripple</a></li>
-          <li><a href="categorias/regulacion.html">Regulación</a></li>
-          <li><a href="categorias/guias-principiantes.html">Guías</a></li>
-          <li><a href="categorias/exchanges.html">Exchanges</a></li>
-          <li><a href="categorias/wallets-seguridad.html">Wallets</a></li>
-          <li><a href="categorias/fiscalidad.html">Fiscalidad</a></li>
-          <li><a href="categorias/trading.html">Trading</a></li>
-          <li><a href="categorias/memecoins.html">Memecoins</a></li>
-          <li><a href="categorias/mineria-staking.html">Minería y Staking</a></li>
-          <li><a href="categorias/glosario.html">Glosario</a></li>
+          <li><a href="/categorias/bitcoin">Bitcoin</a></li>
+          <li><a href="/categorias/ethereum">Ethereum</a></li>
+          <li><a href="/categorias/xrp-ripple">XRP y Ripple</a></li>
+          <li><a href="/categorias/regulacion">Regulación</a></li>
+          <li><a href="/categorias/guias-principiantes">Guías</a></li>
+          <li><a href="/categorias/exchanges">Exchanges</a></li>
+          <li><a href="/categorias/wallets-seguridad">Wallets</a></li>
+          <li><a href="/categorias/fiscalidad">Fiscalidad</a></li>
+          <li><a href="/categorias/trading">Trading</a></li>
+          <li><a href="/categorias/memecoins">Memecoins</a></li>
+          <li><a href="/categorias/mineria-staking">Minería y Staking</a></li>
+          <li><a href="/categorias/glosario">Glosario</a></li>
         </ul></div>
         <div class="footer-col"><p class="footer-heading">Legal</p><ul>
-          <li><a href="legal/aviso-legal.html">Aviso legal</a></li>
-          <li><a href="legal/politica-privacidad.html">Política de privacidad</a></li>
-          <li><a href="legal/politica-cookies.html">Política de cookies</a></li>
-          <li><a href="legal/terminos-uso.html">Términos de uso</a></li>
-          <li><a href="legal/disclaimer.html">Aviso de riesgo financiero</a></li>
+          <li><a href="/legal/aviso-legal">Aviso legal</a></li>
+          <li><a href="/legal/politica-privacidad">Política de privacidad</a></li>
+          <li><a href="/legal/politica-cookies">Política de cookies</a></li>
+          <li><a href="/legal/terminos-uso">Términos de uso</a></li>
+          <li><a href="/legal/disclaimer">Aviso de riesgo financiero</a></li>
         </ul></div>
         <div class="footer-col"><p class="footer-heading">BrújulaCripto</p><ul>
-          <li><a href="sobre-nosotros.html">Sobre nosotros</a></li>
-          <li><a href="herramientas.html">Herramientas</a></li>
-          <li><a href="calculadora-impuestos-cripto-espana.html">Calculadora de impuestos</a></li>
-          <li><a href="calculadora-ganancias-perdidas-cripto.html">Calculadora de ganancias</a></li>
-          <li><a href="simulador-inversion-cripto.html">Simulador de inversión</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="/sobre-nosotros">Sobre nosotros</a></li>
+          <li><a href="/herramientas">Herramientas</a></li>
+          <li><a href="/calculadora-impuestos-cripto-espana">Calculadora de impuestos</a></li>
+          <li><a href="/calculadora-ganancias-perdidas-cripto">Calculadora de ganancias</a></li>
+          <li><a href="/simulador-inversion-cripto">Simulador de inversión</a></li>
+          <li><a href="/contacto">Contacto</a></li>
           <li><a href="mailto:contacto.labrujulacripto@gmail.com">contacto.labrujulacripto@gmail.com</a></li>
         </ul></div>
       </div>
@@ -190,13 +190,13 @@ gtag("consent", "default", {
   </div></div>
 
 <div id="cookie-banner" role="dialog" aria-label="Aviso de cookies" style="display:none">
-  <p>Usamos cookies propias y de terceros (incluida publicidad de Google AdSense). Más información en nuestra <a href="legal/politica-cookies.html">Política de Cookies</a>.</p>
+  <p>Usamos cookies propias y de terceros (incluida publicidad de Google AdSense). Más información en nuestra <a href="/legal/politica-cookies">Política de Cookies</a>.</p>
   <div style="display:flex; gap:8px">
     <button class="btn-outline" id="cookie-reject" type="button">Rechazar</button>
     <button class="btn" id="cookie-accept" type="button">Aceptar</button>
   </div>
 </div>
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 <script>
 (function () {
   // Precio en EUR de cada unidad de cripto, y cuántos USD vale 1 EUR — con
