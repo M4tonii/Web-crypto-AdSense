@@ -332,6 +332,8 @@ Rama `seo-auditoria-urls-limpias`, un commit por bloque, ya en `main` y desplega
 8. **Afiliación**: decisión del usuario, **no hay enlaces de afiliado**. Todo el sitio (pie, sobre-nosotros, legales, Exchanges) dice ahora "No usamos enlaces de afiliado". Si algún día se añaden, cambiar estos textos y usar `rel="sponsored noopener"`.
 9. **WebP**: las 41 portadas tienen `.webp` (3,3 MB → 1,5 MB) servidas con `<picture>` + JPEG de respaldo. **Al añadir una portada nueva, generar también su `.webp`** (si no, la tarjeta ofrece un WebP inexistente). og:image sigue en JPEG.
 
+**Cloudflare (3 oct 2026)**: activado «Usar siempre HTTPS» (SSL/TLS → Certificados de perímetro); http:// redirige con 301 a https://, verificado. El HSTS de ese panel se deja desactivado a propósito: la cabecera ya sale de `_headers`. `www.labrujulacripto.com` sigue sin registro DNS (opcional: registro A `www` → 192.0.2.1 con proxy + Redirect Rule 301 a la raíz).
+
 **Fuga corregida el mismo día**: los `.md` internos (este fichero incluido), `.claude/` y `.github/` se servían públicamente (HTTP 200). Añadidos a `.assetsignore`.
 
 **Probar en local**: `wrangler dev` en la raíz del repo entra en un bucle de recargas (escribe `.wrangler/` dentro del directorio de assets). Probar desde una copia: `git archive HEAD` a una carpeta `public/` y `wrangler.jsonc` con `"directory": "./public"`.
