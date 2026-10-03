@@ -340,6 +340,14 @@ Rama `seo-auditoria-urls-limpias`, un commit por bloque, ya en `main` y desplega
 
 **Indexación (3 oct 2026)**: ya pedida para la home, `/herramientas` y las 3 herramientas nuevas. **Pendiente**: seguir con la lista del nº 17 en adelante (ver sección "Bug de indexación por redirect .html"). `img/portadas/xrp-latinoamerica-remesas-bancos.jpg` no la usa nadie (artículo borrado). `CONTEXTO-IA-WEB.md` sigue sin Ethereum ni herramientas.
 
+## Exchanges España: búsquedas "exchanges españoles" y datos corregidos (3 oct 2026)
+
+Search Console (Rendimiento, 3 meses): `mejores-exchanges-espana` era la página con más impresiones (81) pero 0 clics, **posición media 57,2**, con búsquedas tipo "exchange crypto españa", "exchanges españoles", "exchange español". Cambiados título/H1/meta para incluir "españoles", nuevo H2 "Exchanges españoles: Bit2Me y Criptan" y FAQ "¿Cuál es el mejor exchange español?".
+
+**Datos erróneos corregidos** (verificados con búsqueda web): Bit2Me tiene sede en **Alicante** (no Valencia) y fue la **primera** plataforma cripto española con licencia MiCA de la CNMV, el **28 jul 2025** (no oct. 2025); Criptan (Criptan Trade S.L., Valencia) la obtuvo el **26 jun 2026** (no marzo). Corregido en `mejores-exchanges-espana`, `bit2me-vs-binance-comparativa` y `mica-espana-que-significa`; indexación de las 3 pedida el 3 oct.
+
+**Revisar hacia el 20-25 oct 2026**: posición media de `mejores-exchanges-espana` en Rendimiento (partía de 57,2).
+
 ## Cómo retomar esto en una sesión nueva
 
 Simplemente pide a Claude que lea este fichero (`ESTADO-PROYECTO.md`) al empezar. Contiene todo el contexto necesario para seguir sin tener que reexplicar el proyecto desde cero.
