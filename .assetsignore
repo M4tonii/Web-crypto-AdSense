@@ -6,3 +6,8 @@
 .assetsignore
 wrangler.jsonc
 README.md
+*.md
+.claude
+.claude/**
+.github
+.github/**

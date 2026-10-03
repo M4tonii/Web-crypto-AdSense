@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 29 sep 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 3 oct 2026.
 
 ## Qué es esto
 
@@ -39,7 +39,7 @@ Web de noticias, guías y análisis sobre Bitcoin, Ethereum y XRP en español, d
 2. ~~**Falta la foto del glosario**~~ ✅ Decisión definitiva (15 sep 2026): se queda sin foto, con el fondo de color y el emoji 📖 de respaldo — al usuario le gusta así. No tocar.
 3. ~~**Correo de contacto**~~ ✅ Resuelto (15 sep 2026): formulario de la web conectado a Netlify Forms (luego migrado a Web3Forms), con notificación a `contacto.labrujulacripto@gmail.com`, **probado en producción por el usuario y confirmado que funciona**. **Corrección (17 sep 2026)**: todo el sitio (footer, páginas legales, autor de artículos, formulario, y el `ContactPoint` del schema Organization) mostraba `contacto@labrujulacripto.com` — un email de dominio que nunca se llegó a configurar con reenvío en Namecheap y que no recibía nada. Sustituido en las 54 páginas + `js/main.js` (148 apariciones) por la dirección real, `contacto.labrujulacripto@gmail.com`, que es la única que de verdad funciona.
 4. ~~**Aviso "formulario no seguro" en Chrome**~~ ✅ Resuelto (15 sep 2026): se añadieron los `autocomplete` correctos a todos los campos de `contacto.html`.
-5. ~~**Autoría de los artículos**~~ ✅ Decisión definitiva (15 sep 2026): se queda "Equipo Editorial de BrújulaCripto" en los 23 artículos, sin cambios. Motivo: protege la privacidad del usuario (coherente con no poner NIF/domicilio en el aviso legal) y es válido para Google; el nombre real no se usa en ningún artículo.
+5. ~~**Autoría de los artículos**~~ ✅ **Cambiada el 3 oct 2026: los artículos los firma Toni Caimari** (byline, author-box y author Person del JSON-LD), ver sección del 3 oct. Decisión original (15 sep 2026): se queda "Equipo Editorial de BrújulaCripto" en los 23 artículos, sin cambios. Motivo: protege la privacidad del usuario (coherente con no poner NIF/domicilio en el aviso legal) y es válido para Google; el nombre real no se usa en ningún artículo.
 6. ~~**Google Search Console y Bing Webmaster Tools**~~ ✅ Resuelto (15 sep 2026): propiedad `https://labrujulacripto.com/` verificada en Search Console con etiqueta `google-site-verification` (metaetiqueta añadida al `<head>` de `index.html`), sitemap.xml enviado (37 URLs). Bing Webmaster Tools verificado e importado directamente desde Google Search Console (sitio + sitemap en un solo paso). Cuenta usada: Gmail personal del usuario. El sitemap dio "No se ha podido obtener" las primeras horas en Google (fallo temporal normal en dominios recién verificados, confirmado técnicamente sano con `curl`/XML válido) — **se resolvió solo en menos de 24h**, ambos (Google y Bing) muestran ahora estado correcto/procesado.
 7. **Redes sociales**: el dato `sameAs` de los datos estructurados de la organización está vacío; añadir enlaces si en algún momento hay perfiles de BrújulaCripto en redes.
 8. **Solicitar indexación manual en Search Console — EN CURSO (20 sep 2026)**: ver sección "Bug de indexación por redirect .html" más abajo. El usuario se quedó en el enlace nº 17 de la lista de 52; **queda pedir indexación manual del nº 17 en adelante**, siguiendo el orden de esa lista (ya viene ordenada por prioridad SEO/tráfico, no hace falta reordenar nada). No hay que rehacer análisis ni repetir los primeros 16, ya están hechos.
@@ -135,7 +135,7 @@ El 16 sep, tras el commit `63d0c5a` y un despliegue exitoso, la web dejó de car
 
 **Causa raíz**: `wrangler.jsonc` tiene `html_handling: "auto-trailing-slash"` (decisión ya tomada y documentada arriba, migración a Cloudflare del 16 sep), que hace que cualquier URL `.html` responda con **redirect 307** a la versión sin extensión (ej. `/articulos/foo.html` → `/articulos/foo`). Pero el `sitemap.xml`, las etiquetas `<link rel="canonical">`, `<meta property="og:url">` y las URLs `"item"` del `BreadcrumbList` (JSON-LD) de **todas las páginas seguían apuntando a la versión con `.html`**. Google pedía la URL del sitemap (`.html`), recibía el redirect, y la página de destino declaraba como canónica la URL que acababa de redirigirle — contradicción circular que Search Console interpreta como "Error de redirección" y no indexa.
 
-**Fix aplicado** (commit `3a18ec1`, ya en `main` y desplegado): con Perl (nunca `.ps1`, ver norma ya documentada arriba) se quitó `.html` de canonical, og:url, sitemap.xml y BreadcrumbList en las 58 páginas afectadas. Caso especial: la entrada de la home en el sitemap pasó de `/index.html` a `/` (raíz). Verificado: 0 `.html` restante en esos 4 sitios, 147 bloques JSON-LD siguen siendo JSON válido, sitemap bien formado, 0 mojibake. **No se tocaron** los ~2500 enlaces internos (menú, footer, enlaces cruzados entre artículos) que siguen apuntando a `.html` — siguen dando el salto extra de redirect al hacer clic, pero eso no afecta a la indexación, es una pérdida de rendimiento menor pendiente de limpiar algún día si se quiere apurar más (no urgente).
+**Fix aplicado** (commit `3a18ec1`, ya en `main` y desplegado): con Perl (nunca `.ps1`, ver norma ya documentada arriba) se quitó `.html` de canonical, og:url, sitemap.xml y BreadcrumbList en las 58 páginas afectadas. Caso especial: la entrada de la home en el sitemap pasó de `/index.html` a `/` (raíz). Verificado: 0 `.html` restante en esos 4 sitios, 147 bloques JSON-LD siguen siendo JSON válido, sitemap bien formado, 0 mojibake. **[Resuelto el 3 oct 2026, ver más abajo]** **No se tocaron** los ~2500 enlaces internos (menú, footer, enlaces cruzados entre artículos) que siguen apuntando a `.html` — siguen dando el salto extra de redirect al hacer clic, pero eso no afecta a la indexación, es una pérdida de rendimiento menor pendiente de limpiar algún día si se quiere apurar más (no urgente).
 
 **Verificado que el fix funciona**: al inspeccionar URLs ya corregidas en Search Console (ej. `categorias/bitcoin`), sale "La URL está en Google", "Declarada por el usuario como canónica" y "Seleccionada por Google como canónica" coinciden (sin `.html`), obtención de página "Correcto".
 
@@ -313,6 +313,30 @@ Verificado al cierre: 24 bloques JSON-LD de las 12 categorías siguen siendo vá
 Las 3 enlazadas desde `categorias/trading.html` y el footer de `index.html`, añadidas a `sitemap.xml` (dispara el aviso automático a Bing vía IndexNow). `api.kraken.com` añadido al `connect-src` del CSP.
 
 **Pendiente para la próxima sesión**: pedir indexación manual en Search Console de las URLs nuevas de hoy (`simulador-inversion-cripto`, `calculadora-ganancias-perdidas-cripto`, `conversor-cripto-euros-dolares`) — no se ha hecho todavía en esta sesión. `CONTEXTO-IA-WEB.md` sigue sin actualizar (pendiente de antes, arrastrado).
+
+## Cambios del 30 sep 2026 (sin documentar hasta ahora)
+
+Página central `herramientas.html` (enlazada en menú, pie y portada), portada reordenada por temática y potencial de tráfico, SEO y ampliación de texto de las 5 herramientas, `ads.txt` en la raíz con el `pub-3014707151576797`, arreglo de contraste del botón outline y las 3 portadas de Ethereum que faltaban.
+
+## Auditoría SEO externa aplicada (3 oct 2026)
+
+Rama `seo-auditoria-urls-limpias`, un commit por bloque, ya en `main` y desplegada (verificado en producción con `curl`).
+
+1. **URLs limpias**: los ~3.400 `href`/`src`/`action` internos son ahora absolutos y sin `.html` (`/categorias/bitcoin`, `/`). Fichero `_redirects` nuevo con **un 301 por página** (Workers no admite el comodín `/*.html`). **Norma: al crear una página nueva, añadir su línea en `_redirects`**; sin ella, la URL `.html` sigue dando el 307 de `html_handling`.
+2. **HSTS** añadido a `_headers`.
+3. **og:image**: 31 artículos usaban la portada de otro; ahora cada uno usa `/img/portadas/<slug>.jpg`. `max-image-preview:large` en las 61 páginas indexables.
+4. **Sitemap**: `lastmod` = `dateModified` del JSON-LD (33 estaban mal), sin `changefreq`/`priority`. Se edita a mano, no hay script generador. Reenviado en Search Console el 3 oct.
+5. **Schema**: WebSite en la home; Organization/publisher con `url` y `logo` (`/img/logo.png`, 512×512, generado a partir del favicon); author = Person "Toni Caimari" (url `/sobre-nosotros#autor`, apartado nuevo "Quién escribe"); Article añadido a los 4 HowTo. 178 bloques JSON-LD validados con `JSON::PP`.
+6. **H1 de categorías** sin el icono dentro (`.page-title` envuelve icono + `<h1>`).
+7. **`/llms.txt`** creado.
+8. **Afiliación**: decisión del usuario, **no hay enlaces de afiliado**. Todo el sitio (pie, sobre-nosotros, legales, Exchanges) dice ahora "No usamos enlaces de afiliado". Si algún día se añaden, cambiar estos textos y usar `rel="sponsored noopener"`.
+9. **WebP**: las 41 portadas tienen `.webp` (3,3 MB → 1,5 MB) servidas con `<picture>` + JPEG de respaldo. **Al añadir una portada nueva, generar también su `.webp`** (si no, la tarjeta ofrece un WebP inexistente). og:image sigue en JPEG.
+
+**Fuga corregida el mismo día**: los `.md` internos (este fichero incluido), `.claude/` y `.github/` se servían públicamente (HTTP 200). Añadidos a `.assetsignore`.
+
+**Probar en local**: `wrangler dev` en la raíz del repo entra en un bucle de recargas (escribe `.wrangler/` dentro del directorio de assets). Probar desde una copia: `git archive HEAD` a una carpeta `public/` y `wrangler.jsonc` con `"directory": "./public"`.
+
+**Pendiente**: pedir indexación de la home, `/herramientas` y las 3 herramientas nuevas, y seguir con la lista del nº 17 en adelante. `img/portadas/xrp-latinoamerica-remesas-bancos.jpg` no la usa nadie (artículo borrado). `CONTEXTO-IA-WEB.md` sigue sin Ethereum ni herramientas.
 
 ## Cómo retomar esto en una sesión nueva
 
