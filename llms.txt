@@ -1,0 +1,49 @@
+# BrújulaCripto
+
+> Medio digital independiente en español sobre Bitcoin, Ethereum y XRP, con sede en España. Publica guías prácticas, análisis de regulación (MiCA, CLARITY Act, GENIUS Act), fiscalidad cripto por país y herramientas gratuitas. Contenido educativo, no asesoramiento financiero.
+
+Público principal: inversores particulares hispanohablantes de España, Europa, Estados Unidos y México. Los artículos de fiscalidad y regulación citan fuentes oficiales y muestran su fecha de última revisión.
+
+## Categorías
+
+- [Bitcoin](https://labrujulacripto.com/categorias/bitcoin): qué es, cómo funciona, precio, halving y guías de compra y custodia.
+- [Ethereum](https://labrujulacripto.com/categorias/ethereum): contratos inteligentes, prueba de participación, compra segura y staking.
+- [XRP y Ripple](https://labrujulacripto.com/categorias/xrp-ripple): XRP Ledger, caso SEC, RLUSD y adopción institucional.
+- [Regulación](https://labrujulacripto.com/categorias/regulacion): MiCA en la UE y legislación cripto en EE. UU.
+- [Guías para principiantes](https://labrujulacripto.com/categorias/guias-principiantes): comprar, guardar y entender cripto desde cero.
+- [Exchanges](https://labrujulacripto.com/categorias/exchanges): comparativas de comisiones, seguridad y licencias MiCA.
+- [Wallets y seguridad](https://labrujulacripto.com/categorias/wallets-seguridad): wallets frías y calientes, y prevención de estafas.
+- [Fiscalidad](https://labrujulacripto.com/categorias/fiscalidad): impuestos cripto en España, Alemania, Francia, Reino Unido, Suiza, EE. UU. y México.
+- [Trading](https://labrujulacripto.com/categorias/trading): análisis técnico, DCA y apalancamiento.
+- [Memecoins](https://labrujulacripto.com/categorias/memecoins): qué son, riesgos y cómo detectar un rug pull.
+- [Minería y staking](https://labrujulacripto.com/categorias/mineria-staking): prueba de trabajo, minería de Bitcoin y staking.
+- [Glosario](https://labrujulacripto.com/categorias/glosario): términos cripto explicados.
+
+## Guías principales
+
+- [Qué es Bitcoin y cómo funciona](https://labrujulacripto.com/articulos/que-es-bitcoin-como-funciona)
+- [Qué es Ethereum y cómo funciona](https://labrujulacripto.com/articulos/que-es-ethereum-como-funciona)
+- [Qué es XRP: guía completa](https://labrujulacripto.com/articulos/que-es-xrp-guia-completa)
+- [Cómo comprar Bitcoin por primera vez](https://labrujulacripto.com/articulos/como-comprar-bitcoin-primera-vez)
+- [Cómo comprar Ethereum de forma segura](https://labrujulacripto.com/articulos/como-comprar-ethereum-seguro)
+- [Cómo comprar XRP de forma segura](https://labrujulacripto.com/articulos/como-comprar-xrp-guia-segura)
+- [Mejores exchanges cripto en España](https://labrujulacripto.com/articulos/mejores-exchanges-espana)
+- [Cómo declarar Bitcoin y XRP en la Renta en España](https://labrujulacripto.com/articulos/declarar-bitcoin-xrp-renta-espana)
+- [MiCA en España: qué significa](https://labrujulacripto.com/articulos/mica-espana-que-significa)
+- [Wallet fría vs. caliente: Ledger y Trezor](https://labrujulacripto.com/articulos/wallet-fria-vs-caliente-ledger-trezor)
+- [Cómo proteger tus criptomonedas de estafas](https://labrujulacripto.com/articulos/como-proteger-criptomonedas-estafas)
+- [Glosario de términos cripto básicos](https://labrujulacripto.com/articulos/glosario-cripto-terminos-basicos)
+
+## Herramientas
+
+- [Todas las herramientas](https://labrujulacripto.com/herramientas)
+- [Calculadora de impuestos cripto (España)](https://labrujulacripto.com/calculadora-impuestos-cripto-espana): estima el IRPF de una venta con los tramos de la base del ahorro.
+- [Simulador de inversión cripto](https://labrujulacripto.com/simulador-inversion-cripto): cuánto valdría hoy una inversión única o periódica en BTC, ETH o XRP.
+- [Calculadora de ganancias y pérdidas](https://labrujulacripto.com/calculadora-ganancias-perdidas-cripto): rentabilidad neta de una operación con comisiones.
+- [Conversor cripto a euros y dólares](https://labrujulacripto.com/conversor-cripto-euros-dolares): conversión en vivo entre BTC, ETH, XRP, EUR y USD.
+
+## Sobre el medio
+
+- [Sobre nosotros, autor y metodología](https://labrujulacripto.com/sobre-nosotros)
+- [Aviso de riesgo](https://labrujulacripto.com/legal/disclaimer)
+- [Contacto](https://labrujulacripto.com/contacto)
