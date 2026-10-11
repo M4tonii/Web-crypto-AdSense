@@ -1,6 +1,6 @@
 # Estado del proyecto BrújulaCripto
 
-> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 3 oct 2026.
+> Fichero de contexto para retomar el trabajo en una sesión nueva de Claude Code, en cualquier ordenador. No es una página de la web (no está enlazado desde ningún sitio ni aparece en el sitemap), es solo para uso interno del proyecto. Última actualización: 11 oct 2026.
 
 ## Qué es esto
 
@@ -361,6 +361,20 @@ Puntuación inicial (skill seo-content): calidad de contenido 54/100, E-E-A-T 37
 - Bitvavo añadido a `mejores-exchanges-espana` (licencia MiCA de la AFM, pasaporte europeo).
 
 **Hecho (3 oct)**: experiencia del autor en memecoins (narrativa, web, interacción real en X, gráfico orgánico y no una línea continua) en `como-evaluar-memecoin-antes-invertir#lo-que-reviso-yo`, con callouts que enlazan ahí desde rug-pull y como-comprar-memecoins. **Pendiente que depende del autor**: capturas propias (compra, verificación KYC) para las guías de compra. **Con datos de Search Console**: ampliar que-es-bitcoin, caso-sec-ripple y mica-espana según sus consultas reales. **FAQ**: no se igualan a la fuerza; añadir preguntas reales de Search Console cuando aparezcan.
+
+## `/actualizar-web`: reforma fiscal alemana con fecha de Consejo de Ministros (8 oct 2026)
+
+La reforma sobre la exención de un año en Alemania dejó de ser "una propuesta en estudio": el Ministerio de Finanzas envió el anteproyecto a consulta pública (cerrada el 6 oct) y el **Consejo de Ministros decide el 14 de octubre de 2026**. Cifras ya conocidas: tipo fijo del 25% + recargo de solidaridad del 5,5% = **26,375% efectivo**, aplicable a compras desde el 1 de enero de 2027, retención automática de los exchanges desde 2028, con protección (grandfathering) para lo comprado antes de esa fecha. Actualizado el aviso destacado y la FAQ de `impuestos-criptomonedas-alemania.html` (visible + JSON-LD). Sigue siendo un anteproyecto, pendiente de Bundestag y Bundesrat. Resto del sitio revisado sin cambios: CLARITY Act, calculadora de impuestos España (tramos IRPF 2026 verificados correctos), artículos de Ethereum. Commit `0df91af`.
+
+**Revisar el 14-15 oct 2026**: si el Consejo de Ministros alemán aprueba el anteproyecto como estaba previsto, actualizar el artículo de "anteproyecto" a "aprobado por el Gobierno, pendiente de Parlamento".
+
+## `/actualizar-web`: Binance sigue operando en la UE vía "solicitud inversa" (11 oct 2026)
+
+Desarrollo regulatorio real desde la última revisión: pese a haber perdido su vía de licencia MiCA en España (documentado el 27 sep), en octubre de 2026 trascendió que Binance ha seguido dando servicio a algunos clientes europeos amparándose en la **"solicitud inversa" (reverse solicitation)** — una excepción estrecha de MiCA pensada para clientes que contactan por iniciativa propia, sin publicidad de por medio. **ESMA y reguladores de varios países de la UE (Francia, Alemania, Grecia nombrados explícitamente) están revisando si ese uso es legítimo**; la propia ESMA ha dicho que esta excepción "debe ser la excepción", no la práctica habitual. Añadido un párrafo nuevo en `bit2me-vs-binance-comparativa.html`, deliberadamente acotado: **no hay resolución ni sanción** a fecha de esta actualización, y las fuentes ni siquiera coinciden en si la CNMV española está entre los reguladores que lo investigan — así que no se afirma que Binance "haya vuelto" a operar en España, solo que la situación está bajo escrutinio activo. ESMA añadida a las fuentes citadas. No duplicado en `mejores-exchanges-espana.html` ni `mica-espana-que-significa.html`, que ya enlazan a este artículo para el detalle. Commit pendiente de push en el momento de escribir esto, ver log de git para el hash real. Fuentes: FT (vía Unchained), Crowdfund Insider.
+
+Resto del sitio revisado sin cambios: introducciones de las 11 categorías, las 5 páginas de herramientas, CLARITY Act (sigue estancada, sin fecha de nueva votación), caso SEC vs Ripple (sin novedades), GENIUS Act.
+
+**Revisar en unas semanas**: si ESMA/CNMV resuelven la investigación sobre la solicitud inversa de Binance, actualizar el párrafo nuevo con el desenlace (en vez de dejarlo como "investigación en curso").
 
 ## Cómo retomar esto en una sesión nueva
 
