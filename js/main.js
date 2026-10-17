@@ -20,6 +20,70 @@ function loadGoogleAnalytics() {
   window.gtag('config', GA_MEASUREMENT_ID);
 }
 
+// Consentimiento de cookies (banner propio, provisional hasta que el CMP de Google funcione)
+var CONSENT_KEY = 'bc_consent_v1';
+
+function ensureGtag() {
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+}
+
+function applyConsent(granted) {
+  var v = granted ? 'granted' : 'denied';
+  window.gtag('consent', 'update', {
+    analytics_storage: v,
+    ad_storage: v,
+    ad_user_data: v,
+    ad_personalization: v
+  });
+}
+
+function initConsent() {
+  ensureGtag();
+  var saved = null;
+  try { saved = localStorage.getItem(CONSENT_KEY); } catch (e) {}
+  if (saved === 'granted' || saved === 'denied') {
+    applyConsent(saved === 'granted');
+    return;
+  }
+
+  var bar = document.createElement('div');
+  bar.setAttribute('role', 'dialog');
+  bar.setAttribute('aria-label', 'Aviso de cookies');
+  Object.assign(bar.style, {
+    position: 'fixed', left: '0', right: '0', bottom: '0', zIndex: '9999',
+    background: '#0b2545', color: '#fff', padding: '14px 18px',
+    display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center',
+    justifyContent: 'center', fontSize: '14px', lineHeight: '1.4'
+  });
+
+  var text = document.createElement('span');
+  text.innerHTML = 'Usamos cookies para medir el tráfico y mostrar anuncios. ' +
+    'Puedes aceptarlas o rechazarlas. ' +
+    '<a href="/legal/politica-cookies" style="color:#fff;text-decoration:underline">Más información</a>.';
+  bar.appendChild(text);
+
+  function makeBtn(label, granted) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.textContent = label;
+    Object.assign(b.style, {
+      padding: '8px 18px', border: '1px solid #fff', borderRadius: '6px',
+      background: '#fff', color: '#0b2545', fontWeight: '600', cursor: 'pointer'
+    });
+    b.addEventListener('click', function () {
+      try { localStorage.setItem(CONSENT_KEY, granted ? 'granted' : 'denied'); } catch (e) {}
+      applyConsent(granted);
+      bar.remove();
+    });
+    return b;
+  }
+
+  bar.appendChild(makeBtn('Rechazar', false));
+  bar.appendChild(makeBtn('Aceptar', true));
+  document.body.appendChild(bar);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   // Menú móvil
   var toggle = document.querySelector('.nav-toggle');
@@ -40,6 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Google Analytics: se carga siempre en todas las páginas. El
   // consentimiento real lo gestiona Google Consent Mode (ver <head>), no
   // esta llamada.
+  initConsent();
   loadGoogleAnalytics();
 
   // Formulario de contacto: se envía a Web3Forms (servicio externo gratuito,
